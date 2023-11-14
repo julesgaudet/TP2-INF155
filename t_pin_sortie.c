@@ -7,12 +7,6 @@ Description: D�finit le type t_pin_sortie. Un t_pin_sortie est un point de con
 			 Les �l�ments d'un circuit ayant un pin de sortie de signal sont les portes (les entr�es
 			 des portes) ainsi que les entrée du circuit.
 
-			 Si un pin d'entr�e re�oit un signal, ce signal est stock� dans le champs valeur. Un
-			 t_pin_entree qui est inactif (pas aliment�) a la valeur -1.
-
-			 Un pin d'entree permet de relier le composant auquel il appartient � un autre composant.
-			 Il doit �tre reli� � un "pin de sortie" du composant auquel on souhaite se connecter.
-
-Auteur: Anis Boubaker
-Derni�re modification: Eric Th�, 2023-11-12
+			 Un pin de sortie permet de relier le composant auquel il appartient � un autre composant.
+			 Il doit �tre reli� � un "pin d'entrée" du composant auquel on souhaite se connecter.
 */
