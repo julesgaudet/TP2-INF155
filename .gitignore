@@ -1496,3 +1496,9 @@ dkms.conf
 *.uf2
 # Raspberry Pi Pico disassembler file
 *.dis
+
+# Ajout Noah 
+*.sln
+*.vcxproj
+*.vcxproj.filter
+*.vcxproj.user
