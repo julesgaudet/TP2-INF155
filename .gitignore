@@ -1500,5 +1500,5 @@ dkms.conf
 # Ajout Noah 
 *.sln
 *.vcxproj
-*.vcxproj.filter
+*.vcxproj.filters
 *.vcxproj.user
