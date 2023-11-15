@@ -1,18 +1,18 @@
 /*
 Module: T_PIN_ENTREE
-Description: Définit le type t_pin_entree. Un t_pin_entree est un point de connexion appartenant
-			 à un élément du circuit qui reçoit un signal (mais n'en émet pas).
-			 Les éléments d'un circuit ayant un pin d'entrée de signal sont les portes (les entrées
+Description: Dï¿½finit le type t_pin_entree. Un t_pin_entree est un point de connexion appartenant
+			 ï¿½ un ï¿½lï¿½ment du circuit qui reï¿½oit un signal (mais n'en ï¿½met pas).
+			 Les ï¿½lï¿½ments d'un circuit ayant un pin d'entrï¿½e de signal sont les portes (les entrï¿½es
 			 des portes) ainsi que les sorties du circuit.
 
-			 Si un pin d'entrée reçoit un signal, ce signal est stocké dans le champs valeur. Un
-			 t_pin_entree qui est inactif (pas alimenté) a la valeur -1.
+			 Si un pin d'entrï¿½e reï¿½oit un signal, ce signal est stockï¿½ dans le champs valeur. Un
+			 t_pin_entree qui est inactif (pas alimentï¿½) a la valeur -1.
 
-			 Un pin d'entree permet de relier le composant auquel il appartient à un autre composant.
-			 Il doit être relié à un "pin de sortie" du composant auquel on souhaite se connecter.
+			 Un pin d'entree permet de relier le composant auquel il appartient ï¿½ un autre composant.
+			 Il doit ï¿½tre reliï¿½ ï¿½ un "pin de sortie" du composant auquel on souhaite se connecter.
 
 Auteur: Anis Boubaker
-Dernière modification: Eric Thé, 2023-11-12
+Derniï¿½re modification: Eric Thï¿½, 2023-11-12
 */
 
 #include "t_pin_entree.h"
@@ -27,7 +27,7 @@ t_pin_entree *t_pin_entree_init()
 	nouv_pin->valeur = INACTIF;
 	nouv_pin->liaison = NULL;
 
-	//Créer la chaine dynamique pour le nom de la connexion (toute à zéro)
+	//Crï¿½er la chaine dynamique pour le nom de la connexion (toute ï¿½ zï¿½ro)
 	nouv_pin->nom_liaison = (char*)calloc(NOM_ENTREE_TAILLE_MAX, sizeof(char));
 
 	return nouv_pin;
@@ -49,7 +49,7 @@ char* t_pin_entree_get_lien(const t_pin_entree* pin)
 void t_pin_entree_set_valeur(t_pin_entree * pin, int valeur)
 {
 	if (valeur < INACTIF || valeur > 1) {
-		//Valeur erronée
+		//Valeur erronï¿½e
 		return;
 	}
 	pin->valeur = valeur;
@@ -58,9 +58,9 @@ void t_pin_entree_set_valeur(t_pin_entree * pin, int valeur)
 /*****************************************************************************/
 void t_pin_entree_relier(t_pin_entree * pin_entree, char * nom_sortie, const t_pin_sortie * pin_sortie)
 {
-	//On vérifie d'abord si on avait un lien existant
+	//On vï¿½rifie d'abord si on avait un lien existant
 	if (pin_entree->liaison != NULL) {
-		//On supprime la liaison du pin de sortie à lequel on est présentement liés
+		//On supprime la liaison du pin de sortie ï¿½ lequel on est prï¿½sentement liï¿½s
 		t_pin_sortie_supprimer_lien(pin_entree->liaison, pin_entree);
 	}
 	pin_entree->liaison = pin_sortie;
