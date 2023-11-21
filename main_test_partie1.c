@@ -8,6 +8,8 @@ Programme qui teste l'utilisation des librairies de circuits logique "t_entree"
 #include <assert.h>
 #include "t_entree.h"
 #include "t_sortie.h"
+#include "t_pin_entree.h"
+#include "t_pin_sortie.h"
 
 int main(void)
 {
