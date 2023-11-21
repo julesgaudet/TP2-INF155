@@ -26,6 +26,8 @@ Derni�re modification: Eric Th�, 2023-11-12
 
 #define NOM_ENTREE_TAILLE_MAX 3  	//Taille maximale du nom de l'entr�e
 #define INACTIF    -1				//Indique qu'un composant (entree/sortie) est inactif
+#define FAUX 0
+#define VRAI 1
 
 typedef struct t_pin_sortie t_pin_sortie;
 
