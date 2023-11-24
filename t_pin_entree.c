@@ -14,9 +14,11 @@ Description: D�finit le type t_pin_entree. Un t_pin_entree est un point de con
 Auteur: Anis Boubaker
 Derni�re modification: Eric Th�, 2023-11-12
 */
+/*****************************************************************************/
 
 #include "t_pin_entree.h"
 
+/*****************************************************************************/
 t_pin_entree *t_pin_entree_init()
 {
 	t_pin_entree *nouv_pin;
