@@ -96,7 +96,12 @@ char* t_entree_get_nom(const t_entree* entree)
 /*****************************************************************************/
 void t_entree_serialiser(const t_entree* entree, char* resultat)
 {
-	//A FAIRE!!!!!
+	if (resultat != NULL && entree != NULL) {
+		//Utilisation de sprintf pour formater une chaine de caractères 
+		//Regarde dans le cours 11, il explique sprintf 
+		sprintf("ID : %d, valeur : %d, nom : %d, connecté : %d", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
+	}
+	return;
 }
 
 

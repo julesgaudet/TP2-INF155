@@ -67,7 +67,7 @@ int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, t_pin_entree *pin_entree
     }
 
     //ajouter l'adresse de la pin entrée dans le tab de la pin sortie
-    pin_sortie->liaisons[pin_sortie->nb_liaisons ] = pin_entree;
+    pin_sortie->liaisons[pin_sortie->nb_liaisons] = pin_entree;
 
     //ajouter l'adresse de la pin sortie dans la pin entree 
     //(si une adresse est déja présente elle est écrasée)
