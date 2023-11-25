@@ -14,15 +14,16 @@ t_entree* t_entree_init(int id, char* nom)
 {
 	t_entree *nouv_entree;
 
-	//associer le no (en assumant qu'il est unique)
+	//Associer le NO (en assumant qu'il est unique)
 	nouv_entree->id = id;
 
-	//associer a INACTIF 
+	//Associer à INACTIF
 	nouv_entree->pin = INACTIF;
 
-	//Cr�er la chaine dynamique pour le nom de l'entree
+	//Créer la chaine dynamique pour le nom de l'entrée
 	nouv_entree->nom = (char*)calloc(NOM_ENTREE_TAILLE_MAX, sizeof(char));
-	//associer le nom
+
+	//Associer le nom
 	strcpy((nouv_entree->nom), nom);
 
 	return nouv_entree;
@@ -31,13 +32,13 @@ t_entree* t_entree_init(int id, char* nom)
 /*****************************************************************************/
 void t_entree_destroy(t_entree* entree)
 {
-	//destroy la pin de sortie de l'entreée
+	//Détruire la pin de sortie de l'entreée
 	t_pin_sortie_destroy((entree->pin));
 
-	//destroy le tableau dde caractere contenant le nom de l'entrée
+	//Détruire le tableau dde caractere contenant le nom de l'entrée
 	free(entree->nom);
 
-	//destoy la pin
+	//Détruire la pin
 	free(entree);
 }
 
@@ -58,7 +59,7 @@ int t_entree_est_reliee(t_entree* entree)
 /*****************************************************************************/
 void t_entree_reset(t_entree* entree)
 {
-	//re-initialise la pin de sortie de l'entree
+	//Re-initialise la pin de sortie de l'entrée
 	entree->pin = t_pin_sortie_init();
 }
 
@@ -76,6 +77,7 @@ int t_entree_propager_signal(t_entree* entree)
 /*****************************************************************************/
 int t_entree_get_valeur(const t_entree* entree)
 {
+	//Vérifier si l'entree est valide ou non
 	if (entree->pin != INACTIF)
 		return ((entree->pin)->valeur);
 	return INACTIF;
@@ -98,9 +100,13 @@ void t_entree_serialiser(const t_entree* entree, char* resultat)
 {
 	if (resultat != NULL && entree != NULL) {
 		//Utilisation de sprintf pour formater une chaine de caractères 
-		//Regarde dans le cours 11, il explique sprintf 
-		sprintf("ID : %d, valeur : %d, nom : %d, connecté : %d", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
+		//Regarde dans le cours 11, il explique sprintf
+		//J'ai mis %s pour nom parce que c'est une chaine de caractères
+		sprintf("ID : %d, valeur : %d, nom : %s, connecté : %d\n", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
+		return;
 	}
+	//Lorsque le résultat est NULL ou l'entree est NULL
+	printf("L'entrée est NULL ou le résultat est NULL\n");
 	return;
 }
 

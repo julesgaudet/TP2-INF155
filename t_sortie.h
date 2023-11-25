@@ -1,9 +1,9 @@
 /*
 Module: T_SORTIE
-Description: Définit le type t_sortie (sortie de circuit) et fournit les
+Description: Dï¿½finit le type t_sortie (sortie de circuit) et fournit les
 			 fonctions pour le manipuler.
 Auteur: Anis Boubaker
-Dernière modification: Eric Thé, 2023-11-12
+Derniï¿½re modification: Eric Thï¿½, 2023-11-12
 */
 
 
@@ -17,8 +17,8 @@ typedef struct t_pin_entree t_pin_entree;
 #define NOM_SORTIE_TAILLE_MAX 3 	//Taille maximale du nom de la sortie
 
 typedef struct t_sortie{
-	int id;				//Identifiant numérique de la sortie de circuit.
-						//Doit être unique parmi les sorties du circuit
+	int id;				//Identifiant numï¿½rique de la sortie de circuit.
+						//Doit ï¿½tre unique parmi les sorties du circuit
 	char *nom;			//Nom de la sortie (ex. "S1")
 	t_pin_entree *pin;  //Pin de la sortie
 } t_sortie;
@@ -26,25 +26,25 @@ typedef struct t_sortie{
 
 /*
 Fonction: T_SORTIE_INIT
-Description: Crée une nouvelle sortie de circuit. Le constrcuteur reçoit un
-			 identifiant numérique et un nom qui (on assume) sont uniques dans le circuit.
+Description: Crï¿½e une nouvelle sortie de circuit. Le constrcuteur reï¿½oit un
+			 identifiant numï¿½rique et un nom qui (on assume) sont uniques dans le circuit.
 			 Ex. 1 et "S1"
 		
-Paramètres:
-- id: Entier représentant l'identifiant numérique de la sortie (unique dans un circuit)
-- nom: Chaine de caractères représentant le nom de l'entrée (unique dans un circuit)
-Retour: Pointeur vers la sortie de circuit créée
-Paramètres modifié: Aucun.
+Paramï¿½tres:
+- id: Entier reprï¿½sentant l'identifiant numï¿½rique de la sortie (unique dans un circuit)
+- nom: Chaine de caractï¿½res reprï¿½sentant le nom de l'entrï¿½e (unique dans un circuit)
+Retour: Pointeur vers la sortie de circuit crï¿½ï¿½e
+Paramï¿½tres modifiï¿½: Aucun.
 */
 t_sortie *t_sortie_init(int id, char *nom);
 
 /*
 Fonction: T_SORTIE_DESTROY
-Description: Libère la mémoire occupée par la sortie et tous ses composants (i.e. le pin).
-NDE: Ne pas oublier de premièrement détruire le pin_entrée de la sortie.
+Description: Libï¿½re la mï¿½moire occupï¿½e par la sortie et tous ses composants (i.e. le pin).
+NDE: Ne pas oublier de premiï¿½rement dï¿½truire le pin_entrï¿½e de la sortie.
 
-Paramètres:
-- sortie: Pointeur vers la sortie à détruire.
+Paramï¿½tres:
+- sortie: Pointeur vers la sortie ï¿½ dï¿½truire.
 Retour: Aucun.
 */
 void t_sortie_destroy(t_sortie *sortie);
@@ -53,8 +53,8 @@ void t_sortie_destroy(t_sortie *sortie);
 Fonction: T_SORTIE_GET_PIN
 Description: Accesseur - Retourne un pointeur vers le pin_entree de la sortie de circuit.
 
-Paramètres:
-- sortie: Pointeur vers la sortie de circuit dont on veut accéder au pin_entree.
+Paramï¿½tres:
+- sortie: Pointeur vers la sortie de circuit dont on veut accï¿½der au pin_entree.
 Retour: Pointeur vers le pin_entree de la sortie de circuit.
 */
 t_pin_entree *t_sortie_get_pin(t_sortie *sortie);
@@ -62,65 +62,65 @@ t_pin_entree *t_sortie_get_pin(t_sortie *sortie);
 
 /*
 Fonction: T_SORTIE_RELIER
-Description: Relie une sortie de circuit à un autre composant du circuit (une entrée ou une porte)
+Description: Relie une sortie de circuit Ã  un autre composant du circuit (une entrï¿½e ou une porte)
 			 On note ici qu'on relie le pin_entree de la sortie vers un pin_sortie
 			 d'un autre composant. Les seuls autres composants disposant d'un pin_sortie sont
-			 les entrées et les portes du circuit. 
-			 Si la sortie a déjà été reliée, le nouveau lien va écraser l'ancien. 
-NDE: Pour faire la liaison, la fonction t_pin_entree_relier() vous sera très utile!
+			 les entrÃ©es et les portes du circuit. 
+			 Si la sortie a dÃ©jÃ  Ã©tÃ© reliÃ©e, le nouveau lien va Ã©craser l'ancien. 
+NDE: Pour faire la liaison, la fonction t_pin_entree_relier() vous sera trÃ¨s utile!
 
-Paramètres:
-- dest: Pointeur vers la sortie de circuit à relier.
-- nom_composant: Le nom du composant de circuit à lequel ont relie la sortie.
+Paramï¿½tres:
+- dest: Pointeur vers la sortie de circuit Ã  relier.
+- nom_composant: Le nom du composant de circuit Ã  lequel ont relie la sortie.
 - source: Le pin_sortie vers lequel nous allons relier la sortie de circuit. 
-Retour: Booléen : Vrai si la liaison a bien été effectuée. Faux sinon. 
+Retour: BoolÃ©en : Vrai si la liaison a bien Ã©tÃ© effectuÃ©e. Faux sinon. 
 */
 int t_sortie_relier(t_sortie *dest, char* nom_composant, const t_pin_sortie *source);
 
 /*
 Fonction: T_SORTIE_EST_RELIEE
-Description: Vérifie si une sortie de circuit est reliée. Pour qu'elle soit reliée,
-			 son pin_entree doit être relié.
+Description: Vï¿½rifie si une sortie de circuit est reliï¿½e. Pour qu'elle soit reliï¿½e,
+			 son pin_entree doit ï¿½tre reliï¿½.
 NDE: Il existe une fonction dans t_pin_entree qui vous permet
-	 de vérifier si un pin est relié. Utilisez-la!
+	 de vï¿½rifier si un pin est reliï¿½. Utilisez-la!
 
-Paramètres:
-- sortie: Pointeur vers la sortie que l'on souhaite vérifier.
-Retour: Booléen Vrai si la porte est entièrement reliée, Faux sinon.
+Paramï¿½tres:
+- sortie: Pointeur vers la sortie que l'on souhaite vï¿½rifier.
+Retour: Boolï¿½en Vrai si la porte est entiï¿½rement reliï¿½e, Faux sinon.
 */
 int t_sortie_est_reliee(t_sortie *sortie);
 
 /*
 Fonction: T_SORTIE_RESET
-Description: Réinitialise une sortie. Pour réinitialiser une sortie, il suffit
-de ré-initialiser son pin_entree.
-NDE: Il y'a une fonction prête pour ça dans le module t_pin_entree.
+Description: Rï¿½initialise une sortie. Pour rï¿½initialiser une sortie, il suffit
+de rï¿½-initialiser son pin_entree.
+NDE: Il y'a une fonction prï¿½te pour ï¿½a dans le module t_pin_entree.
 
-Paramètres:
-- sortie: Pointeur vers la sortie de circuit à réinitialiser.
+Paramï¿½tres:
+- sortie: Pointeur vers la sortie de circuit ï¿½ rï¿½initialiser.
 Retour: Aucun
 */
 void t_sortie_reset(t_sortie *sortie);
 
 /*
 Fonction: T_SORTIE_GET_VALEUR
-Description: Retourne la valeur du signal de la sortie. Ceci correspond à la valeur
+Description: Retourne la valeur du signal de la sortie. Ceci correspond ï¿½ la valeur
 			 du signal de son pin_entree.
-NDE: Il y'a une fonction prête pour ça dans le module t_pin_entree.
+NDE: Il y'a une fonction prï¿½te pour ï¿½a dans le module t_pin_entree.
 
-Paramètres:
+Paramï¿½tres:
 - sortie: Pointeur vers la sortie de circuit dont on veut connaitre la valeur.
-Retour: Entier: valeur du signal à la sortie
+Retour: Entier: valeur du signal ï¿½ la sortie
 */
 int t_sortie_get_valeur(const t_sortie *sortie);
 
 /*
 Fonction: T_SORTIE_GET_ID
-Description: Retourne le id (numéro) de la sortie.
+Description: Retourne le id (numï¿½ro) de la sortie.
 
-Paramètres:
+Paramï¿½tres:
 - sortie: Pointeur vers la sortie de circuit dont on veut connaitre son id
-Retour: Entier: valeur de l'id de la sortie (son numéro).
+Retour: Entier: valeur de l'id de la sortie (son numï¿½ro).
 */
 int t_sortie_get_id(const t_sortie* sortie);
 
@@ -128,7 +128,7 @@ int t_sortie_get_id(const t_sortie* sortie);
 Fonction: T_SORTIE_GET_NOM
 Description: Retourne le nom de la sortie.
 
-Paramètres:
+Paramï¿½tres:
 - sortie: Pointeur vers la sortie de circuit dont on veut connaitre son nom
 Retour: String: valeur du nom de la sortie.
 */
@@ -138,9 +138,9 @@ char* t_sortie_get_nom(const t_sortie* sortie);
 Fonction: T_SORTIE_SERIALISER_LIENS
 Description: Transforme en texte les informations d'une sortie.
 
-Paramètres:
-- sortie: Pointeur vers la sortie de circuit à sérialiser.
-- resultat: Chaine de caractères dans laquelle on copie le texte généré.
+Paramï¿½tres:
+- sortie: Pointeur vers la sortie de circuit ï¿½ sï¿½rialiser.
+- resultat: Chaine de caractï¿½res dans laquelle on copie le texte gï¿½nï¿½rï¿½.
 */
 void t_sortie_serialiser(const t_sortie* sortie, char* resultat);   
 
