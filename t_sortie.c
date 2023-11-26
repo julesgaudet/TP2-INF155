@@ -37,9 +37,6 @@ void t_sortie_destroy(t_sortie *sortie)
 
     //Détruire le tableau de caractères contenant le nom de la sortie
     free(sortie->nom);
-    
-    //Détruire la pin
-    free(sortie);
 }
 
 /*****************************************************************************/
