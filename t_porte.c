@@ -28,13 +28,54 @@ t_porte *t_porte_init(int id, e_types_portes type, char *nom)
 /*****************************************************************************/
 void t_porte_destroy(t_porte *porte)
 {
+    //Détruire l'allocation dynamique pour le nom
+    free(porte->nom);
 
+    //Détruire l'allocation dynamique pour la porte
+    free(porte);
+
+    //Détruire l'allocation dynamique pour la porte de sortie
+    t_pin_sortie_destroy(porte->sortie);
+
+    //Détruire l'allocation dynamique pour la porte d'entrée
+    t_pin_entree_destroy(porte->entrees);
 }
 
 /*****************************************************************************/
 void t_porte_calculer_sorties(t_porte *porte)
 {
+    //Valeur de la porte selon les entrées
+    int nouvelle_valeur;
 
+    //Retourne si la porte n'existe pas
+    if(porte == NULL)
+        return;
+    
+    switch(porte->type) {
+
+        //Porte ET
+        case PORTE_ET : 
+            
+        break;
+
+        //Porte NOT
+        case PORTE_NOT : 
+
+        break;
+
+        //Porte OU
+        case PORTE_OU : 
+
+        break;
+
+        //Porte XOR
+        case PORTE_XOR : 
+
+        break;
+    }
+
+    //Renvoyer les modifications selon la condition de la porte
+    t_pin_sortie_set_valeur(porte->sortie, nouvelle_valeur);
 }
 
 /*****************************************************************************/
@@ -64,19 +105,19 @@ int t_porte_propager_signal(t_porte *porte)
 /*****************************************************************************/
 int t_porte_get_id(const t_porte* porte)
 {
-
+ return (porte->id);
 }
 
 /*****************************************************************************/
 char * t_porte_get_nom(const t_porte* porte)
 {
-
+ return (porte->nom);
 }
 
 /*****************************************************************************/
 int t_porte_get_nb_entrees(const t_porte* porte)
 {
-
+ return (porte->nb_entrees);
 }
 
 /*****************************************************************************/
