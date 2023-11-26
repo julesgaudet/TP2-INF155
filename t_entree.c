@@ -14,7 +14,7 @@ t_entree* t_entree_init(int id, char* nom)
 {
 	t_entree *nouv_entree;
 
-	//Associer le NO (en assumant qu'il est unique)
+	//Associer le ID (en assumant qu'il est unique)
 	nouv_entree->id = id;
 
 	//Associer à INACTIF
@@ -102,7 +102,7 @@ void t_entree_serialiser(const t_entree* entree, char* resultat)
 		//Utilisation de sprintf pour formater une chaine de caractères 
 		//Regarde dans le cours 11, il explique sprintf
 		//J'ai mis %s pour nom parce que c'est une chaine de caractères
-		sprintf("ID : %d, valeur : %d, nom : %s, connecté : %d\n", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
+		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
 		return;
 	}
 	//Lorsque le résultat est NULL ou l'entree est NULL

@@ -55,23 +55,23 @@ void t_porte_calculer_sorties(t_porte *porte)
 
         //Porte ET
         case PORTE_ET : 
-            
-        break;
+            nouvelle_valeur = &
+            break;
 
         //Porte NOT
         case PORTE_NOT : 
-
-        break;
+            nouvelle_valeur = !
+            break;
 
         //Porte OU
         case PORTE_OU : 
-
-        break;
+            nouvelle_valeur = |
+            break;
 
         //Porte XOR
         case PORTE_XOR : 
-
-        break;
+            nouvelle_valeur = ^
+            break;
     }
 
     //Renvoyer les modifications selon la condition de la porte
@@ -140,7 +140,15 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 /*****************************************************************************/
 void t_porte_serialiser(const t_porte* porte, char* resultat) 
 {
+    //Afficher les informations de la porte
+    if (porte != NULL && resultat != NULL) {
+        sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %d, pin entree : %p, pin sortie : %p",
+            t_porte_get_id(porte), t_porte_get_nb_entrees(porte), t_porte_get_nom(porte),
+            t_porte_get_type(porte), t_porte_get_pin_entree(porte), t_porte_get_pin_sortie(porte));
+        return;
+    }
 
+    //Si la porte est NULL ou le résultat est NULL, un message s'affichera dans la console
+    printf("La porte est NULL ou le résultat est NULL");
 }
-
 /*****************************************************************************/
