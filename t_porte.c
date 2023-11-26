@@ -145,11 +145,11 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 void t_porte_serialiser(const t_porte* porte, char* resultat) {
     // Afficher les informations de la porte
     // J'ai mis %p car j'imagine qu'on veut voir les adresses des pointeurs
-    // En ce moment, il y a un message d'erreur mais je suppose que c'est à cause que les autres fonctions ne sont pas finis
+    // En ce moment, il y a un message d'erreur mais je suppose que c'est à cause du type 
     if (porte != NULL && resultat != NULL) {
         sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %s, pin entree : %p, pin sortie : %p",
             t_porte_get_id(porte), t_porte_get_nb_entrees(porte), t_porte_get_nom(porte),
-            type_to_string(t_porte_get_type(porte)), t_porte_get_pin_entree(porte), t_porte_get_pin_sortie(porte));
+            t_porte_get_type(porte), t_porte_get_pin_entree(porte), t_porte_get_pin_sortie(porte));
         return;
     }
 }
