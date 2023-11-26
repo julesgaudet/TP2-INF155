@@ -55,22 +55,22 @@ void t_porte_calculer_sorties(t_porte *porte)
 
         //Porte ET
         case PORTE_ET : 
-            nouvelle_valeur = &
+            nouvelle_valeur = porte->entrees[0]->valeur & porte->entrees[0]->valeur;
             break;
 
         //Porte NOT
         case PORTE_NOT : 
-            nouvelle_valeur = !
+            nouvelle_valeur = !porte->entrees[0]->valeur;
             break;
 
         //Porte OU
         case PORTE_OU : 
-            nouvelle_valeur = |
+            nouvelle_valeur = porte->entrees[0]->valeur | porte->entrees[0]->valeur;
             break;
 
         //Porte XOR
         case PORTE_XOR : 
-            nouvelle_valeur = ^
+            nouvelle_valeur = porte->entrees[0]->valeur ^ porte->entrees[0]->valeur;
             break;
     }
 
@@ -123,32 +123,35 @@ int t_porte_get_nb_entrees(const t_porte* porte)
 /*****************************************************************************/
 e_types_portes t_porte_get_type(const t_porte* porte)
 {
-
+    return porte->type;
 }
 
 /*****************************************************************************/
 t_pin_entree* t_porte_get_pin_entree(const t_porte* porte, int num)
 {
+    if (num == 0)
+        return porte->entrees[0];
 
+    else
+        return porte->entrees[1];
 }
 /*****************************************************************************/
 t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 {
-
+    return porte->sortie;
 }
 
 /*****************************************************************************/
 void t_porte_serialiser(const t_porte* porte, char* resultat) 
 {
     //Afficher les informations de la porte
+    //J'ai mis %p car j'imagine qu'on veut voir les adresses des pointeurs
+    //En ce moment, il y a un message d'erreur mais je suppose que c'est à cause que les autres fonctions ne sont pas finis
     if (porte != NULL && resultat != NULL) {
         sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %d, pin entree : %p, pin sortie : %p",
             t_porte_get_id(porte), t_porte_get_nb_entrees(porte), t_porte_get_nom(porte),
             t_porte_get_type(porte), t_porte_get_pin_entree(porte), t_porte_get_pin_sortie(porte));
         return;
     }
-
-    //Si la porte est NULL ou le résultat est NULL, un message s'affichera dans la console
-    printf("La porte est NULL ou le résultat est NULL");
 }
 /*****************************************************************************/

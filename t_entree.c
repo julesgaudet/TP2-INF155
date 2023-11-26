@@ -105,9 +105,6 @@ void t_entree_serialiser(const t_entree* entree, char* resultat)
 		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
 		return;
 	}
-	//Lorsque le résultat est NULL ou l'entree est NULL
-	printf("L'entrée est NULL ou le résultat est NULL\n");
-	return;
 }
 
 
