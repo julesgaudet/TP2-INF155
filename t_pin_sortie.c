@@ -32,7 +32,7 @@ t_pin_sortie *t_pin_sortie_init(void)
 }
 
 /*****************************************************************************/
-void T_PIN_SORTIE_DESTROY(t_pin_sortie *pin) 
+void t_pin_sortie_destroy(t_pin_sortie *pin) 
 {
     free(pin);
 }
@@ -105,7 +105,11 @@ void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, t_pin_entree *pin_ent
 /*****************************************************************************/
 int t_pin_sortie_est_reliee(t_pin_sortie *pin) 
 {
-    return pin->nb_liaisons != NULL;
+    //retourne faux si le nb de liaisons est 0 sinon vrai
+    if (pin->nb_liaisons > 0)
+        return VRAI;
+    else
+        return FAUX;
 }
 
 int t_pin_sortie_propager_signal(t_pin_sortie *pin) 

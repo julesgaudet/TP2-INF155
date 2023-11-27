@@ -14,6 +14,8 @@ t_entree* t_entree_init(int id, char* nom)
 {
 	t_entree *nouv_entree;
 
+	nouv_entree = (t_entree*)malloc(sizeof(t_entree));
+
 	//Associer le ID (en assumant qu'il est unique)
 	nouv_entree->id = id;
 
@@ -25,6 +27,12 @@ t_entree* t_entree_init(int id, char* nom)
 
 	//Associer le nom
 	strcpy((nouv_entree->nom), nom);
+
+
+	//TEMP
+
+	//creer une pin et la relier a l'entree
+	nouv_entree->pin = t_pin_sortie_init();
 
 	return nouv_entree;
 }

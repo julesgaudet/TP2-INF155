@@ -14,6 +14,8 @@ t_sortie *t_sortie_init(int id, char *nom)
 {
     t_sortie *nouv_sortie;
 
+    nouv_sortie = (t_sortie*)malloc(sizeof(t_sortie));
+
     //Associer le NO (en assumant qu'il est unique)
     nouv_sortie->id = id;
 
@@ -25,6 +27,11 @@ t_sortie *t_sortie_init(int id, char *nom)
 
     //Associer le nom
     strcpy((nouv_sortie->nom), nom);
+
+    //TEMP
+
+    //creer une pin et la relier a l'entree
+    nouv_sortie->pin = t_pin_entree_init();
 
     return nouv_sortie;
 }
@@ -76,7 +83,7 @@ int t_sortie_get_valeur(const t_sortie *sortie)
         return INACTIF;
 
     //Obtenir le pin d'entrée de la sortie
-    t_pin_entree *pin_entree = t_sortie_get_pin_entree(sortie); 
+    t_pin_entree *pin_entree = t_sortie_get_pin(sortie); 
 
     //Si le pin d'entrée est NULL
     if (pin_entree == NULL) {

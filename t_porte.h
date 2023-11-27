@@ -139,7 +139,7 @@ int t_porte_est_reliee(t_porte *porte);
 /*
 Fonction: T_PORTE_RESET
 Description: Réinitialise une porte. Pour réinitialiser une porte, il suffit
-			 de ré-initialiser chacuns de ses pins (à INACTIF). 
+			 de ré-initialise	r chacuns de ses pins (à INACTIF). 
 NDE: Encore ici, il y'a des fonctions prêtes dans les modules t_pin_entree
 	 et t_pin_sortie pour ré-initialiser tous les pins.
 

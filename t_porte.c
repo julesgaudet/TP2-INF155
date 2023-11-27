@@ -6,7 +6,7 @@ Auteur: Noah Tremblay, Jules Gaudet
 Derni�re modification: 
 */
 /*****************************************************************************/
-
+# define _CRT_SECURE_NO_WARNINGS
 #include "t_porte.h"
 
 /*****************************************************************************/
@@ -81,25 +81,70 @@ void t_porte_calculer_sorties(t_porte *porte)
 /*****************************************************************************/
 int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, const t_pin_sortie *source)
 {
+    //si l'indice de l'entree n'esxiste pas
+    if (num_entree > (dest->nb_entrees))
+        return FAUX;
+
+    //relie la pin de sortie a la pin d'entree de la porte
+    t_pin_entree_relier(source, nom_sortie, dest->entrees[num_entree]);
 
 }
 
 /*****************************************************************************/
 int t_porte_est_reliee(t_porte *porte)
 {
+    int i;
 
+    //vérifie que tout les pin d'entree sont relies
+    for (i = 0; i < porte->nb_entrees; i++)
+    {
+        if (t_pin_entree_est_reliee(porte->entrees[i]) == FAUX)
+        {
+            return FAUX;
+        }
+    }
+
+    //vérifie que le pin de sortie est
+    if (t_pin_sortie_est_reliee(porte->sortie) == FAUX)
+    {
+        return FAUX;
+    }
+
+    //si tout est ok retourne vrai
+    return VRAI;
 }
 
 /*****************************************************************************/
 void t_porte_reset(t_porte *porte)
 {
-
+    int i;
+    //initialise les entrées
+    for (i = 0; i < porte->nb_entrees; i++)
+    {
+        porte->entrees[i] = t_pin_entree_init();
+    }
+    //initialise la sortie
+    porte->sortie = t_pin_sortie_init();
 }
 
 /*****************************************************************************/
 int t_porte_propager_signal(t_porte *porte) 
 {
+    int i;
+    //verif tout les pins entree sont actifs
+    for (i = 0; i < porte->nb_entrees; i++)
+    {
+        if (t_pin_entree_get_valeur(porte->entrees[i]) == INACTIF)
+            return FAUX;
+    }
     
+    //calculer et assigner la valeur su pin sorte de la porte
+    t_porte_calculer_sorties(porte);
+
+    //propager le signal a partir de la pin de sortie
+    t_pin_sortie_propager_signal(porte->sortie);
+    
+    return VRAI;
 }
 
 /*****************************************************************************/
@@ -149,7 +194,7 @@ void t_porte_serialiser(const t_porte* porte, char* resultat) {
     if (porte != NULL && resultat != NULL) {
         sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %s, pin entree : %p, pin sortie : %p",
             t_porte_get_id(porte), t_porte_get_nb_entrees(porte), t_porte_get_nom(porte),
-            t_porte_get_type(porte), t_porte_get_pin_entree(porte), t_porte_get_pin_sortie(porte));
+            t_porte_get_type(porte), t_porte_get_pin_entree(porte,1), t_porte_get_pin_sortie(porte));
         return;
     }
 }
