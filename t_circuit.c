@@ -24,13 +24,15 @@ t_circuit* t_circuit_init(void)
 /*****************************************************************************/
 void t_circuit_destroy(t_circuit *circuit) 
 {
-    for (int i = 0; i < circuit->nb_sorties; i++) {
+    int i;
+
+    for (i = 0; i < circuit->nb_sorties; i++) {
         t_sortie_destroy(circuit->sorties[i]);
     }
-    for (int i = 0; i < circuit->nb_entrees; i++) {
+    for (i = 0; i < circuit->nb_entrees; i++) {
         t_entree_destroy(circuit->entrees[i]);
     }
-    for (int i = 0; i < circuit->nb_portes; i++) {
+    for (i = 0; i < circuit->nb_portes; i++) {
         t_porte_destroy(circuit->portes[i]);
     }
     free(circuit);
@@ -39,43 +41,150 @@ void t_circuit_destroy(t_circuit *circuit)
 /*****************************************************************************/
 t_porte* t_circuit_ajouter_porte(t_circuit *circuit, e_types_portes le_type, int id, char *nom) 
 {
+    t_porte* nouv_porte;
 
+    //si il ne rete pas de place pour les portes
+    if (circuit->nb_portes >= CIRCUIT_MAX_PORTES)
+        return NULL;
+
+    //créer une porte 
+    nouv_porte = t_porte_init(id, le_type, nom);
+
+    //ajouter la porte au circuit
+    circuit->portes[circuit->nb_portes] = nouv_porte;
+
+    //ajouter 1 porte au circuit
+    circuit->nb_portes += 1;
+
+    return nouv_porte;
 }
 
 /*****************************************************************************/
 t_entree* t_circuit_ajouter_entree(t_circuit * circuit, int id, char *nom)
 {
+    t_entree* nouv_entree;
 
+    //si il ne rete pas de place pour ajouter une entree
+    if (circuit->nb_entrees >= MAX_ENTREES)
+        return NULL;
+
+    //créer une nouvelle entrée
+    nouv_entree = t_entree_init(id, nom);
+
+    //ajouter l'entree au circuit
+    circuit->entrees[circuit->nb_entrees] = nouv_entree;
+
+    //ajouter 1 au nb d'entres 
+    circuit->nb_entrees += 1;
+
+    return nouv_entree;
 }
 
 /*****************************************************************************/
 t_sortie* t_circuit_ajouter_sortie(t_circuit * circuit, int id, char *nom)
 {
+    t_sortie* nouv_sortie;
 
+    //si il ne rete pas de place pour ajouter une sortie
+    if (circuit->nb_sorties >= MAX_SORTIES)
+        return NULL;
+
+    //créer une nouvelle entrée
+    nouv_sortie = t_sortie_init(id, nom);
+
+    //ajouter l'entree au circuit
+    circuit->sorties[circuit->nb_sorties] = nouv_sortie;
+
+    //ajouter 1 au nb d'entres 
+    circuit->nb_sorties += 1;
+
+    return nouv_sortie;
 }
 
 /*****************************************************************************/
 int t_circuit_est_valide(t_circuit *circuit)
 {
+    int i, non_reliee;
 
+    non_reliee = VRAI;
+
+    //verification que toutes les ENTREES reliees
+    for (i = 0; i < circuit->nb_sorties; i++) {
+        if (t_entree_est_reliee(circuit->entrees[i]) == FAUX)
+        {
+            printf("\nentree %d non reliee", t_entree_get_id(circuit->entrees[i]));
+            non_reliee = FAUX;
+        }
+    }
+    
+    //verification que toutes les SORTIES reliees
+    for (i = 0; i < circuit->nb_entrees; i++) {
+        if (t_sortie_est_reliee(circuit->sorties[i]) == FAUX)
+        {
+            printf("\nsortie %d non reliee", t_sortie_get_id(circuit->sorties[i]));
+            non_reliee = FAUX;
+        }
+    }
+
+    //verification que toutes les PORTES reliees
+    for (i = 0; i < circuit->nb_portes; i++) {
+        if (t_porte_est_reliee(circuit->portes[i]) == FAUX)
+        {
+            printf("\nporte %d non reliee", t_porte_get_id(circuit->portes[i]));
+            non_reliee = FAUX;
+        }
+    }
+    return non_reliee;
 }
 
 /*****************************************************************************/
 int t_circuit_appliquer_signal(t_circuit * circuit, int signal[], int nb_bits)
 {
+    int i;
 
+    //verificaton qu'il y aye autant de signal que d'entrees
+    if (nb_bits != circuit->nb_entrees)
+        return NULL;
+
+    //application des bits a leur entrées respectives
+    for (i = 0; i < nb_bits; i++)
+    {
+        t_pin_sortie_set_valeur(circuit->entrees[i], signal[i]);
+    }
+
+    return VRAI;
 }
 
 /*****************************************************************************/
 void t_circuit_reset(t_circuit *circuit)
 {
+    int i;
 
+    //reset les SORTIES
+    for (i = 0; i < circuit->nb_sorties; i++) {
+        t_sortie_reset(circuit->sorties[i]);
+    }
+
+    //restet les ENTREES
+    for (i = 0; i < circuit->nb_entrees; i++) {
+        t_entree_reset(circuit->entrees[i]);
+    }
+
+    //reset les PORTES
+    for (i = 0; i < circuit->nb_portes; i++) {
+        t_porte_reset(circuit->portes[i]);
+    }
 }
 
 /*****************************************************************************/
 int t_circuit_propager_signal(t_circuit *circuit)
 {
+    
 
+
+
+
+    return VRAI;
 }
 
 /*****************************************************************************/

@@ -148,10 +148,10 @@ void t_porte_reset(t_porte *porte)
     //initialise la valeur des entrées
     for (i = 0; i < porte->nb_entrees; i++)
     {
-        t_pin_entree_set_valeur(porte->entrees[i], INACTIF);
+        t_pin_entree_reset(porte->entrees[i]);
     }
     //initialise la sortie
-    t_pin_sortie_set_valeur(porte->sortie, INACTIF);
+    t_pin_sortie_reset(porte->sortie);
 }
 
 /*****************************************************************************/

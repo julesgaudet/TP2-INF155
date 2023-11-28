@@ -65,7 +65,7 @@ int t_entree_est_reliee(t_entree* entree)
 void t_entree_reset(t_entree* entree)
 {
 	//Re-initialise la pin de sortie de l'entrée
-	t_pin_sortie_set_valeur(entree->pin, INACTIF);
+	t_pin_sortie_reset(entree->pin);
 }
 
 /*****************************************************************************/

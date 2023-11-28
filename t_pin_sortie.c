@@ -122,5 +122,5 @@ int t_pin_sortie_propager_signal(t_pin_sortie *pin)
 
 void t_pin_sortie_reset(t_pin_sortie *pin) 
 {
-    pin->valeur = INACTIF;
+    t_pin_sortie_set_valeur(pin, INACTIF);
 }
