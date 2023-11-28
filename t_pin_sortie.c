@@ -59,19 +59,8 @@ int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_
     if (pin_sortie->nb_liaisons >= SORTIE_MAX_LIAISONS)
         return FAUX;
 
-    //verification si pin entree est reliee a aucune pin sortie
-    if (t_pin_entree_est_reliee(pin_entree) == FAUX)
-    {
-        //supprime la pin entree du tablau des liaisons de sa pin sortie precedente
-        t_pin_sortie_supprimer_lien(pin_entree->liaison, pin_entree);
-    }
-
     //ajouter l'adresse de la pin entrée dans le tab de la pin sortie
     pin_sortie->liaisons[pin_sortie->nb_liaisons] = pin_entree;
-
-    //ajouter l'adresse de la pin sortie dans la pin entree 
-    //(si une adresse est déja présente elle est écrasée)
-    pin_entree->liaison = pin_sortie;
 
     //ajouter 1 au nb de liaison pin sortie
     pin_sortie->nb_liaisons += 1;
@@ -83,6 +72,7 @@ int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_
 void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree) 
 {
     int i, j;
+
     //recherche de la pin d'entrée dans le tableau liaison de la pins de sortie
     for (i = 0; i < pin_sortie->nb_liaisons; i++)
     {
