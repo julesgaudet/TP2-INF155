@@ -28,8 +28,6 @@ t_sortie *t_sortie_init(int id, char *nom)
     //Associer le nom
     strcpy((nouv_sortie->nom), nom);
 
-    //TEMP
-
     //creer une pin et la relier a l'entree
     nouv_sortie->pin = t_pin_entree_init();
 
@@ -44,6 +42,9 @@ void t_sortie_destroy(t_sortie *sortie)
 
     //Détruire le tableau de caractères contenant le nom de la sortie
     free(sortie->nom);
+
+    //detruire la sortie
+    free(sortie);
 }
 
 /*****************************************************************************/
@@ -72,7 +73,7 @@ int t_sortie_est_reliee(t_sortie *sortie)
 void t_sortie_reset(t_sortie *sortie) 
 {
     //Re-initialise la pin d'entrée de la sortie
-    sortie->pin = t_pin_entree_init();
+    t_pin_entree_set_valeur(sortie->pin,INACTIF);
 }
 
 /*****************************************************************************/

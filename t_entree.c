@@ -28,9 +28,6 @@ t_entree* t_entree_init(int id, char* nom)
 	//Associer le nom
 	strcpy((nouv_entree->nom), nom);
 
-
-	//TEMP
-
 	//creer une pin et la relier a l'entree
 	nouv_entree->pin = t_pin_sortie_init();
 
@@ -43,7 +40,7 @@ void t_entree_destroy(t_entree* entree)
 	//Détruire la pin de sortie de l'entreée
 	t_pin_sortie_destroy((entree->pin));
 
-	//Détruire le tableau dde caractere contenant le nom de l'entrée
+	//Détruire le tableau de caractere contenant le nom de l'entrée
 	free(entree->nom);
 
 	//Détruire la pin
@@ -68,7 +65,7 @@ int t_entree_est_reliee(t_entree* entree)
 void t_entree_reset(t_entree* entree)
 {
 	//Re-initialise la pin de sortie de l'entrée
-	entree->pin = t_pin_sortie_init();
+	t_pin_sortie_set_valeur(entree->pin, INACTIF);
 }
 
 /*****************************************************************************/

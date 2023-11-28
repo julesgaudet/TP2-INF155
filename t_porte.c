@@ -21,13 +21,41 @@ t_porte *t_porte_init(int id, e_types_portes type, char *nom)
     //Créer la chaine dynamique pour le nom de l'entrée
     nouv_porte->nom = (char*)calloc(NOM_ENTREE_TAILLE_MAX, sizeof(char));
 
-    //Initialiser le nombre d'entrées à 0
-    nouv_porte->nb_entrees = 0;
+    //donner son type
+    nouv_porte->type = type;
+
+    //créer la sortie
+    nouv_porte->sortie = t_pin_sortie_init();
+
+    //Initialiser le bon nombre d'entrées
+
+    //si porte not
+    if (nouv_porte->type == PORTE_NOT)
+    {
+        nouv_porte->nb_entrees = 1;
+        nouv_porte->entrees[0] = t_pin_entree_init;
+    }
+    //si porte xnot, or, and
+    else
+    {
+        nouv_porte->nb_entrees = 2;
+        nouv_porte->entrees[0] = t_pin_entree_init;
+        nouv_porte->entrees[1] = t_pin_entree_init;
+    }
+    return nouv_porte;
 }
 
 /*****************************************************************************/
 void t_porte_destroy(t_porte *porte)
 {
+    int i;
+    //Détruire l'allocation dynamique pour les porte d'entrée
+    for (i=0; i< porte->nb_entrees; i++)
+        t_pin_entree_destroy(porte->entrees);
+
+    //détruire la porte de sortie
+    t_pin_sortie_destroy(porte->sortie);
+
     //Détruire l'allocation dynamique pour le nom
     free(porte->nom);
 
@@ -37,8 +65,7 @@ void t_porte_destroy(t_porte *porte)
     //Détruire l'allocation dynamique pour la porte de sortie
     t_pin_sortie_destroy(porte->sortie);
 
-    //Détruire l'allocation dynamique pour la porte d'entrée
-    t_pin_entree_destroy(porte->entrees);
+
 }
 
 /*****************************************************************************/
@@ -118,13 +145,13 @@ int t_porte_est_reliee(t_porte *porte)
 void t_porte_reset(t_porte *porte)
 {
     int i;
-    //initialise les entrées
+    //initialise la valeur des entrées
     for (i = 0; i < porte->nb_entrees; i++)
     {
-        porte->entrees[i] = t_pin_entree_init();
+        t_pin_entree_set_valeur(porte->entrees[i], INACTIF);
     }
     //initialise la sortie
-    porte->sortie = t_pin_sortie_init();
+    t_pin_sortie_set_valeur(porte->sortie, INACTIF);
 }
 
 /*****************************************************************************/
