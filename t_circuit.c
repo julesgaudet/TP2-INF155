@@ -179,18 +179,55 @@ void t_circuit_reset(t_circuit *circuit)
 /*****************************************************************************/
 int t_circuit_propager_signal(t_circuit *circuit)
 {
-    
+    t_file* file;
+    t_porte* porte_courante;
+    int nb_iterations,i;
+
+    nb_iterations = 0;
+
     //si le circuit est invalide
     if (t_circuit_est_valide(circuit) == FAUX)
         return FAUX;
 
+    //si le circuit n'as pas été alimenté
+    for (i = 0; i < circuit->nb_entrees; i++)
+    {
+        if (t_entree_get_valeur(circuit->entrees[i]) == INACTIF)
+            return FAUX;
+    }
 
+    //demander a chaque entrée du circuit de propager le signal
+    for (i = 0; i < circuit->nb_entrees; i++)
+    {
+        t_entree_propager_signal(circuit->entrees[i]);
+    }
 
+    //remplir la file
+    initfile(file);
+    for (i = 0; i < circuit->nb_portes; i++)
+    {
+        ajouterfin(file, circuit->portes[i]);
+    }
 
+    //while
+    while (!vide(file) ||
+        nb_iterations <(t_circuit_get_nb_portes(circuit) * (t_circuit_get_nb_portes(circuit) + 1) / 2))
+    {
+        porte_courante = circuit->portes[nb_iterations];
 
+        t_porte_propager_signal(porte_courante);
 
+        if (!t_porte_propager_signal(porte_courante))
+            ajouterfile(file, porte_courante);
 
-    return VRAI;
+        nb_iterations++;
+    }
+
+    //si le circuit a une boucle FAUX sinon VRAI
+    if (vide(file))
+        return VRAI;
+    else
+        return FAUX;
 }
 
 /*****************************************************************************/
@@ -202,7 +239,9 @@ int t_circuit_get_nb_portes(const t_circuit* circuit)
 /*****************************************************************************/
 t_porte* t_circuit_get_porte(const t_circuit* circuit, int pos) 
 {
-
+    if(pos<=t_circuit_get_nb_portes(circuit))
+        return circuit->portes[pos];
+    return NULL;
 }
 
 /*****************************************************************************/
@@ -214,7 +253,9 @@ int t_circuit_get_nb_sorties(const t_circuit* circuit)
 /*****************************************************************************/
 t_sortie* t_circuit_get_sortie(const t_circuit* circuit, int pos)
 {
-
+    if (pos <= t_circuit_get_nb_sorties(circuit))
+        return circuit->sorties[pos];
+    return NULL;
 }
 
 /*****************************************************************************/
@@ -227,5 +268,7 @@ int t_circuit_get_nb_entrees(const t_circuit* circuit)
 /*****************************************************************************/
 t_entree* t_circuit_get_entree(const t_circuit* circuit, int pos) 
 {
-
+    if (pos <= t_circuit_get_nb_entree(circuit))
+        return circuit->entrees[pos];
+    return NULL;
 }
