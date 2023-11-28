@@ -24,7 +24,16 @@ t_circuit* t_circuit_init(void)
 /*****************************************************************************/
 void t_circuit_destroy(t_circuit *circuit) 
 {
-    
+    for (int i = 0; i < circuit->nb_sorties; i++) {
+        t_sortie_destroy(circuit->sorties[i]);
+    }
+    for (int i = 0; i < circuit->nb_entrees; i++) {
+        t_entree_destroy(circuit->entrees[i]);
+    }
+    for (int i = 0; i < circuit->nb_portes; i++) {
+        t_porte_destroy(circuit->portes[i]);
+    }
+    free(circuit);
 }
 
 /*****************************************************************************/

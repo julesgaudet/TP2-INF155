@@ -1,21 +1,21 @@
 /*
 Module: T_PIN_SORTIE
-Description: Définit le type t_pin_sortie. Un t_pin_sortie est un point de connexion appartenant
-			 à un élément du circuit qui émet un signal (mais n'en reçoit pas).
-			 Les éléments d'un circuit ayant une pin sortie sont les portes (les sorties des portes) 
-			 ainsi que les entrées du circuit.
+Description: Dï¿½finit le type t_pin_sortie. Un t_pin_sortie est un point de connexion appartenant
+			 ï¿½ un ï¿½lï¿½ment du circuit qui ï¿½met un signal (mais n'en reï¿½oit pas).
+			 Les ï¿½lï¿½ments d'un circuit ayant une pin sortie sont les portes (les sorties des portes) 
+			 ainsi que les entrï¿½es du circuit.
 
-			 Pour qu'un pin de sortie émette un signal, ce signal doit être stocké dans le champs valeur. 
-			 Un t_pin_sortie qui est inactif (pas alimentée) aura la valeur -1.
+			 Pour qu'un pin de sortie ï¿½mette un signal, ce signal doit ï¿½tre stockï¿½ dans le champs valeur. 
+			 Un t_pin_sortie qui est inactif (pas alimentï¿½e) aura la valeur -1.
 
-			 Un pin de sortie permet de relier le composant auquel il appartient à d'autres composants.
-			 Il doit être reliée à des "pin d'entrée" des composants auquel on souhaite se connecter.
+			 Un pin de sortie permet de relier le composant auquel il appartient ï¿½ d'autres composants.
+			 Il doit ï¿½tre reliï¿½e ï¿½ des "pin d'entrï¿½e" des composants auquel on souhaite se connecter.
 
-			 Note: Contrairement à un pin d'entrée, un pin de sortie peut être reliée à plusieurs 
-			 pins d'entrées : Ceci permet d'émettre le même signal à plusieurs composants.
+			 Note: Contrairement ï¿½ un pin d'entrï¿½e, un pin de sortie peut ï¿½tre reliï¿½e ï¿½ plusieurs 
+			 pins d'entrï¿½es : Ceci permet d'ï¿½mettre le mï¿½me signal ï¿½ plusieurs composants.
 
 Auteur: Anis Boubaker
-Dernière modification: Eric Thé, 2023-11-12
+Derniï¿½re modification: Eric Thï¿½, 2023-11-12
 */
 
 #ifndef T_PIN_SORTIE_H_
@@ -23,44 +23,44 @@ Dernière modification: Eric Thé, 2023-11-12
 
 #include "t_pin_entree.h"
 
-//Le nombre maximal de pins d'entrées auquels une sortie peut être connectée
+//Le nombre maximal de pins d'entrï¿½es auquels une sortie peut ï¿½tre connectï¿½e
 #define SORTIE_MAX_LIAISONS 10
 
 typedef struct t_pin_entree t_pin_entree;
 typedef struct t_circuit t_circuit;
 
 
-//Définit le type t_pin_sortie
+//Dï¿½finit le type t_pin_sortie
 typedef struct t_pin_sortie {
-	int valeur;		//Valeur du signal reçu par le pin d'entrée. -1 si le pin est inactif.
+	int valeur;		//Valeur du signal reï¿½u par le pin d'entrï¿½e. -1 si le pin est inactif.
 
-	//Tableau de pointeurs vers les pins d'entrées auquel ce pin sortie est connecté
+	//Tableau de pointeurs vers les pins d'entrï¿½es auquel ce pin sortie est connectï¿½
 	t_pin_entree *liaisons[SORTIE_MAX_LIAISONS];
 
-	//Nombre de pins d'entrées vers lesquels ce pin de sortie est connecté.
-	//Ce champ représente le nombre d'éléments effectifs du tableau "liaisons[]".
+	//Nombre de pins d'entrï¿½es vers lesquels ce pin de sortie est connectï¿½.
+	//Ce champ reprï¿½sente le nombre d'ï¿½lï¿½ments effectifs du tableau "liaisons[]".
 	int nb_liaisons;
 } t_pin_sortie;
 
 
 /*
 Fonction: T_PIN_SORTIE_INIT (constructeur)
-Description: Crée un nouveau pin de sortie qui contient aucune valeur et aucune liaison.
+Description: Crï¿½e un nouveau pin de sortie qui contient aucune valeur et aucune liaison.
 
-Paramètres: Aucun
-Retour: Pointeur vers le pin de sortie qui a été créée
-Paramètres modifié: N/A.
+Paramï¿½tres: Aucun
+Retour: Pointeur vers le pin de sortie qui a ï¿½tï¿½ crï¿½ï¿½e
+Paramï¿½tres modifiï¿½: N/A.
 */
 t_pin_sortie *t_pin_sortie_init(void);
 
 /*
 Fonction: T_PIN_SORTIE_DESTROY (Destructeur)
-Description: Libère la mémoire occupée par le pin de sortie.
+Description: Libï¿½re la mï¿½moire occupï¿½e par le pin de sortie.
 
-Paramètres:
-- pin: Pointeur vers le pin de sortie à détruire.
+Paramï¿½tres:
+- pin: Pointeur vers le pin de sortie ï¿½ dï¿½truire.
 Retour: Aucun.
-Paramètres modifié: pin
+Paramï¿½tres modifiï¿½: pin
 */
 void t_pin_sortie_destroy(t_pin_sortie *pin);
 
@@ -68,10 +68,10 @@ void t_pin_sortie_destroy(t_pin_sortie *pin);
 Fonction: T_PIN_SORTIE_GET_VALEUR (Accesseur)
 Description: Accesseur du champs valeur.
 
-Paramètres:
+Paramï¿½tres:
 - pin: Pointeur vers le pin de sortie.
 Retour: (entier) Valeur du pin : 0, 1 ou -1.
-Paramètres modifié: aucun
+Paramï¿½tres modifiï¿½: aucun
 */
 int t_pin_sortie_get_valeur(t_pin_sortie *pin);
 
@@ -79,40 +79,40 @@ int t_pin_sortie_get_valeur(t_pin_sortie *pin);
 Fonction: T_PIN_SORTIE_SET_VALEUR (Mutateur)
 Description: Mutateur du champs valeur.
 
-Paramètres:
+Paramï¿½tres:
 - pin: Pointeur vers le pin de sortie.
 - valeur: nouvelle valeur du pin de sortie 
-          (doit obligatoirement être -1, 0 ou 1, sinon aucun changement)
+          (doit obligatoirement ï¿½tre -1, 0 ou 1, sinon aucun changement)
 Retour: Aucun
-Paramètres modifié: pin
+Paramï¿½tres modifiï¿½: pin
 */
 void t_pin_sortie_set_valeur(t_pin_sortie *pin, int valeur);
 
 /*
 Fonction: T_PIN_SORTIE_AJOUTER_LIEN
-Description: Relie le pin de sortie à un pin d'entrée. Cette fonction permet de relier le composant, 
-			 auquel apparatien le pin de sortie, à un autre composant, auquel appartient le pin d'entrée.
+Description: Relie le pin de sortie ï¿½ un pin d'entrï¿½e. Cette fonction permet de relier le composant, 
+			 auquel apparatien le pin de sortie, ï¿½ un autre composant, auquel appartient le pin d'entrï¿½e.
 
-			 La fonction doit vérifier qu'on excède pas le nombre maximal de liens autorisés 
+			 La fonction doit vï¿½rifier qu'on excï¿½de pas le nombre maximal de liens autorisï¿½s 
 			 (SORTIE_MAX_LIAISONS)
 
-Paramètres:
-- pin_sortie: le pin de sortie à relier
-- pin_entree: Le pin d'entrée à laquel le pin de sortie sera relié.
-Retour: Vrai si le lien a bien été ajouté, faux sinon.
+Paramï¿½tres:
+- pin_sortie: le pin de sortie ï¿½ relier
+- pin_entree: Le pin d'entrï¿½e ï¿½ laquel le pin de sortie sera reliï¿½.
+Retour: Vrai si le lien a bien ï¿½tï¿½ ajoutï¿½, faux sinon.
 */
 int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree);
 
 /*
 Fonction: T_PIN_SORTIE_SUPPRIMER_LIEN
-Description: Supprime un lien existant entre le pin de sortie et un pin d'entree reçu en paramètre.
+Description: Supprime un lien existant entre le pin de sortie et un pin d'entree reï¿½u en paramï¿½tre.
 			 Si il n'existe aucun lien entre ces deux pins, la fonction n'aura aucun effet.
-			 Si ce lien a été retrouvé, on le supprime en le remplaçant par le lien suivant dans la
-			 liste des liens. On décale toutes les liaisons suivantes vers la gauche également.
+			 Si ce lien a ï¿½tï¿½ retrouvï¿½, on le supprime en le remplaï¿½ant par le lien suivant dans la
+			 liste des liens. On dï¿½cale toutes les liaisons suivantes vers la gauche ï¿½galement.
 
-Paramètres:
+Paramï¿½tres:
 - pin_sortie: le pin de sortie dont on veut supprimer le lien
-- pin_entree: Le pin d'entrée vers laquelle le pin de sortie est lié.
+- pin_entree: Le pin d'entrï¿½e vers laquelle le pin de sortie est liï¿½.
 Retour: Aucun
 */
 void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree);
@@ -120,35 +120,35 @@ void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, const t_pin_entree *p
 
 /*
 Fonction: T_PIN_SORTIE_EST_RELIEE
-Description: Permet de vérifier si un pin de sortie est relié à au moins un pin d'entrée.
+Description: Permet de vï¿½rifier si un pin de sortie est reliï¿½ ï¿½ au moins un pin d'entrï¿½e.
 
-Paramètres:
-- pin_sortie: le pin de sortie dont on veut vérifier la liaison
-Retour: Booléen: Vrai si le pin de sortie est reliée, Faux sinon.
+Paramï¿½tres:
+- pin_sortie: le pin de sortie dont on veut vï¿½rifier la liaison
+Retour: Boolï¿½en: Vrai si le pin de sortie est reliï¿½e, Faux sinon.
 */
 int t_pin_sortie_est_reliee(t_pin_sortie *pin);
 
 /*
 Fonction: T_PIN_SORTIE_PROPAGER_SIGNAL
-Description: Fonction qui propage le signal du pin de sortie vers toutes les pins d'entrées 
-			 avec lesquels il est relié.
+Description: Fonction qui propage le signal du pin de sortie vers toutes les pins d'entrï¿½es 
+			 avec lesquels il est reliï¿½.
 
-			 Le pin ne doit pas être inactif (valeur == -1) et le nombre de liaisons doit être
-			 non-zéro pour que le signal puisse se propager.
+			 Le pin ne doit pas ï¿½tre inactif (valeur == -1) et le nombre de liaisons doit ï¿½tre
+			 non-zï¿½ro pour que le signal puisse se propager.
 
-Paramètres:
+Paramï¿½tres:
 - pin_sortie: le pin de sortie dont on veut propager le signal
-Retour: (Booléen) Vrai si le signal s'est bien propagé, faux sinon. Le signal ne peut se propager
-	    si le pin est inactif ou si il n'est relié à aucun pin d'entrée.
+Retour: (Boolï¿½en) Vrai si le signal s'est bien propagï¿½, faux sinon. Le signal ne peut se propager
+	    si le pin est inactif ou si il n'est reliï¿½ ï¿½ aucun pin d'entrï¿½e.
 */
 int t_pin_sortie_propager_signal(t_pin_sortie *pin);
 
 /*
 Fonction: T_PIN_SORTIE_RESET
-Description: Ré-initialise la valeur du pin de sortie à INACTIF
+Description: Rï¿½-initialise la valeur du pin de sortie ï¿½ INACTIF
 
 Parametre:
-- pin_entree: Le pin d'entrée dont on veut réinitialiser la valeur
+- pin_entree: Le pin d'entrï¿½e dont on veut rï¿½initialiser la valeur
 Retour: Aucun.
 */
 void t_pin_sortie_reset(t_pin_sortie *pin);
