@@ -185,6 +185,8 @@ int t_circuit_propager_signal(t_circuit *circuit)
 
     nb_iterations = 0;
 
+    file = (t_file*)malloc(sizeof(t_file));
+
     //si le circuit est invalide
     if (t_circuit_est_valide(circuit) == FAUX)
         return FAUX;
