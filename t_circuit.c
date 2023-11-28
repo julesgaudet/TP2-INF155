@@ -2,7 +2,8 @@
 Module: T_CIRCUIT
 Description: D�finit le type t_circuit. 
 
-Auteur: Noah Tremblay, Jules Gaudet
+Auteurs: Noah Tremblay :
+        Jules Gaudet : GAUJ71370101
 Derni�re modification: 
 */
 /*****************************************************************************/
@@ -43,17 +44,17 @@ t_porte* t_circuit_ajouter_porte(t_circuit *circuit, e_types_portes le_type, int
 {
     t_porte* nouv_porte;
 
-    //si il ne rete pas de place pour les portes
+    //S'il ne reste pas de place pour les portes
     if (circuit->nb_portes >= CIRCUIT_MAX_PORTES)
         return NULL;
 
-    //créer une porte 
+    //Créer une porte 
     nouv_porte = t_porte_init(id, le_type, nom);
 
-    //ajouter la porte au circuit
+    //Ajouter la porte au circuit
     circuit->portes[circuit->nb_portes] = nouv_porte;
 
-    //ajouter 1 porte au circuit
+    //Ajouter 1 porte au circuit
     circuit->nb_portes += 1;
 
     return nouv_porte;
@@ -85,17 +86,17 @@ t_sortie* t_circuit_ajouter_sortie(t_circuit * circuit, int id, char *nom)
 {
     t_sortie* nouv_sortie;
 
-    //si il ne rete pas de place pour ajouter une sortie
+    //S'il ne reste pas de place pour ajouter une sortie
     if (circuit->nb_sorties >= MAX_SORTIES)
         return NULL;
 
-    //créer une nouvelle entrée
+    //Créer une nouvelle entrée
     nouv_sortie = t_sortie_init(id, nom);
 
-    //ajouter l'entree au circuit
+    //Ajouter l'entree au circuit
     circuit->sorties[circuit->nb_sorties] = nouv_sortie;
 
-    //ajouter 1 au nb d'entres 
+    //Ajouter 1 au nb d'entres 
     circuit->nb_sorties += 1;
 
     return nouv_sortie;
@@ -108,7 +109,7 @@ int t_circuit_est_valide(t_circuit *circuit)
 
     non_reliee = VRAI;
 
-    //verification que toutes les ENTREES reliees
+    //Vérification que toutes les ENTREES reliees
     for (i = 0; i < circuit->nb_sorties; i++) {
         if (t_entree_est_reliee(circuit->entrees[i]) == FAUX)
         {
@@ -117,7 +118,7 @@ int t_circuit_est_valide(t_circuit *circuit)
         }
     }
     
-    //verification que toutes les SORTIES reliees
+    //Vérification que toutes les SORTIES reliees
     for (i = 0; i < circuit->nb_entrees; i++) {
         if (t_sortie_est_reliee(circuit->sorties[i]) == FAUX)
         {
@@ -126,7 +127,7 @@ int t_circuit_est_valide(t_circuit *circuit)
         }
     }
 
-    //verification que toutes les PORTES reliees
+    //Vérification que toutes les PORTES reliees
     for (i = 0; i < circuit->nb_portes; i++) {
         if (t_porte_est_reliee(circuit->portes[i]) == FAUX)
         {
@@ -179,12 +180,57 @@ void t_circuit_reset(t_circuit *circuit)
 /*****************************************************************************/
 int t_circuit_propager_signal(t_circuit *circuit)
 {
-    
+    t_file* file;
+    t_porte* porte_courante;
+    int nb_iterations,i;
 
+    nb_iterations = 0;
 
+    file = (t_file*)malloc(sizeof(t_file));
 
+    //si le circuit est invalide
+    if (t_circuit_est_valide(circuit) == FAUX)
+        return FAUX;
 
-    return VRAI;
+    //si le circuit n'as pas été alimenté
+    for (i = 0; i < circuit->nb_entrees; i++)
+    {
+        if (t_entree_get_valeur(circuit->entrees[i]) == INACTIF)
+            return FAUX;
+    }
+
+    //demander a chaque entrée du circuit de propager le signal
+    for (i = 0; i < circuit->nb_entrees; i++)
+    {
+        t_entree_propager_signal(circuit->entrees[i]);
+    }
+
+    //remplir la file
+    initfile(file);
+    for (i = 0; i < circuit->nb_portes; i++)
+    {
+        ajouterfin(file, circuit->portes[i]);
+    }
+
+    //while
+    while (!vide(file) ||
+        nb_iterations <(t_circuit_get_nb_portes(circuit) * (t_circuit_get_nb_portes(circuit) + 1) / 2))
+    {
+        porte_courante = circuit->portes[nb_iterations];
+
+        t_porte_propager_signal(porte_courante);
+
+        if (!t_porte_propager_signal(porte_courante))
+            ajouterfile(file, porte_courante);
+
+        nb_iterations++;
+    }
+
+    //si le circuit a une boucle FAUX sinon VRAI
+    if (vide(file))
+        return VRAI;
+    else
+        return FAUX;
 }
 
 /*****************************************************************************/
@@ -196,7 +242,9 @@ int t_circuit_get_nb_portes(const t_circuit* circuit)
 /*****************************************************************************/
 t_porte* t_circuit_get_porte(const t_circuit* circuit, int pos) 
 {
-
+    if(pos<=t_circuit_get_nb_portes(circuit))
+        return circuit->portes[pos];
+    return NULL;
 }
 
 /*****************************************************************************/
@@ -208,7 +256,9 @@ int t_circuit_get_nb_sorties(const t_circuit* circuit)
 /*****************************************************************************/
 t_sortie* t_circuit_get_sortie(const t_circuit* circuit, int pos)
 {
-
+    if (pos <= t_circuit_get_nb_sorties(circuit))
+        return circuit->sorties[pos];
+    return NULL;
 }
 
 /*****************************************************************************/
@@ -221,5 +271,7 @@ int t_circuit_get_nb_entrees(const t_circuit* circuit)
 /*****************************************************************************/
 t_entree* t_circuit_get_entree(const t_circuit* circuit, int pos) 
 {
-
+    if (pos <= t_circuit_get_nb_entree(circuit))
+        return circuit->entrees[pos];
+    return NULL;
 }

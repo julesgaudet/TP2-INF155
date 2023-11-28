@@ -102,6 +102,7 @@ int t_pin_sortie_est_reliee(t_pin_sortie *pin)
         return FAUX;
 }
 
+/*****************************************************************************/
 int t_pin_sortie_propager_signal(t_pin_sortie *pin) 
 {
     int i;
@@ -120,7 +121,10 @@ int t_pin_sortie_propager_signal(t_pin_sortie *pin)
     return FAUX;
 }
 
+/*****************************************************************************/
 void t_pin_sortie_reset(t_pin_sortie *pin) 
 {
     t_pin_sortie_set_valeur(pin, INACTIF);
 }
+/*****************************************************************************/
+/*****************************************************************************/

@@ -2,7 +2,8 @@
 Module: T_ENTREE
 Description: D�finit le type t_entree. 
 
-Auteur: Noah Tremblay, Jules Gaudet
+Auteurs: Noah Tremblay :
+         Jules Gaudet : GAUJ71370101
 Derni�re modification: 
 */
 /*****************************************************************************/
@@ -225,4 +226,5 @@ void t_porte_serialiser(const t_porte* porte, char* resultat) {
         return;
     }
 }
+/*****************************************************************************/
 /*****************************************************************************/
