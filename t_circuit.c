@@ -16,9 +16,9 @@ t_circuit* t_circuit_init(void)
 
     nouv_circuit = (t_circuit*)malloc(sizeof(t_circuit));
     
-    nouv_circuit->nb_entrees = FAUX;
-    nouv_circuit->nb_sorties = FAUX; 
-    nouv_circuit->nb_portes = FAUX;
+    nouv_circuit->nb_entrees = 0;
+    nouv_circuit->nb_sorties = 0; 
+    nouv_circuit->nb_portes = 0;
 }
 
 /*****************************************************************************/
