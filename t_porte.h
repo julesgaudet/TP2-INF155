@@ -1,13 +1,13 @@
 /*
 Module: T_PORTE
-Description: Définit le type porte et fournit les fonctions pour manipuler une porte.
-Note: Ce module a été conçu de sorte à ce qu'il soit facielement extensible pour traiter
-      des portes peronnalisées (i.e. des circuits qu'on réutilise comme des portes dans 
-	  d'autres circuits. Pour limiter le travail des étudiants, cette fonctionnalité a été
-	  abandonnée mais il n'en demeure pas moins un point d'évolution potentiel du projet. 
-      Les étudiants courageux sont encouragés à considérer, voir implémenter cette évolution.
+Description: Dï¿½finit le type porte et fournit les fonctions pour manipuler une porte.
+Note: Ce module a ï¿½tï¿½ conï¿½u de sorte ï¿½ ce qu'il soit facielement extensible pour traiter
+      des portes peronnalisï¿½es (i.e. des circuits qu'on rï¿½utilise comme des portes dans 
+	  d'autres circuits. Pour limiter le travail des ï¿½tudiants, cette fonctionnalitï¿½ a ï¿½tï¿½
+	  abandonnï¿½e mais il n'en demeure pas moins un point d'ï¿½volution potentiel du projet. 
+      Les ï¿½tudiants courageux sont encouragï¿½s ï¿½ considï¿½rer, voir implï¿½menter cette ï¿½volution.
 Auteur: Anis Boubaker
-Dernière modification: Eric Thé, 2023-11-06
+Derniï¿½re modification: Eric Thï¿½, 2023-11-06
 */
 
 #ifndef T_PORTE_H_
@@ -23,34 +23,34 @@ Dernière modification: Eric Thé, 2023-11-06
 typedef struct t_pin_entree t_pin_entree;
 typedef struct t_pin_sortie t_pin_sortie;
 
-#define MAX_ENTREES_PORTE  2    //Nombre maximales d'entrées pour une porte (AND, OR, XOR)
+#define MAX_ENTREES_PORTE  2    //Nombre maximales d'entrï¿½es pour une porte (AND, OR, XOR)
 #define NOM_PORTE_TAILLE_MAX 3  //Taille maximale du nom d'une porte
-								//en nombre de caractères
+								//en nombre de caractï¿½res
 
 /*
-Énumération: E_TYPES_PORTES
-Description: Énumère les types de portes permis 
+ï¿½numï¿½ration: E_TYPES_PORTES
+Description: ï¿½numï¿½re les types de portes permis 
 */
 typedef enum e_types_portes { PORTE_ET, PORTE_OU, PORTE_NOT, PORTE_XOR } e_types_portes;
 
 
 /*
-Définit le type t_porte qui permet de stocker l'information relative à une porte.
+Dï¿½finit le type t_porte qui permet de stocker l'information relative ï¿½ une porte.
 */
 typedef struct t_porte {
-	int id;      //Identifiant numérique de la porte (doit être unique dans un circuit)
+	int id;      //Identifiant numï¿½rique de la porte (doit ï¿½tre unique dans un circuit)
 
-	char *nom;            //Nom de la porte construit à partir de l'identifiant (ex. "P1")
+	char *nom;            //Nom de la porte construit ï¿½ partir de l'identifiant (ex. "P1")
 
-	e_types_portes type;  //Type énuméré de la porte (parmi les types énumérés)
+	e_types_portes type;  //Type ï¿½numï¿½rï¿½ de la porte (parmi les types ï¿½numï¿½rï¿½s)
 
-	//Tableau statique de pointeurs vers des pins d’entrées. L'ensemble des pins d’entrées
-	//représente les entrées de la porte.
+	//Tableau statique de pointeurs vers des pins dï¿½entrï¿½es. L'ensemble des pins dï¿½entrï¿½es
+	//reprï¿½sente les entrï¿½es de la porte.
 	t_pin_entree *entrees[MAX_ENTREES_PORTE];
 
 	t_pin_sortie *sortie;   //Pointeur vers le pin de sortie de la porte
 
-	//Nombre d'entrées de la porte. Représente le nombre d'éléments effectifs
+	//Nombre d'entrï¿½es de la porte. Reprï¿½sente le nombre d'ï¿½lï¿½ments effectifs
 	//dans le tableau du champ "entrees[]"
 	int nb_entrees;
 } t_porte;
@@ -59,27 +59,27 @@ typedef struct t_porte {
 
 /*
 Fonction: T_PORTE_INIT
-Description: Crée une nouvelle porte du type spécifié en paramètre. Selon le type, la 
-			 fonction initialise les pin_entrees nécessaires pour ce type de porte.
+Description: Crï¿½e une nouvelle porte du type spï¿½cifiï¿½ en paramï¿½tre. Selon le type, la 
+			 fonction initialise les pin_entrees nï¿½cessaires pour ce type de porte.
 
-			 L'identifiant numérique ainsi que le nom reçu en paramètre doivent être unique 
+			 L'identifiant numï¿½rique ainsi que le nom reï¿½u en paramï¿½tre doivent ï¿½tre unique 
 			 dans le circuit. Ex. 1 et "P1"
 
-Paramètres: 
-- id: Entier représentant l'identifiant numérique de la porte (unique dans un circuit)
-- type: Le type de porte à créer, selon la liste des types prédéfinis dans e_types_portes
-- nom: Chaine de caractères représentant le nom de la porte (unique dans un circuit)
-Retour: Pointeur vers la porte créée
-Paramètres modifié: Aucun.
+Paramï¿½tres: 
+- id: Entier reprï¿½sentant l'identifiant numï¿½rique de la porte (unique dans un circuit)
+- type: Le type de porte ï¿½ crï¿½er, selon la liste des types prï¿½dï¿½finis dans e_types_portes
+- nom: Chaine de caractï¿½res reprï¿½sentant le nom de la porte (unique dans un circuit)
+Retour: Pointeur vers la porte crï¿½ï¿½e
+Paramï¿½tres modifiï¿½: Aucun.
 */
 t_porte *t_porte_init(int id, e_types_portes type, char *nom);
 
 /*
 Fonction: T_PORTE_DESTROY
-Description: Libère la mémoire occupée par la porte et tous ses composants.
-NDE: Ne pas oublier de détruire toutes les pin_entree et le pin_sortie appartenant à la porte.
-Paramètres:
-- porte: Pointeur vers la porte à détruire.
+Description: Libï¿½re la mï¿½moire occupï¿½e par la porte et tous ses composants.
+NDE: Ne pas oublier de dï¿½truire toutes les pin_entree et le pin_sortie appartenant ï¿½ la porte.
+Paramï¿½tres:
+- porte: Pointeur vers la porte ï¿½ dï¿½truire.
 Retour: Aucun.
 */
 void t_porte_destroy(t_porte *porte);
@@ -91,11 +91,11 @@ Description: Calcule la valeur du pin de sortie de la porte, selon la valeur des
 			 pin_entree de la porte ont une valeur de 1, la pin_sortie de la porte doit avoir
 			 la valeur 1. 
 NDE: 
-- N'oubliez pas qu'il existe des opérateurs binaires en C. Utilisez-les!
+- N'oubliez pas qu'il existe des opï¿½rateurs binaires en C. Utilisez-les!
 - N'oubliez pas que, pour modifier la valeur d'un pin_sortie vous devez utiliser le
   mutateur correspondant (par exemple t_pin_sortie_set_valeur) et ne pas modifier la valeur
-  du champ directement ici (car nous sommes à l'extérieur du module t_pin_sortie).
-Paramètres:
+  du champ directement ici (car nous sommes ï¿½ l'extï¿½rieur du module t_pin_sortie).
+Paramï¿½tres:
 - porte: Pointeur vers la porte dont on souhaite calculer la sortie  
 		 (il n'existe qu'une seule sortie par porte).
 Retour: Aucun.
@@ -105,64 +105,64 @@ void t_porte_calculer_sorties(t_porte *porte);
 
 /*
 Fonction: T_PORTE_RELIER
-Description: Relie une des entrées de la porte à un autre composant du circuit (une entrée ou une autre porte)
+Description: Relie une des entrï¿½es de la porte ï¿½ un autre composant du circuit (une entrï¿½e ou une autre porte)
 			 On note ici qu'on relie une des pin_entree de la porte vers une pin_sortie
 			 d'un autre composant. Les seuls autres composants disposant de pin_sortie sont
-			 les entrées du circuit et les autres portes. 
+			 les entrï¿½es du circuit et les autres portes. 
 
-			 Si l'entrée de la porte en question a déjà été reliée, l'ancien lien est remplacé par le nouveau.
-NDE: Pour faire la liaison, la fonction t_pin_entree_relier vous sera très utile!
+			 Si l'entrï¿½e de la porte en question a dï¿½jï¿½ ï¿½tï¿½ reliï¿½e, l'ancien lien est remplacï¿½ par le nouveau.
+NDE: Pour faire la liaison, la fonction t_pin_entree_relier vous sera trï¿½s utile!
 
-Paramètres:
-- porte: Pointeur vers la porte à relier.
-- num_entree: l'indice de la pin_entree à relier dans le tableau des entrées. 
+Paramï¿½tres:
+- porte: Pointeur vers la porte ï¿½ relier.
+- num_entree: l'indice de la pin_entree ï¿½ relier dans le tableau des entrï¿½es. 
 			  Si cet indice n'existe pas, la fonction retourne faux.  
-- nom_sortie: Le nom du composant qui contient le pin de sortie à connecter.
-- source: Le pin_sortie vers laquelle nous allons relier l'entrée de la porte. 
-Retour: Booléen : Vrai si la liaison a bien été effectuée. Faux sinon. 
+- nom_sortie: Le nom du composant qui contient le pin de sortie ï¿½ connecter.
+- source: Le pin_sortie vers laquelle nous allons relier l'entrï¿½e de la porte. 
+Retour: Boolï¿½en : Vrai si la liaison a bien ï¿½tï¿½ effectuï¿½e. Faux sinon. 
 */
-int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, const t_pin_sortie *source);
+int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, t_pin_sortie *source);
 
 /*
 Fonction: T_PORTE_EST_RELIEE
-Description: Vérifie si une porte est entièrement reliée. Pour qu'elle soit entièrement
-			 reliée, ses pin d'entrées et son pin de sortie doivent tous être reliées.
+Description: Vï¿½rifie si une porte est entiï¿½rement reliï¿½e. Pour qu'elle soit entiï¿½rement
+			 reliï¿½e, ses pin d'entrï¿½es et son pin de sortie doivent tous ï¿½tre reliï¿½es.
 NDE: Il existe des fonctions dans t_pin_entree et t_pin_sortie qui vous permettent
-     de vérifier si une pin est reliée. Utilisez-les!
+     de vï¿½rifier si une pin est reliï¿½e. Utilisez-les!
 
-Paramètres:
-- porte: Pointeur vers la porte que l'on souhaite vérifier.
-Retour: Booléen Vrai si la porte est entièrement reliée, faux sinon.
+Paramï¿½tres:
+- porte: Pointeur vers la porte que l'on souhaite vï¿½rifier.
+Retour: Boolï¿½en Vrai si la porte est entiï¿½rement reliï¿½e, faux sinon.
 */
 int t_porte_est_reliee(t_porte *porte);
 
 /*
 Fonction: T_PORTE_RESET
-Description: Réinitialise une porte. Pour réinitialiser une porte, il suffit
-			 de ré-initialise	r chacuns de ses pins (à INACTIF). 
-NDE: Encore ici, il y'a des fonctions prêtes dans les modules t_pin_entree
-	 et t_pin_sortie pour ré-initialiser tous les pins.
+Description: Rï¿½initialise une porte. Pour rï¿½initialiser une porte, il suffit
+			 de rï¿½-initialise	r chacuns de ses pins (ï¿½ INACTIF). 
+NDE: Encore ici, il y'a des fonctions prï¿½tes dans les modules t_pin_entree
+	 et t_pin_sortie pour rï¿½-initialiser tous les pins.
 
-Paramètres:
-- porte: Pointeur vers la porte à réinitialiser.
+Paramï¿½tres:
+- porte: Pointeur vers la porte ï¿½ rï¿½initialiser.
 Retour: Aucun
 */
 void t_porte_reset(t_porte *porte);
 
 /*
 Fonction: T_PORTE_PROPAGER_SIGNAL
-Description: Propage le signal à partir de la porte passée en paramètre.
+Description: Propage le signal ï¿½ partir de la porte passï¿½e en paramï¿½tre.
 			 Pour que le signal puisse se propager, il faut que la porte
-			 ait une valeur valide sur chacune de ses entrées (i.e. != -1).
+			 ait une valeur valide sur chacune de ses entrï¿½es (i.e. != -1).
 			 Si c'est le cas, il suffit de calculer la sortie, puis de propager
-			 le signal à partir du pin_sortie de la porte.
-NDE: Une fois que vous avez calculé la valeur du pin de sortie,  
+			 le signal ï¿½ partir du pin_sortie de la porte.
+NDE: Une fois que vous avez calculï¿½ la valeur du pin de sortie,  
 	 utilisez la fonction t_pin_sortie_propager_signal.
 
-Paramètres:
+Paramï¿½tres:
 - porte: Pointeur vers la porte dont on veut propager le signal.
-Retour: Booléen: vrai si le signal a pu se propager (i.e. toutes les entrées ont
-		réçu un signal, Faux sinon.
+Retour: Boolï¿½en: vrai si le signal a pu se propager (i.e. toutes les entrï¿½es ont
+		rï¿½ï¿½u un signal, Faux sinon.
 */
 int t_porte_propager_signal(t_porte *porte);
 
@@ -170,11 +170,11 @@ int t_porte_propager_signal(t_porte *porte);
 
 /*
 Fonction: T_PORTE_GET_ID
-Description: Retourne le id (numéro) de la porte.
+Description: Retourne le id (numï¿½ro) de la porte.
 
-Paramètres:
+Paramï¿½tres:
 - porte: Pointeur vers la porte de circuit dont on veut connaitre son id
-Retour: Entier: valeur de l'id de la porte (son numéro).
+Retour: Entier: valeur de l'id de la porte (son numï¿½ro).
 */
 int t_porte_get_id(const t_porte* porte);
 
@@ -182,7 +182,7 @@ int t_porte_get_id(const t_porte* porte);
 Fonction: T_PORTE_GET_NOM
 Description: Retourne le nom de la porte.
 
-Paramètres:
+Paramï¿½tres:
 - porte: Pointeur vers la porte de circuit dont on veut connaitre son nom
 Retour: String: valeur du nom de la porte.
 */
@@ -190,11 +190,11 @@ char * t_porte_get_nom(const t_porte* porte);
 
 /*
 Fonction: T_PORTE_GET_NB_ENTREES
-Description: Retourne le nombre d'entrées de la porte (soit 1 ou 2).
+Description: Retourne le nombre d'entrï¿½es de la porte (soit 1 ou 2).
 
-Paramètres:
-- porte: Pointeur vers la porte de circuit dont on veut connaitre son nb. d'entrées
-Retour: Entier: valeur du nombre d'entrées de la porte.
+Paramï¿½tres:
+- porte: Pointeur vers la porte de circuit dont on veut connaitre son nb. d'entrï¿½es
+Retour: Entier: valeur du nombre d'entrï¿½es de la porte.
 */
 int t_porte_get_nb_entrees(const t_porte* porte);
 
@@ -202,7 +202,7 @@ int t_porte_get_nb_entrees(const t_porte* porte);
 Fonction: T_PORTE_GET_TYPE
 Description: Retourne le type logique de la porte.
 
-Paramètres:
+Paramï¿½tres:
 - porte: Pointeur vers la porte de circuit dont on veut connaitre son type
 Retour: (e_types_portes) valeur du type logique de la porte.
 */
@@ -212,10 +212,10 @@ e_types_portes t_porte_get_type(const t_porte* porte);
 Fonction: T_PORTE_GET_PIN_ENTREE
 Description: Accesseur - Retourne un pointeur vers un des t_pin_entree de la porte.
 
-Paramètres:
-- porte: Pointeur vers la porte de circuit dont on veut accéder à un de ses pins de sortie.
-- num: Position de l'entrée désirée (soit 0 ou 1).
-Retour: Pointeur vers le t_pin_sortie désiré de la porte.
+Paramï¿½tres:
+- porte: Pointeur vers la porte de circuit dont on veut accï¿½der ï¿½ un de ses pins de sortie.
+- num: Position de l'entrï¿½e dï¿½sirï¿½e (soit 0 ou 1).
+Retour: Pointeur vers le t_pin_sortie dï¿½sirï¿½ de la porte.
 */
 t_pin_entree* t_porte_get_pin_entree(const t_porte* porte, int num);
 
@@ -223,8 +223,8 @@ t_pin_entree* t_porte_get_pin_entree(const t_porte* porte, int num);
 Fonction: T_PORTE_GET_PIN_SORTIE
 Description: Accesseur - Retourne un pointeur vers le t_pin_sortie de la porte.
 
-Paramètres:
-- porte: Pointeur vers la porte de circuit dont on veut accéder au pin de sortie.
+Paramï¿½tres:
+- porte: Pointeur vers la porte de circuit dont on veut accï¿½der au pin de sortie.
 Retour: Pointeur vers le t_pin_sortie de la porte.
 */
 t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte);
@@ -233,9 +233,9 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte);
 Fonction: T_PORTE_SERIALISER
 Description: Transforme en texte les informations d'une porte.
 
-Paramètres:
-- porte: Pointeur vers la porte de circuit à sérialiser.
-- resultat: Chaine de caractères dans laquelle on copie le texte généré.
+Paramï¿½tres:
+- porte: Pointeur vers la porte de circuit ï¿½ sï¿½rialiser.
+- resultat: Chaine de caractï¿½res dans laquelle on copie le texte gï¿½nï¿½rï¿½.
 */
 void t_porte_serialiser(const t_porte* porte, char* resultat);
 

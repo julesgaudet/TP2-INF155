@@ -75,7 +75,7 @@ Param�tres:
 - source: Le pin_sortie vers lequel nous allons relier la sortie de circuit. 
 Retour: Booléen : Vrai si la liaison a bien été effectuée. Faux sinon. 
 */
-int t_sortie_relier(t_sortie *dest, char* nom_composant, const t_pin_sortie *source);
+int t_sortie_relier(t_sortie *dest, char* nom_composant, t_pin_sortie *source);
 
 /*
 Fonction: T_SORTIE_EST_RELIEE

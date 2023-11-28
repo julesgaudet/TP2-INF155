@@ -106,7 +106,7 @@ void t_porte_calculer_sorties(t_porte *porte)
 }
 
 /*****************************************************************************/
-int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, const t_pin_sortie *source)
+int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, t_pin_sortie *source)
 {
     //si l'indice de l'entree n'esxiste pas
     if (num_entree > (dest->nb_entrees))

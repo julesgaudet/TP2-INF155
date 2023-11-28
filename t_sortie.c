@@ -54,7 +54,7 @@ t_pin_entree *t_sortie_get_pin(t_sortie *sortie)
 }
 
 /*****************************************************************************/
-int t_sortie_relier(t_sortie *dest, char* nom_composant, const t_pin_sortie *source) 
+int t_sortie_relier(t_sortie *dest, char* nom_composant, t_pin_sortie *source) 
 {
     //relier le pin de sortie au pin d'entree
     t_pin_entree_relier(dest->pin, nom_composant, source);                  //PAS FINI MANQUE DEQUOI

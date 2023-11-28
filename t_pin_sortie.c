@@ -53,7 +53,7 @@ void t_pin_sortie_set_valeur(t_pin_sortie *pin, int valeur)
 }
 
 /*****************************************************************************/
-int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, t_pin_entree *pin_entree) 
+int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree) 
 {
     //verification ajouter un lien
     if (pin_sortie->nb_liaisons >= SORTIE_MAX_LIAISONS)
@@ -80,7 +80,7 @@ int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, t_pin_entree *pin_entree
 }
 
 /*****************************************************************************/
-void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, t_pin_entree *pin_entree) 
+void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree) 
 {
     int i, j;
     //recherche de la pin d'entrée dans le tableau liaison de la pins de sortie
