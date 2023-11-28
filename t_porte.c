@@ -33,14 +33,14 @@ t_porte *t_porte_init(int id, e_types_portes type, char *nom)
     if (nouv_porte->type == PORTE_NOT)
     {
         nouv_porte->nb_entrees = 1;
-        nouv_porte->entrees[0] = t_pin_entree_init;
+        nouv_porte->entrees[0] = t_pin_entree_init();
     }
     //si porte xnot, or, and
     else
     {
         nouv_porte->nb_entrees = 2;
-        nouv_porte->entrees[0] = t_pin_entree_init;
-        nouv_porte->entrees[1] = t_pin_entree_init;
+        nouv_porte->entrees[0] = t_pin_entree_init();
+        nouv_porte->entrees[1] = t_pin_entree_init();
     }
     return nouv_porte;
 }

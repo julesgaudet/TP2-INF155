@@ -5,12 +5,29 @@ Auteur: Eric Th�, 13-11-2023
 Programme qui teste l'utilisation des librairies de circuits logique "t_entree" 
 (avec "t_pin_sortie") et "t_sortie".  Plusieurs tests unitaires sont faits avec "assert()"
 */
+/*****************************************************************************/
 #include <assert.h>
 #include "t_entree.h"
 #include "t_sortie.h"
+#include "t_porte.h"
 #define _CRT_SECURE_NO_WARNINGS
-	
-int main(void)
+
+/*****************************************************************************/
+int test(void);		//Déclaration des fonctions avant le main
+int test_porte(void);
+
+/*****************************************************************************/
+int main (void)
+{
+	printf("********************Premier test********************\n");
+	test();		//Tester les entrées, sorties et pin
+	printf("\n");
+	printf("********************Deuxième test********************\n");
+	test_porte();	//Tester les portes
+	printf("\n");
+}
+
+int test(void)
 {
 	//d�claration de variables
 	t_entree* entree0;     //les 2 entr�es
@@ -19,6 +36,8 @@ int main(void)
 	t_sortie* sortie1;
 	t_pin_sortie* pin;     //pointeur vers un des pins de sortie (de E0 ou E1)
 	t_pin_entree* pin_in;  //pointeur vers un des pins d'entr�e (de S0 ou S1)
+
+
 
 	//Cr�er tous les �l�ments dynamiques
 	entree0 = t_entree_init(0, "E0");
@@ -118,4 +137,42 @@ int main(void)
 	t_sortie_destroy(sortie0);
 	t_sortie_destroy(sortie1);
 	return 0;
+}
+
+int test_porte(void) {
+
+    t_porte* porte0 = t_porte_init(0, PORTE_ET, "Porte ET 0");
+    t_porte* porte1 = t_porte_init(1, PORTE_NOT, "Porte NOT 1");
+    t_porte* porte2 = t_porte_init(2, PORTE_OU, "Porte OU 2");
+    t_porte* porte3 = t_porte_init(3, PORTE_XOR, "Porte XOR 3");
+
+    // Relier les portes
+    t_porte_relier(porte0, 0, "Sortie", t_porte_get_pin_sortie(porte1));
+    t_porte_relier(porte1, 0, "Sortie", t_porte_get_pin_sortie(porte2));
+    t_porte_relier(porte2, 0, "Sortie", t_porte_get_pin_sortie(porte3));
+
+    // Propager un signal à travers les portes
+    t_porte_propager_signal(porte0);
+
+    // Afficher les informations des portes
+    char resultat[100];
+    t_porte_serialiser(porte0, resultat);
+    printf("Porte 0 : %s\n", resultat);
+
+    t_porte_serialiser(porte1, resultat);
+    printf("Porte 1 : %s\n", resultat);
+
+    t_porte_serialiser(porte2, resultat);
+    printf("Porte 2 : %s\n", resultat);
+
+    t_porte_serialiser(porte3, resultat);
+    printf("Porte 3 : %s\n", resultat);
+
+    // Libérer la mémoire
+    t_porte_destroy(porte0);
+    t_porte_destroy(porte1);
+    t_porte_destroy(porte2);
+    t_porte_destroy(porte3);
+
+    return 0;
 }
