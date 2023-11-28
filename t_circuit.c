@@ -180,6 +180,12 @@ void t_circuit_reset(t_circuit *circuit)
 int t_circuit_propager_signal(t_circuit *circuit)
 {
     
+    //si le circuit est invalide
+    if (t_circuit_est_valide(circuit) == FAUX)
+        return FAUX;
+
+
+
 
 
 
