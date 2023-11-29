@@ -19,6 +19,7 @@ Derni�re modification: Eric Th�, 2023-11-12
 #include "t_pin_entree.h"
 
 /*****************************************************************************/
+
 t_pin_entree *t_pin_entree_init()
 {
 	t_pin_entree *nouv_pin;
@@ -36,18 +37,21 @@ t_pin_entree *t_pin_entree_init()
 }
 
 /*****************************************************************************/
+
 int t_pin_entree_get_valeur(const t_pin_entree * pin)
 {
 	return pin->valeur;
 }
 
 /*****************************************************************************/
+
 char* t_pin_entree_get_lien(const t_pin_entree* pin)
 {
 	return pin->nom_liaison;
 }
 
 /*****************************************************************************/
+
 void t_pin_entree_set_valeur(t_pin_entree * pin, int valeur)
 {
 	if (valeur < INACTIF || valeur > 1) {
@@ -58,6 +62,7 @@ void t_pin_entree_set_valeur(t_pin_entree * pin, int valeur)
 }
 
 /*****************************************************************************/
+
 void t_pin_entree_relier(t_pin_entree * pin_entree, char * nom_sortie, const t_pin_sortie * pin_sortie)
 {
 	//On v�rifie d'abord si on avait un lien existant
@@ -73,18 +78,21 @@ void t_pin_entree_relier(t_pin_entree * pin_entree, char * nom_sortie, const t_p
 }
 
 /*****************************************************************************/
+
 int t_pin_entree_est_reliee(t_pin_entree * pin)
 {
 	return pin->liaison != NULL;
 }
 
 /*****************************************************************************/
+
 void t_pin_entree_reset(t_pin_entree * pin)
 {
 	pin->valeur = INACTIF;
 }
 
 /*****************************************************************************/
+
 void t_pin_entree_destroy(t_pin_entree * pin)
 {
 	free(pin->nom_liaison);

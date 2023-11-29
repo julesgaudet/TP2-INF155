@@ -2,7 +2,9 @@
 Module: FILE_PORTE
 Description: 
 
-Auteur: Noah Tremblay, Jules Gaudet, Eric Thé
+Auteur: Noah Tremblay : 
+		Jules Gaudet  : GAUJ71370101
+		Eric Thé
 Derni�re modification: 
 */
 #ifndef FILE_PORTES_H_
@@ -20,23 +22,64 @@ typedef t_porte*  t_element;
 typedef struct {
 	t_element  items[MAXFILE];
 	int      debut, fin;
-	int      total;          //le nombre total d'éléments dans la file
+	int      total;		//le nombre total d'éléments dans la file
 } t_file;
 
-//fonction pour initialiser une file, la file sera vide apres un appel
-//de cette fonction. peut aussi etre utilise pour vider une file.
+/*
+Fonction: INITFILE
+
+Description: Initialise une file en la vidant (aucun élément).
+
+Paramètres: -f(pointeur vers la file à initialiser)
+
+Retour: Aucun			 
+*/
 void initfile(t_file*);
 
-//fonction pour verifier si une file est pleine
+/*
+Fonction: PLEINE
+
+Description: Vérifie si la file est pleine
+
+Paramètres: -f(pointeur vers la file à vérifier)
+
+Retour : Renvoie 1 si la file est pleine, 0 sinon.			 
+*/
 int  pleine(const t_file*);
 
-//fonction pour verifier si une file est vide
+/*
+Fonction: VIDE
+
+Description:  Vérifie si la file est vide.
+
+Paramètres: -f(pointeur vers la file à vérifier)
+
+Retour: Aucun			 
+*/
 int  vide(const t_file*);
 
-//fonction pour ajouter un element de plus a la fin d'une file
+/*
+Fonction: AJOUTERFIN
+
+Description:  Ajoute un élément à la fin de la file.
+
+Paramètres: -f(pointeur vers la file à laquelle ajouter l'élément) 
+			-el(Élément à ajouter à la file)
+
+Retour: Aucun			 
+*/
 void ajouterfin(t_file*, t_element);
 
-//fonction pour enlever un element du debut d'une file
+/*
+Fonction: ENLEVERDEBUT
+
+Description:  Enlève un élément du début de la file.
+
+Paramètres: -f(pointeur vers la file à laquelle enlever l'élément) 
+			-el(pointeur vers la variable où stocker l'élément enlevé)
+			
+Retour: Aucun			 
+*/
 void enleverdebut(t_file*, t_element*);
 
 #endif

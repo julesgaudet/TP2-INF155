@@ -1,15 +1,17 @@
 /*
 Module: file_porte
-Description:
+Description: Ce fichier définit les fonctions associées à la manipulation 
+d'une file de portes (t_file). Cette file est conçue  pour stocker 
+des pointeurs vers des structures de type t_porte. Ces fonctions sont 
+déclarées dans le fichier d'en-tête correspondant file_portes.h. 
 
 Auteurs: Noah Tremblay :
-         Jules Gaudet : GAUJ71370101
+         Jules Gaudet  : GAUJ71370101
 Dernière modification :
 */
 /*****************************************************************************/
 
 #include "file_portes.h"
-#define _CRT_SECURE_NO_WARNINGS 
 
 /*****************************************************************************/
 
@@ -21,11 +23,15 @@ void initfile(t_file* f)
     f->total = 0;
 }
 
+/*****************************************************************************/
+
 //Vérifier si une file est pleine
 int  pleine(const t_file* f)
 {
     return (f->total == MAXFILE);
 }
+
+/*****************************************************************************/
 
 //Vérifier si une file est vide
 int  vide(const t_file* f)
@@ -33,9 +39,10 @@ int  vide(const t_file* f)
     return (f->total == 0);
 }
 
+/*****************************************************************************/
+
 //Ajouter un element de plus a la fin d'une file
-void ajouterfin(t_file* f, t_file el)
-{
+void ajouterfin(t_file* f, t_element el) {
     if (pleine(f))
         printf("ERREUR!!! Debordement de file.\n");
     else {
@@ -45,9 +52,10 @@ void ajouterfin(t_file* f, t_file el)
     }
 }
 
+/*****************************************************************************/
+
 //Enlever un element du debut d'une file
-void enleverdebut(t_file* f, t_file* el)
-{
+void enleverdebut(t_file* f, t_element* el) {
     if (vide(f))
         printf("ERREUR!!! File vide.\n");
     else {
@@ -56,3 +64,6 @@ void enleverdebut(t_file* f, t_file* el)
         f->total--;
     }
 }
+
+/*****************************************************************************/
+/*****************************************************************************/

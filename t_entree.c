@@ -2,7 +2,8 @@
 Module: T_ENTREE
 Description: D�finit le type t_entree. 
 
-Auteur: Noah Tremblay, Jules Gaudet
+Auteur: Noah Tremblay :
+		Jules Gaudet  : GAUJ71370101
 Derni�re modification: 
 */
 /*****************************************************************************/
@@ -10,6 +11,7 @@ Derni�re modification:
 #include "t_entree.h"
 
 /*****************************************************************************/
+
 t_entree* t_entree_init(int id, char* nom)
 {
 	t_entree *nouv_entree;
@@ -35,6 +37,7 @@ t_entree* t_entree_init(int id, char* nom)
 }
 
 /*****************************************************************************/
+
 void t_entree_destroy(t_entree* entree)
 {
 	//Détruire la pin de sortie de l'entreée
@@ -48,12 +51,14 @@ void t_entree_destroy(t_entree* entree)
 }
 
 /*****************************************************************************/
+
 t_pin_sortie* t_entree_get_pin(t_entree* entree)
 {
 	return entree->pin;
 }
 
 /*****************************************************************************/
+
 int t_entree_est_reliee(t_entree* entree)
 {
 	if (t_pin_sortie_est_reliee(entree->pin) == VRAI)
@@ -62,6 +67,7 @@ int t_entree_est_reliee(t_entree* entree)
 }
 
 /*****************************************************************************/
+
 void t_entree_reset(t_entree* entree)
 {
 	//Re-initialise la pin de sortie de l'entrée
@@ -69,6 +75,7 @@ void t_entree_reset(t_entree* entree)
 }
 
 /*****************************************************************************/
+
 int t_entree_propager_signal(t_entree* entree)
 {
 	if (entree->pin != INACTIF)
@@ -80,6 +87,7 @@ int t_entree_propager_signal(t_entree* entree)
 }
 
 /*****************************************************************************/
+
 int t_entree_get_valeur(const t_entree* entree)
 {
 	//Vérifier si l'entree est valide ou non
@@ -89,18 +97,21 @@ int t_entree_get_valeur(const t_entree* entree)
 }
 
 /*****************************************************************************/
+
 int t_entree_get_id(const t_entree* entree)
 {
 	return entree->id;
 }
 
 /*****************************************************************************/
+
 char* t_entree_get_nom(const t_entree* entree)
 {
 	return entree->nom;
 }
 
 /*****************************************************************************/
+
 void t_entree_serialiser(const t_entree* entree, char* resultat)
 {
 	if (resultat != NULL && entree != NULL) {

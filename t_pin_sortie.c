@@ -15,6 +15,7 @@ Description: D�finit le type t_pin_sortie. Un t_pin_sortie est un point de con
 #include "t_pin_sortie.h"
 
 /*****************************************************************************/
+
 t_pin_sortie *t_pin_sortie_init(void) 
 {
     int i;
@@ -32,18 +33,21 @@ t_pin_sortie *t_pin_sortie_init(void)
 }
 
 /*****************************************************************************/
+
 void t_pin_sortie_destroy(t_pin_sortie *pin) 
 {
     free(pin);
 }
 
 /*****************************************************************************/
+
 int t_pin_sortie_get_valeur(t_pin_sortie *pin) 
 {
     return pin->valeur;
 }
 
 /*****************************************************************************/
+
 void t_pin_sortie_set_valeur(t_pin_sortie *pin, int valeur) 
 {
 	if (valeur < INACTIF || valeur > 1) {
@@ -53,6 +57,7 @@ void t_pin_sortie_set_valeur(t_pin_sortie *pin, int valeur)
 }
 
 /*****************************************************************************/
+
 int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree) 
 {
     //verification ajouter un lien
@@ -69,6 +74,7 @@ int t_pin_sortie_ajouter_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_
 }
 
 /*****************************************************************************/
+
 void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, const t_pin_entree *pin_entree) 
 {
     int i, j;
@@ -93,6 +99,7 @@ void t_pin_sortie_supprimer_lien(t_pin_sortie *pin_sortie, const t_pin_entree *p
 }
 
 /*****************************************************************************/
+
 int t_pin_sortie_est_reliee(t_pin_sortie *pin) 
 {
     //retourne faux si le nb de liaisons est 0 sinon vrai
@@ -103,6 +110,7 @@ int t_pin_sortie_est_reliee(t_pin_sortie *pin)
 }
 
 /*****************************************************************************/
+
 int t_pin_sortie_propager_signal(t_pin_sortie *pin) 
 {
     int i;
@@ -122,6 +130,7 @@ int t_pin_sortie_propager_signal(t_pin_sortie *pin)
 }
 
 /*****************************************************************************/
+
 void t_pin_sortie_reset(t_pin_sortie *pin) 
 {
     t_pin_sortie_set_valeur(pin, INACTIF);

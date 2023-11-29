@@ -7,10 +7,10 @@ Auteurs: Noah Tremblay :
 Derni�re modification: 
 */
 /*****************************************************************************/
-# define _CRT_SECURE_NO_WARNINGS
 #include "t_porte.h"
 
 /*****************************************************************************/
+
 t_porte *t_porte_init(int id, e_types_portes type, char *nom)
 {
     //Création et allocation de la mémoire pour la nouvelle porte
@@ -47,6 +47,7 @@ t_porte *t_porte_init(int id, e_types_portes type, char *nom)
 }
 
 /*****************************************************************************/
+
 void t_porte_destroy(t_porte *porte)
 {
     int i;
@@ -65,11 +66,10 @@ void t_porte_destroy(t_porte *porte)
 
     //Détruire l'allocation dynamique pour la porte de sortie
     t_pin_sortie_destroy(porte->sortie);
-
-
 }
 
 /*****************************************************************************/
+
 void t_porte_calculer_sorties(t_porte *porte)
 {
     //Valeur de la porte selon les entrées
@@ -107,6 +107,7 @@ void t_porte_calculer_sorties(t_porte *porte)
 }
 
 /*****************************************************************************/
+
 int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, t_pin_sortie *source)
 {
     //si l'indice de l'entree n'esxiste pas
@@ -115,10 +116,10 @@ int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, t_pin_sortie
 
     //relie la pin de sortie a la pin d'entree de la porte
     t_pin_entree_relier(source, nom_sortie, dest->entrees[num_entree]);
-
 }
 
 /*****************************************************************************/
+
 int t_porte_est_reliee(t_porte *porte)
 {
     int i;
@@ -143,6 +144,7 @@ int t_porte_est_reliee(t_porte *porte)
 }
 
 /*****************************************************************************/
+
 void t_porte_reset(t_porte *porte)
 {
     int i;
@@ -156,6 +158,7 @@ void t_porte_reset(t_porte *porte)
 }
 
 /*****************************************************************************/
+
 int t_porte_propager_signal(t_porte *porte) 
 {
     int i;
@@ -176,30 +179,35 @@ int t_porte_propager_signal(t_porte *porte)
 }
 
 /*****************************************************************************/
+
 int t_porte_get_id(const t_porte* porte)
 {
     return (porte->id);
 }
 
 /*****************************************************************************/
+
 char * t_porte_get_nom(const t_porte* porte)
 {
     return (porte->nom);
 }
 
 /*****************************************************************************/
+
 int t_porte_get_nb_entrees(const t_porte* porte)
 {
     return (porte->nb_entrees);
 }
 
 /*****************************************************************************/
+
 e_types_portes t_porte_get_type(const t_porte* porte)
 {
     return porte->type;
 }
 
 /*****************************************************************************/
+
 t_pin_entree* t_porte_get_pin_entree(const t_porte* porte, int num)
 {
     if (num == 0)
@@ -209,12 +217,14 @@ t_pin_entree* t_porte_get_pin_entree(const t_porte* porte, int num)
         return porte->entrees[1];
 }
 /*****************************************************************************/
+
 t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 {
     return porte->sortie;
 }
 
 /*****************************************************************************/
+
 void t_porte_serialiser(const t_porte* porte, char* resultat) {
     // Afficher les informations de la porte
     // J'ai mis %p car j'imagine qu'on veut voir les adresses des pointeurs

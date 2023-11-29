@@ -1,11 +1,14 @@
 /*
 TESTER LES ENTREES ET LES SORTIES
 Auteur: Eric Th�, 13-11-2023
+	    Jules Gaudet  : GAUJ71370101
+		Noah Tremblay :
 
 Programme qui teste l'utilisation des librairies de circuits logique "t_entree" 
 (avec "t_pin_sortie") et "t_sortie".  Plusieurs tests unitaires sont faits avec "assert()"
 */
 /*****************************************************************************/
+
 #include <assert.h>
 #include "t_entree.h"
 #include "t_sortie.h"
@@ -13,19 +16,24 @@ Programme qui teste l'utilisation des librairies de circuits logique "t_entree"
 #define _CRT_SECURE_NO_WARNINGS
 
 /*****************************************************************************/
+
 int test(void);		//Déclaration des fonctions avant le main
 int test_porte(void);
 
 /*****************************************************************************/
+
 int main (void)
 {
-	printf("********************Premier test********************\n");
+	printf("\n");
+	printf("********************Premier test********************\n\n");
 	test();		//Tester les entrées, sorties et pin
 	printf("\n");
 	printf("********************Deuxième test********************\n");
 	test_porte();	//Tester les portes
 	printf("\n");
 }
+
+/*****************************************************************************/
 
 int test(void)
 {
@@ -139,6 +147,8 @@ int test(void)
 	return 0;
 }
 
+/*****************************************************************************/
+
 int test_porte(void) {
 
     t_porte* porte0 = t_porte_init(0, PORTE_ET, "Porte ET 0");
@@ -176,3 +186,6 @@ int test_porte(void) {
 
     return 0;
 }
+
+/*****************************************************************************/
+/*****************************************************************************/
