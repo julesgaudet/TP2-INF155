@@ -234,7 +234,7 @@ int t_circuit_propager_signal(t_circuit *circuit)
         t_porte_propager_signal(porte_courante);
 
         if (!t_porte_propager_signal(porte_courante))
-            ajouterfile(file, porte_courante);
+            ajouterfin(file, porte_courante);
 
         nb_iterations++;
     }
@@ -289,7 +289,7 @@ int t_circuit_get_nb_entrees(const t_circuit* circuit)
 
 t_entree* t_circuit_get_entree(const t_circuit* circuit, int pos) 
 {
-    if (pos <= t_circuit_get_nb_entree(circuit))
+    if (pos <= t_circuit_get_nb_entrees(circuit)) 
         return circuit->entrees[pos];
     return NULL;
 }

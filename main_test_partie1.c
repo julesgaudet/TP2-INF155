@@ -27,11 +27,8 @@ int test_porte(void);
 int main (void)
 {
 	printf("\n");
-	printf("********************Premier test********************\n\n");
+	printf("********************Test ********************\n\n");
 	test();		//Tester les entrées, sorties et pin
-	printf("\n");
-	printf("********************Deuxième test********************\n");
-	test_porte();	//Tester les portes
 	printf("\n");
 }
 
@@ -132,62 +129,50 @@ int test(void)
 	t_entree_propager_signal(entree0);
 
 	//TEST 2: on confirme la r�ception du signal (1) dans S0 et (0) dans S1
-	printf("\nTEST 2: %s (%d) -> %s, %s (%d) -> %s\n", t_entree_get_nom(entree0), t_entree_get_valeur(entree0), 
+	printf("\nTEST 2: %s (%d) -> %s, %s (%d) -> %s\n", t_entree_get_nom(entree0), 
+													   t_entree_get_valeur(entree0), 
 		                                               t_sortie_get_nom(sortie0),
-		                                               t_entree_get_nom(entree1), t_entree_get_valeur(entree1), 
+		                                               t_entree_get_nom(entree1), 
+													   t_entree_get_valeur(entree1), 
 		                                               t_sortie_get_nom(sortie1));
 
 	printf("Sortie %d = %d\n", t_sortie_get_id(sortie0), t_sortie_get_valeur(sortie0));
 	printf("Sortie %d = %d\n", t_sortie_get_id(sortie1), t_sortie_get_valeur(sortie1));
-	system("pause");
 
-	//lib�rer les 4 allocations
+	//TEST 3: on vérifie le résultat des portes selon les sorties
+
+	// Initialisation des portes
+	t_porte* porte0 = t_porte_init(0, PORTE_ET, "Porte ET 0");
+	t_porte* porte1 = t_porte_init(1, PORTE_NOT, "Porte NOT 1");
+
+	// Relier les sorties aux portes
+	t_porte_relier(porte0, 0, "Sortie", t_sortie_get_pin(sortie0));
+	t_porte_relier(porte1, 0, "Sortie", t_sortie_get_pin(sortie1));
+
+	// Propager un signal à travers les portes
+	t_porte_propager_signal(porte0);
+	t_porte_propager_signal(porte1);
+
+	// Afficher les informations des portes
+	char resultat[100];
+
+	// Pour porte0
+	t_porte_serialiser(porte0, resultat);
+	printf("Porte 0 : %s\n", resultat);
+
+	// Pour porte1
+	t_porte_serialiser(porte1, resultat);
+	printf("Porte 1 : %s\n", resultat);
+
+
+	//lib�rer les 6 allocations
 	t_entree_destroy(entree0);
 	t_entree_destroy(entree1);
 	t_sortie_destroy(sortie0);
 	t_sortie_destroy(sortie1);
+	t_porte_destroy(porte0);
+    t_porte_destroy(porte1);
 	return 0;
 }
-
-/*****************************************************************************/
-
-int test_porte(void) {
-
-    t_porte* porte0 = t_porte_init(0, PORTE_ET, "Porte ET 0");
-    t_porte* porte1 = t_porte_init(1, PORTE_NOT, "Porte NOT 1");
-    t_porte* porte2 = t_porte_init(2, PORTE_OU, "Porte OU 2");
-    t_porte* porte3 = t_porte_init(3, PORTE_XOR, "Porte XOR 3");
-
-    // Relier les portes
-    t_porte_relier(porte0, 0, "Sortie", t_porte_get_pin_sortie(porte1));
-    t_porte_relier(porte1, 0, "Sortie", t_porte_get_pin_sortie(porte2));
-    t_porte_relier(porte2, 0, "Sortie", t_porte_get_pin_sortie(porte3));
-
-    // Propager un signal à travers les portes
-    t_porte_propager_signal(porte0);
-
-    // Afficher les informations des portes
-    char resultat[100];
-    t_porte_serialiser(porte0, resultat);
-    printf("Porte 0 : %s\n", resultat);
-
-    t_porte_serialiser(porte1, resultat);
-    printf("Porte 1 : %s\n", resultat);
-
-    t_porte_serialiser(porte2, resultat);
-    printf("Porte 2 : %s\n", resultat);
-
-    t_porte_serialiser(porte3, resultat);
-    printf("Porte 3 : %s\n", resultat);
-
-    // Libérer la mémoire
-    t_porte_destroy(porte0);
-    t_porte_destroy(porte1);
-    t_porte_destroy(porte2);
-    t_porte_destroy(porte3);
-
-    return 0;
-}
-
 /*****************************************************************************/
 /*****************************************************************************/

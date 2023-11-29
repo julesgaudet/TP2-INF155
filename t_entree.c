@@ -125,14 +125,13 @@ void t_entree_serialiser(const t_entree* entree, char* resultat)
 		//Regarde dans le cours 11, il explique sprintf
 		//J'ai mis %s pour nom parce que c'est une chaine de caractères
 		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", 
-				t_entree_get_id(entree), 
-				t_entree_get_valeur(entree), 
-				t_entree_get_nom(entree),
-				t_entree_est_reliee(entree));
+		t_entree_get_id(entree), 
+		t_entree_get_valeur(entree), 
+		t_entree_get_nom(entree),
+		t_entree_est_reliee(entree));
 		return;
 	}
 }
-
 /*****************************************************************************/
 /*****************************************************************************/
 

@@ -127,10 +127,10 @@ void t_sortie_serialiser(const t_sortie* sortie, char* resultat)
 	if (resultat != NULL && sortie != NULL) {
 		//Utilisation de sprintf pour formater une chaine de caractères 
 		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", 
-            t_sortie_get_id(sortie), 
-            t_sortie_get_valeur(sortie), 
-            t_sortie_get_nom(sortie), 
-            t_sortie_est_reliee(sortie));
+        t_sortie_get_id(sortie), 
+        t_sortie_get_valeur(sortie), 
+        t_sortie_get_nom(sortie), 
+        t_sortie_est_reliee(sortie));
 		return;
 	}
 }
