@@ -60,7 +60,7 @@ void t_porte_destroy(t_porte *porte)
     int i;
     //Détruire l'allocation dynamique pour les porte d'entrée
     for (i=0; i< porte->nb_entrees; i++)
-        t_pin_entree_destroy(porte->entrees);
+        t_pin_entree_destroy(porte->entrees[i]);
 
     //détruire la porte de sortie
     t_pin_sortie_destroy(porte->sortie);
@@ -117,12 +117,13 @@ void t_porte_calculer_sorties(t_porte *porte)
 
 int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, t_pin_sortie *source)
 {
-    //Si l'indice de l'entree n'esxiste pas
+    //Si l'indice de l'entree n'existe pas
     if (num_entree > (dest->nb_entrees))
         return FAUX;
 
     //Relie la pin de sortie a la pin d'entree de la porte
-    t_pin_entree_relier(source, nom_sortie, dest->entrees[num_entree]);
+    t_pin_entree_relier(dest->entrees[num_entree], nom_sortie, source);
+    return VRAI;
 }
 
 /*****************************************************************************/
@@ -235,7 +236,7 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 void t_porte_serialiser(const t_porte* porte, char* resultat) {
     
     if (porte != NULL && resultat != NULL) {
-        sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %s, pin entree : %p, pin sortie : %p",
+        sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %d, pin entree : %p, pin sortie : %p",
         t_porte_get_id(porte), 
         t_porte_get_nb_entrees(porte), 
         t_porte_get_nom(porte),

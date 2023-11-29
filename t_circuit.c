@@ -25,6 +25,8 @@ t_circuit* t_circuit_init(void)
     nouv_circuit->nb_entrees = 0;
     nouv_circuit->nb_sorties = 0; 
     nouv_circuit->nb_portes = 0;
+
+    return nouv_circuit;
 }
 
 /*****************************************************************************/
