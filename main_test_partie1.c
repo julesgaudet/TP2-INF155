@@ -27,7 +27,7 @@ int test_porte(void);
 int main (void)
 {
 	printf("\n");
-	printf("********************Test ********************\n\n");
+	printf("********************Test********************\n\n");
 	test();		//Tester les entrées, sorties et pin
 	printf("\n");
 }
@@ -43,9 +43,7 @@ int test(void)
 	t_sortie* sortie1;
 	t_pin_sortie* pin;     //pointeur vers un des pins de sortie (de E0 ou E1)
 	t_pin_entree* pin_in;  //pointeur vers un des pins d'entr�e (de S0 ou S1)
-
-
-
+	
 	//Cr�er tous les �l�ments dynamiques
 	entree0 = t_entree_init(0, "E0");
 	entree1 = t_entree_init(1, "E1");
