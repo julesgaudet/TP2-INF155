@@ -1,6 +1,10 @@
 /*
-Module: T_ENTREE
-Description: D�finit le type t_entree. 
+Module: T_SORTIE
+Description: Le fichier définit le type t_sortie, qui représente une sortie
+ dans un circuit logique. Ce module propose des fonctions pour créer, manipuler, 
+ et interagir avec des objets t_sortie. Chaque sortie est associée à une unique 
+ pin d'entrée, permettant ainsi de recevoir des signaux d'autres composants. 
+ Les sorties sont des éléments essentiels pour obtenir les résultats d'un circuit logique. 
 
 Auteurs: Noah Tremblay :
          Jules Gaudet : GAUJ71370101
@@ -30,7 +34,7 @@ t_sortie *t_sortie_init(int id, char *nom)
     //Associer le nom
     strcpy((nouv_sortie->nom), nom);
 
-    //Creer une pin et la relier a l'entree
+    //Creer une pin et la relier a l'entrée
     nouv_sortie->pin = t_pin_entree_init();
 
     return nouv_sortie;
@@ -46,7 +50,7 @@ void t_sortie_destroy(t_sortie *sortie)
     //Détruire le tableau de caractères contenant le nom de la sortie
     free(sortie->nom);
 
-    //detruire la sortie
+    //Détruire la sortie
     free(sortie);
 }
 
@@ -61,7 +65,7 @@ t_pin_entree *t_sortie_get_pin(t_sortie *sortie)
 
 int t_sortie_relier(t_sortie *dest, char* nom_composant, t_pin_sortie *source) 
 {
-    //relier le pin de sortie au pin d'entree
+    //Relier le pin de sortie au pin d'entrée
     t_pin_entree_relier(dest->pin, nom_composant, source);  //PAS FINI MANQUE DEQUOI
 }
 
@@ -122,7 +126,11 @@ void t_sortie_serialiser(const t_sortie* sortie, char* resultat)
 {
 	if (resultat != NULL && sortie != NULL) {
 		//Utilisation de sprintf pour formater une chaine de caractères 
-		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", t_sortie_get_id(sortie), t_sortie_get_valeur(sortie), t_sortie_get_nom(sortie), t_sortie_est_reliee(sortie));
+		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", 
+            t_sortie_get_id(sortie), 
+            t_sortie_get_valeur(sortie), 
+            t_sortie_get_nom(sortie), 
+            t_sortie_est_reliee(sortie));
 		return;
 	}
 }

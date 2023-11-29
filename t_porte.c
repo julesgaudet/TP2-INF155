@@ -1,12 +1,19 @@
 /*
 Module: T_ENTREE
-Description: D�finit le type t_entree. 
+Description: Le fichier définit le type t_porte, qui représente 
+une porte logique dans un circuit. Ce module propose des fonctions
+pour créer, manipuler, et interagir avec des objets t_porte. Chaque 
+porte possède un identifiant unique, un nom, un type (ET, OU, NOT, XOR), 
+une ou plusieurs entrées, ainsi qu'une sortie. Ces portes sont des éléments 
+fondamentaux dans la modélisation des circuits logiques, et 
+leur état est déterminé par les valeurs de leurs entrées.
 
 Auteurs: Noah Tremblay :
          Jules Gaudet : GAUJ71370101
 Derni�re modification: 
 */
 /*****************************************************************************/
+
 #include "t_porte.h"
 
 /*****************************************************************************/
@@ -30,13 +37,13 @@ t_porte *t_porte_init(int id, e_types_portes type, char *nom)
 
     //Initialiser le bon nombre d'entrées
 
-    //si porte not
+    //Si c'est une porte NOT
     if (nouv_porte->type == PORTE_NOT)
     {
         nouv_porte->nb_entrees = 1;
         nouv_porte->entrees[0] = t_pin_entree_init();
     }
-    //si porte xnot, or, and
+    //Si c'est une porte XNOT, AND et OR
     else
     {
         nouv_porte->nb_entrees = 2;
@@ -110,11 +117,11 @@ void t_porte_calculer_sorties(t_porte *porte)
 
 int t_porte_relier(t_porte *dest, int num_entree, char* nom_sortie, t_pin_sortie *source)
 {
-    //si l'indice de l'entree n'esxiste pas
+    //Si l'indice de l'entree n'esxiste pas
     if (num_entree > (dest->nb_entrees))
         return FAUX;
 
-    //relie la pin de sortie a la pin d'entree de la porte
+    //Relie la pin de sortie a la pin d'entree de la porte
     t_pin_entree_relier(source, nom_sortie, dest->entrees[num_entree]);
 }
 
@@ -124,7 +131,7 @@ int t_porte_est_reliee(t_porte *porte)
 {
     int i;
 
-    //vérifie que tout les pin d'entree sont relies
+    //Vérifier que tout les pins d'entrées sont reliées
     for (i = 0; i < porte->nb_entrees; i++)
     {
         if (t_pin_entree_est_reliee(porte->entrees[i]) == FAUX)
@@ -133,13 +140,13 @@ int t_porte_est_reliee(t_porte *porte)
         }
     }
 
-    //vérifie que le pin de sortie est
+    //Vérifier que le pin de sortie est reliée
     if (t_pin_sortie_est_reliee(porte->sortie) == FAUX)
     {
         return FAUX;
     }
 
-    //si tout est ok retourne vrai
+    //Retourne vrai si les conditions sont respectés
     return VRAI;
 }
 
@@ -226,13 +233,15 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 /*****************************************************************************/
 
 void t_porte_serialiser(const t_porte* porte, char* resultat) {
-    // Afficher les informations de la porte
-    // J'ai mis %p car j'imagine qu'on veut voir les adresses des pointeurs
-    // En ce moment, il y a un message d'erreur mais je suppose que c'est à cause du type 
+    
     if (porte != NULL && resultat != NULL) {
         sprintf(resultat, "ID : %d, nombre d'entrées : %d, nom : %s, type : %s, pin entree : %p, pin sortie : %p",
-            t_porte_get_id(porte), t_porte_get_nb_entrees(porte), t_porte_get_nom(porte),
-            t_porte_get_type(porte), t_porte_get_pin_entree(porte,1), t_porte_get_pin_sortie(porte));
+            t_porte_get_id(porte), 
+            t_porte_get_nb_entrees(porte), 
+            t_porte_get_nom(porte),
+            t_porte_get_type(porte), 
+            t_porte_get_pin_entree(porte,1), //À CHANGER ICI
+            t_porte_get_pin_sortie(porte));
         return;
     }
 }

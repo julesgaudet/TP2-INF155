@@ -12,7 +12,7 @@ Description: Définit le type t_pin_entree. Un t_pin_entree est un point de conn
 			 Il doit �tre reli� � un "pin de sortie" du composant auquel on souhaite se connecter.
 
 Auteur: Anis Boubaker
-Derni�re modification: Eric Th�, 2023-11-12
+Derni�re modification: Eric Thé, 2023-11-12
 */
 
 #ifndef T_PIN_ENTREE_H_

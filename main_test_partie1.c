@@ -1,8 +1,9 @@
 /*
 TESTER LES ENTREES ET LES SORTIES
-Auteur: Eric Th�, 13-11-2023
+Auteur: Eric Thé
 	    Jules Gaudet  : GAUJ71370101
 		Noah Tremblay :
+		Date de modification :
 
 Programme qui teste l'utilisation des librairies de circuits logique "t_entree" 
 (avec "t_pin_sortie") et "t_sortie".  Plusieurs tests unitaires sont faits avec "assert()"
@@ -17,8 +18,9 @@ Programme qui teste l'utilisation des librairies de circuits logique "t_entree"
 
 /*****************************************************************************/
 
-int test(void);		//Déclaration des fonctions avant le main
-int test_porte(void);
+//Déclaration des fonctions avant le main
+int test(void);		
+int test_porte(void); 
 
 /*****************************************************************************/
 

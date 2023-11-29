@@ -1,6 +1,12 @@
 ﻿/*
 Module: T_ENTREE
-Description: D�finit le type t_entree. 
+Description: Le fichier  définit le type t_entree, 
+représentant une entrée dans un circuit logique. Ce module offre 
+des fonctions pour créer, manipuler et interagir avec des objets 
+t_entree. Chaque entrée est associée à un identifiant unique, un 
+nom, une valeur logique (activée ou désactivée), ainsi qu'une pin 
+de sortie. Les entrées sont des composants essentiels d'un circuit 
+logique, et leur état peut être propagé à travers le circuit.
 
 Auteur: Noah Tremblay :
 		Jules Gaudet  : GAUJ71370101
@@ -118,7 +124,11 @@ void t_entree_serialiser(const t_entree* entree, char* resultat)
 		//Utilisation de sprintf pour formater une chaine de caractères 
 		//Regarde dans le cours 11, il explique sprintf
 		//J'ai mis %s pour nom parce que c'est une chaine de caractères
-		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", t_entree_get_id(entree), t_entree_get_valeur(entree), t_entree_get_nom(entree), t_entree_est_reliee(entree));
+		sprintf(resultat, "ID : %d, valeur : %d, nom : %s, connecté : %d\n", 
+				t_entree_get_id(entree), 
+				t_entree_get_valeur(entree), 
+				t_entree_get_nom(entree),
+				t_entree_est_reliee(entree));
 		return;
 	}
 }

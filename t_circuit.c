@@ -1,10 +1,14 @@
 /*
 Module: T_CIRCUIT
-Description: D�finit le type t_circuit. 
+Description: Le fichier t_circuit.h définit le type t_circuit qui représente 
+un circuit logique. Ce module fournit des fonctions pour créer, manipuler et 
+gérer les circuits. Un circuit est composé d'entrées, de sorties et de portes 
+logiques. Les entrées et les sorties sont connectées aux portes, formant ainsi 
+une structure logique.
 
 Auteurs: Noah Tremblay :
          Jules Gaudet  : GAUJ71370101
-Derni�re modification: 
+Derni�re modification  : 
 */
 /*****************************************************************************/
 
