@@ -9,8 +9,8 @@ fondamentaux dans la modélisation des circuits logiques, et
 leur état est déterminé par les valeurs de leurs entrées.
 
 Auteurs: Noah Tremblay :
-         Jules Gaudet : GAUJ71370101
-Derni�re modification: 
+         Jules Gaudet  : GAUJ71370101
+Derni�re modification  : 
 */
 /*****************************************************************************/
 
@@ -235,11 +235,11 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 
 void t_porte_serialiser(const t_porte* porte, char* resultat) {
     
-    if (porte != NULL && resultat != NULL) {
-        sprintf(resultat, "ID : %d, nom : %s, type : %d",
+    if (porte != NULL) {
+        sprintf(resultat, "%d %d %s\n",
         t_porte_get_id(porte), 
-        t_porte_get_nom(porte),
-        t_porte_get_type(porte));
+        t_porte_get_type(porte),
+        t_porte_get_nom(porte));
         return;
     }
 }
