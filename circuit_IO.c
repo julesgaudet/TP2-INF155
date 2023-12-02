@@ -83,10 +83,60 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 
 /*****************************************************************************/
 
-void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit)
-{
-    
+void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
+    FILE *fichier = fopen(chemin_acces, "r");
+    if (fichier == NULL) {
+        printf("Erreur lors de l'ouverture du fichier %s\n", chemin_acces);
+        return;
+    }
+
+    int nb_entrees, nb_sorties, nb_portes, i;
+    fscanf(fichier, "%d %d %d\n", &nb_entrees, &nb_sorties, &nb_portes);
+
+    //Lecture et ajout des entrées
+    for (i = 0; i < nb_entrees; ++i) {
+        int id;
+        char nom[100];
+        fscanf(fichier, "%d%s\n", &id, nom);
+        ajouter_entree(circuit, id, nom);
+    }
+
+    //Lecture et ajout des sorties
+    for (i = 0; i < nb_sorties; ++i) {
+        int id;
+        char nom[100];
+        fscanf(fichier, "%d%s\n", &id, nom);
+        ajouter_sortie(circuit, id, nom);
+    }
+
+    //Lecture et ajout des portes
+    for (i = 0; i < nb_portes; ++i) {
+        int id, type;
+        char nom[100];
+        fscanf(fichier, "%d%d%s\n", &id, &type, nom);
+        ajouter_porte(circuit, id, type, nom);
+    }
+
+    //Vérifier que ce n'est pas la fin du fichier
+    while(!feof(fichier)) {
+        char premierCharactere[10];
+
+        //Lecture de la première lettre
+        fsanf(fichier, "%s ", premierCharactere);
+
+        //Si c'est une porte ('P')
+        if (premierCharactere[0] == 'P') {
+            //RESTE À FAIRE CECI
+        }
+
+        //Si c'est une sortie ('S')
+        else if (premierCharactere[0] == 'S') {
+            //RESTE À FAIRE CECI 
+        }
+    }
+    fclose(fichier);
 }
+
 
 /*****************************************************************************/
 
