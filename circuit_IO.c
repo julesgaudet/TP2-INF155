@@ -86,7 +86,7 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     FILE *fichier = fopen(chemin_acces, "r");
     if (fichier == NULL) {
-        printf("Erreur lors de l'ouverture du fichier %s\n", chemin_acces);
+        printf("Erreur, le fichier est NULL %s\n", chemin_acces);
         return;
     }
 
