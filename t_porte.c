@@ -236,11 +236,9 @@ t_pin_sortie* t_porte_get_pin_sortie(const t_porte* porte)
 void t_porte_serialiser(const t_porte* porte, char* resultat) {
     
     if (porte != NULL) {
-        sprintf(resultat, "%d %d %s\n",
-        t_porte_get_id(porte), 
-        t_porte_get_type(porte),
-        t_porte_get_nom(porte));
-        return;
+        sprintf(resultat, "%d %d %s", t_porte_get_id(porte), 
+                                      t_porte_get_type(porte),
+                                      t_porte_get_nom(porte));
     }
 }
 /*****************************************************************************/

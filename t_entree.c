@@ -27,9 +27,6 @@ t_entree* t_entree_init(int id, char* nom)
 	//Associer le ID (en assumant qu'il est unique)
 	nouv_entree->id = id;
 
-	//Associer à INACTIF
-	nouv_entree->pin = INACTIF;
-
 	//Créer la chaine dynamique pour le nom de l'entrée
 	nouv_entree->nom = (char*)calloc(NOM_ENTREE_TAILLE_MAX, sizeof(char));
 
@@ -124,9 +121,8 @@ void t_entree_serialiser(const t_entree* entree, char* resultat)
 		//Utilisation de sprintf pour formater une chaine de caractères 
 		//Regarde dans le cours 11, il explique sprintf
 		//J'ai mis %s pour nom parce que c'est une chaine de caractères
-		sprintf(resultat, "%d %s\n", t_entree_get_id(entree), 
-									 t_entree_get_nom(entree));
-		return;
+		sprintf(resultat, "%d %s", t_entree_get_id(entree), 
+								   t_entree_get_nom(entree));
 	}
 }
 /*****************************************************************************/

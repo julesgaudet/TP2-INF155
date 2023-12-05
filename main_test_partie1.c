@@ -1,53 +1,39 @@
 /*
 TESTER LES ENTREES ET LES SORTIES
-Auteur: Eric Thé
-	    Jules Gaudet  : GAUJ71370101
-		Noah Tremblay :
-		Date de modification :
+Auteur: Eric Th�, 13-11-2023
 
 Programme qui teste l'utilisation des librairies de circuits logique "t_entree" 
 (avec "t_pin_sortie") et "t_sortie".  Plusieurs tests unitaires sont faits avec "assert()"
 */
-/*****************************************************************************/
-
 #include <assert.h>
 #include "t_entree.h"
 #include "t_sortie.h"
 #include "t_porte.h"
-#define _CRT_SECURE_NO_WARNINGS
 
-/*****************************************************************************/
-
-//Déclaration des fonctions avant le main
-int test(void);		
-int test_porte(void); 
-
-/*****************************************************************************/
-
-int main (void)
-{
-	printf("\n");
-	printf("********************Test********************\n\n");
-	test();		//Tester les entrées, sorties et les portes
-}
-
-/*****************************************************************************/
-
-int test(void)
+int main(void)
 {
 	//d�claration de variables
 	t_entree* entree0;     //les 2 entr�es
 	t_entree* entree1;
+	t_entree* entree2;
+	t_entree* entree3;
 	t_sortie* sortie0;     //les 2 sorties
 	t_sortie* sortie1;
+	t_sortie* sortie2;
 	t_pin_sortie* pin;     //pointeur vers un des pins de sortie (de E0 ou E1)
 	t_pin_entree* pin_in;  //pointeur vers un des pins d'entr�e (de S0 ou S1)
+
+	t_porte* porte0;
 
 	//Cr�er tous les �l�ments dynamiques
 	entree0 = t_entree_init(0, "E0");
 	entree1 = t_entree_init(1, "E1");
 	sortie0 = t_sortie_init(0, "S0");
 	sortie1 = t_sortie_init(1, "S1");
+
+	//Création de les composantes pour la porte dynamique
+	sortie2 = t_sortie_init(2, "S2");
+	porte0 = t_porte_init(0,PORTE_ET, "P0");
 
 	//on teste si les entr�es/sorties sont reli�es
 	if (t_entree_est_reliee(entree0) == 0)
@@ -97,8 +83,8 @@ int test(void)
 	t_sortie_reset(sortie0);
 	assert(t_sortie_get_valeur(sortie0) == INACTIF);   //test unitaire rapide avec assert()
 
-	t_sortie_reset(sortie0);
-	assert(t_sortie_get_valeur(sortie0) == INACTIF);   //test unitaire rapide avec assert()
+	t_sortie_reset(sortie1);
+	assert(t_sortie_get_valeur(sortie1) == INACTIF);   //test unitaire rapide avec assert()
 
 	//on r�cup�re une r�f�rence sur le pin de sortie de entree1
 	pin = t_entree_get_pin(entree1);
@@ -125,51 +111,27 @@ int test(void)
 	t_pin_sortie_set_valeur(pin, 0);
 	t_entree_propager_signal(entree0);
 
-	//TEST 2: on confirme la r�ception du signal (1) dans S0 et (0) dans S1
-	printf("\nTEST 2: %s (%d) -> %s, %s (%d) -> %s\n", t_entree_get_nom(entree0), 
-													   t_entree_get_valeur(entree0), 
+	//TEST 2: on confirme la r�ception du signal (0) dans S0 et (1) dans S1
+	printf("\nTEST 2: %s (%d) -> %s, %s (%d) -> %s\n", t_entree_get_nom(entree0), t_entree_get_valeur(entree0), 
 		                                               t_sortie_get_nom(sortie0),
-		                                               t_entree_get_nom(entree1), 
-													   t_entree_get_valeur(entree1), 
+		                                               t_entree_get_nom(entree1), t_entree_get_valeur(entree1), 
 		                                               t_sortie_get_nom(sortie1));
 
 	printf("Sortie %d = %d\n", t_sortie_get_id(sortie0), t_sortie_get_valeur(sortie0));
 	printf("Sortie %d = %d\n", t_sortie_get_id(sortie1), t_sortie_get_valeur(sortie1));
 
-	//TEST 3: on vérifie le résultat des portes selon les sorties
-
-	// Initialisation des portes
-	t_porte* porte0 = t_porte_init(0, PORTE_ET, "Porte ET 0");
-	t_porte* porte1 = t_porte_init(1, PORTE_NOT, "Porte NOT 1");
-
-	// Relier les sorties aux portes
-	t_porte_relier(porte0, 0, "Sortie", t_sortie_get_pin(sortie0));
-	t_porte_relier(porte1, 0, "Sortie", t_sortie_get_pin(sortie1));
-
-	// Propager un signal à travers les portes
-	t_porte_propager_signal(porte0);
-	t_porte_propager_signal(porte1);
-
-	// Afficher les informations des portes
-	char resultat[100];
-
-	// Pour porte0
-	t_porte_serialiser(porte0, resultat);
-	printf("Porte 0 : %s\n", resultat);
-
-	// Pour porte1
-	t_porte_serialiser(porte1, resultat);
-	printf("Porte 1 : %s\n", resultat);
-
-
-	//lib�rer les 6 allocations
+	//TEST 3: on test la porte et la sortie
+	printf(t_porte_relier(porte0, 0, "S2", sortie2));
+	printf(t_porte_relier(porte0, 1, "S2", sortie2));
+	printf(t_sortie_relier(porte0, "P0", sortie2));
+	
+	//lib�rer les 4 allocations
 	t_entree_destroy(entree0);
 	t_entree_destroy(entree1);
 	t_sortie_destroy(sortie0);
 	t_sortie_destroy(sortie1);
+	t_sortie_destroy(sortie2);
 	t_porte_destroy(porte0);
-    t_porte_destroy(porte1);
+
 	return 0;
 }
-/*****************************************************************************/
-/*****************************************************************************/

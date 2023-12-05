@@ -86,35 +86,29 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     FILE *fichier = fopen(chemin_acces, "r");
     if (fichier == NULL) {
-        printf("Erreur, le fichier est NULL %s\n", chemin_acces);
+        printf("Erreur, le fichier est NULL\n");
         return;
     }
 
-    int nb_entrees, nb_sorties, nb_portes, i;
+    int nb_entrees, nb_sorties, nb_portes, i, id, type;
     fscanf(fichier, "%d %d %d\n", &nb_entrees, &nb_sorties, &nb_portes);
 
     //Lecture et ajout des entrées
     for (i = 0; i < nb_entrees; ++i) {
-        int id;
         char nom[100];
-        fscanf(fichier, "%d%s\n", &id, nom);
-        ajouter_entree(circuit, id, nom);
+        fscanf(fichier, "%d %s\n", &id, nom);
     }
 
     //Lecture et ajout des sorties
     for (i = 0; i < nb_sorties; ++i) {
-        int id;
         char nom[100];
-        fscanf(fichier, "%d%s\n", &id, nom);
-        ajouter_sortie(circuit, id, nom);
+        fscanf(fichier, "%d %s\n", &id, nom);
     }
 
     //Lecture et ajout des portes
     for (i = 0; i < nb_portes; ++i) {
-        int id, type;
         char nom[100];
-        fscanf(fichier, "%d%d%s\n", &id, &type, nom);
-        ajouter_porte(circuit, id, type, nom);
+        fscanf(fichier, "%d %d %s\n", &id, &type, nom);
     }
 
     //Vérifier que ce n'est pas la fin du fichier
@@ -133,6 +127,10 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
         else if (premierCharactere[0] == 'S') {
             //RESTE À FAIRE CECI 
         }
+
+
+        //utiliser t_pin_entree_get_lien pour les liaisons
+        
     }
     fclose(fichier);
 }

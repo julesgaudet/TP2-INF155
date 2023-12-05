@@ -115,17 +115,17 @@ int t_pin_sortie_propager_signal(t_pin_sortie *pin)
 {
     int i;
 
-    //si la pin sortie n'est pas inactive et qu'elle possede des liaisons
-    if (pin->valeur = !INACTIF || pin->nb_liaisons > 0)
+    //si la pin sortie n'est pas inactive et qu'elle possède des liaisons
+    if (pin->valeur != INACTIF || pin->nb_liaisons > 0)
     {
-        //associe la valeur de la pin de sortie a ses pin d'entrées
+        //Associe la valeur de la pin de sortie a ses pin d'entrées
         for (i = 0; i < pin->nb_liaisons; i++)
         {
             (pin->liaisons[i])->valeur = pin->valeur;
         }
         return VRAI;
     }
-    //si ca n'a pas marché
+    //Si ca n'a pas marché
     return FAUX;
 }
 

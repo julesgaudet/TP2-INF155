@@ -13,9 +13,6 @@ Derni�re modification:
 #define CIRCUIT_IO_H_
 
 #include "t_circuit.h"
-#include "t_entree.h"
-#include "t_sortie.h"
-#include "t_porte.h"
 
 //**************************************************************************************//
 
