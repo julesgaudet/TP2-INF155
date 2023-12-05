@@ -13,8 +13,6 @@ Derni�re modification: Eric Th�, 2023-11-06
 #ifndef T_PORTE_H_
 #define T_PORTE_H_
 
-#include <string.h>
-#include <stdio.h>
 #include "t_pin_entree.h"
 #include "t_pin_sortie.h"
 #include "t_circuit.h"

@@ -74,7 +74,7 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
         fprintf(fichier, "%s ", t_sortie_get_nom(circuit->sorties[i]));
 
         //Ajouter la porte associée à la sortie
-        fprintf(fichier, "%s\n", t_sortie_get_porte_nom(circuit->sorties[i]));
+        fprintf(fichier, "%s\n", t_porte_get_nom(t_sortie_get_pin(circuit->sorties[i])->porte );
     }
 
     fclose(fichier);
@@ -82,7 +82,7 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 
 
 /*****************************************************************************/
-
+/*
 void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     FILE *fichier = fopen(chemin_acces, "r");
     if (fichier == NULL) {
@@ -135,10 +135,11 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     fclose(fichier);
 }
 
-
+*/
 /*****************************************************************************/
-
+/*
 int **t_circuit_tdv(const t_circuit *le_circuit)
 {
 
 }
+*/
