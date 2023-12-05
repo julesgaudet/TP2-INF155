@@ -49,19 +49,19 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 
     //Écriture des liens
     for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
-        fprintf(fichier, "%s ", t_porte_get_nom(circuit->portes[i]));
+        fprintf(fichier, "%s", t_porte_get_nom(circuit->portes[i]));
 
         //Imprimer l'entrée de la porte
         for (int j = 0; j < t_porte_get_nb_entrees(circuit->portes[i]); j++) {
             
             //S'il n'y a pas d'entrées, ajouter XX
             if (t_porte_get_pin_entree(circuit->portes[i], j) == NULL) {
-                fprintf(fichier, "XX ");
+                fprintf(fichier, " XX");
             }
 
             //S'il y a une entrée pour la porte
             else {
-                fprintf(fichier, "%s ", t_porte_get_pin_entree(circuit->portes[i], j));
+                fprintf(fichier, " %s", t_porte_get_pin_entree(circuit->portes[i], j));
             }
         }
 
@@ -71,18 +71,17 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 
     //Ajouter les dernières pins de sorties avec les pins d'entrées
     for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
-        fprintf(fichier, "%s ", t_sortie_get_nom(circuit->sorties[i]));
+        fprintf(fichier, "%s", t_sortie_get_nom(circuit->sorties[i]));
 
         //Ajouter la porte associée à la sortie
-        fprintf(fichier, "%s\n", t_porte_get_nom(t_sortie_get_pin(circuit->sorties[i])->porte );
+        fprintf(fichier, " %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
     }
-
     fclose(fichier);
 }
 
 
 /*****************************************************************************/
-/*
+
 void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     FILE *fichier = fopen(chemin_acces, "r");
     if (fichier == NULL) {
@@ -113,7 +112,7 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 
     //Vérifier que ce n'est pas la fin du fichier
     while(!feof(fichier)) {
-        char premierCharactere[10];
+        char premierCharactere[3];
 
         //Lecture de la première lettre
         fsanf(fichier, "%s ", premierCharactere);
@@ -135,11 +134,10 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     fclose(fichier);
 }
 
-*/
+
 /*****************************************************************************/
-/*
+
 int **t_circuit_tdv(const t_circuit *le_circuit)
 {
 
 }
-*/
