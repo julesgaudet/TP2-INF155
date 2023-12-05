@@ -10,6 +10,7 @@ Programme qui teste l'utilisation des librairies de circuits logique "t_entree"
 #include "t_sortie.h"
 #include "t_porte.h"
 
+
 int main(void)
 {
 	//d�claration de variables

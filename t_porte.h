@@ -15,8 +15,6 @@ Derni�re modification: Eric Th�, 2023-11-06
 
 #include "t_pin_entree.h"
 #include "t_pin_sortie.h"
-#include "t_circuit.h"
-
 
 typedef struct t_pin_entree t_pin_entree;
 typedef struct t_pin_sortie t_pin_sortie;
