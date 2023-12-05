@@ -28,8 +28,10 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
     fprintf(fichier, "%d %d %d\n", t_circuit_get_nb_entrees(circuit),
                                    t_circuit_get_nb_sorties(circuit), 
                                    t_circuit_get_nb_portes(circuit));
+    printf("%d, ")
 
     //Écriture des entrées
+
     for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
         t_entree_serialiser(circuit->entrees[i], resultat);
         fprintf(fichier, "%s\n", resultat);
@@ -115,7 +117,7 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
         char premierCharactere[3];
 
         //Lecture de la première lettre
-        fsanf(fichier, "%s ", premierCharactere);
+        fscanf(fichier, "%s ", premierCharactere);
 
         //Si c'est une porte ('P')
         if (premierCharactere[0] == 'P') {
