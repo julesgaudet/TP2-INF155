@@ -78,9 +78,7 @@ int t_sortie_relier(t_sortie *dest, char* nom_composant, t_pin_sortie *source)
 
 int t_sortie_est_reliee(t_sortie *sortie) 
 {
-    if (t_pin_entree_est_reliee(t_sortie_get_pin) == VRAI)
-        return VRAI;
-    return FAUX;
+    return (t_pin_entree_est_reliee(t_sortie_get_pin(sortie)));
 }
 
 /*****************************************************************************/
@@ -88,7 +86,7 @@ int t_sortie_est_reliee(t_sortie *sortie)
 void t_sortie_reset(t_sortie *sortie) 
 {
     //Re-initialise la pin d'entrée de la sortie
-    t_pin_entree_reset(sortie->pin);
+    t_pin_entree_reset(t_sortie_get_pin(sortie));
 }
 
 /*****************************************************************************/

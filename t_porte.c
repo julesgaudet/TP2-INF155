@@ -78,6 +78,7 @@ void t_porte_calculer_sorties(t_porte *porte)
 {
     //Valeur de la porte selon les entrées
     int nouvelle_valeur;
+    nouvelle_valeur = INACTIF;
 
     //Retourne si la porte n'existe pas
     if(porte == NULL)

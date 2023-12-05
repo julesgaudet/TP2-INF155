@@ -156,4 +156,5 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 int **t_circuit_tdv(const t_circuit *le_circuit)
 {
 
+    return 0;
 }

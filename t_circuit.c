@@ -122,28 +122,28 @@ int t_circuit_est_valide(t_circuit *circuit)
     non_reliee = VRAI;
 
     //Vérification que toutes les ENTREES reliees
-    for (i = 0; i < circuit->nb_sorties; i++) {
-        if (t_entree_est_reliee(circuit->entrees[i]) == FAUX)
+    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
+        if (t_entree_est_reliee(t_circuit_get_entree(circuit, i)) == FAUX)
         {
-            printf("\nentree %d non reliee", t_entree_get_id(circuit->entrees[i]));
+            printf("\nentree %d non reliee", t_entree_get_id(t_circuit_get_entree(circuit, i)));
             non_reliee = FAUX;
         }
     }
     
     //Vérification que toutes les SORTIES reliees
-    for (i = 0; i < circuit->nb_entrees; i++) {
-        if (t_sortie_est_reliee(circuit->sorties[i]) == FAUX)
+    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
+        if (t_sortie_est_reliee(t_circuit_get_sortie(circuit, i)) == FAUX)
         {
-            printf("\nsortie %d non reliee", t_sortie_get_id(circuit->sorties[i]));
+            printf("\nsortie %d non reliee", t_sortie_get_id(t_circuit_get_sortie(circuit, i)));
             non_reliee = FAUX;
         }
     }
 
     //Vérification que toutes les PORTES reliees
-    for (i = 0; i < circuit->nb_portes; i++) {
-        if (t_porte_est_reliee(circuit->portes[i]) == FAUX)
+    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
+        if (t_porte_est_reliee(t_circuit_get_porte(circuit,i)) == FAUX)
         {
-            printf("\nporte %d non reliee", t_porte_get_id(circuit->portes[i]));
+            printf("\nporte %d non reliee", t_porte_get_id(t_circuit_get_porte(circuit, i)));
             non_reliee = FAUX;
         }
     }
@@ -158,12 +158,12 @@ int t_circuit_appliquer_signal(t_circuit * circuit, int signal[], int nb_bits)
 
     //verificaton qu'il y aye autant de signal que d'entrees
     if (nb_bits != circuit->nb_entrees)
-        return NULL;
+        return FAUX;
 
     //application des bits a leur entrées respectives
     for (i = 0; i < nb_bits; i++)
     {
-        t_pin_sortie_set_valeur(circuit->entrees[i], signal[i]);
+        t_pin_sortie_set_valeur(t_entree_get_pin (t_circuit_get_entree(circuit, i)), signal[i]);
     }
 
     return VRAI;
@@ -201,6 +201,9 @@ int t_circuit_propager_signal(t_circuit *circuit)
 
     nb_iterations = 0;
 
+    //allocation de la mémoire pour la porte courante
+    porte_courante = (t_porte*)malloc(sizeof(t_porte));
+
     file = (t_file*)malloc(sizeof(t_file));
 
     //si le circuit est invalide
@@ -227,12 +230,14 @@ int t_circuit_propager_signal(t_circuit *circuit)
         ajouterfin(file, circuit->portes[i]);
     }
 
-    //while
-    while (!vide(file) ||
-        nb_iterations <(t_circuit_get_nb_portes(circuit) * (t_circuit_get_nb_portes(circuit) + 1) / 2))
+    //while file n’est pas vide ET nb_iterations < nb_portes *(nb_portes + 1)/2 
+    while ((!vide(file)) &&
+        (nb_iterations < t_circuit_get_nb_portes(circuit) * (t_circuit_get_nb_portes(circuit) + 1) / 2))
     {
-        porte_courante = circuit->portes[nb_iterations];
+        //Défiler une porte de la file et la stocker dans porte_courante
+        enleverdebut(file, porte_courante);
 
+        //Demander à porte_courante de propager son signal
         t_porte_propager_signal(porte_courante);
 
         if (!t_porte_propager_signal(porte_courante))
@@ -259,7 +264,7 @@ int t_circuit_get_nb_portes(const t_circuit* circuit)
 
 t_porte* t_circuit_get_porte(const t_circuit* circuit, int pos) 
 {
-    if(pos<=t_circuit_get_nb_portes(circuit))
+    if(pos<t_circuit_get_nb_portes(circuit))
         return circuit->portes[pos];
     return NULL;
 }
@@ -275,7 +280,7 @@ int t_circuit_get_nb_sorties(const t_circuit* circuit)
 
 t_sortie* t_circuit_get_sortie(const t_circuit* circuit, int pos)
 {
-    if (pos <= t_circuit_get_nb_sorties(circuit))
+    if (pos < t_circuit_get_nb_sorties(circuit))
         return circuit->sorties[pos];
     return NULL;
 }
@@ -291,7 +296,7 @@ int t_circuit_get_nb_entrees(const t_circuit* circuit)
 
 t_entree* t_circuit_get_entree(const t_circuit* circuit, int pos) 
 {
-    if (pos <= t_circuit_get_nb_entrees(circuit)) 
+    if (pos < t_circuit_get_nb_entrees(circuit)) 
         return circuit->entrees[pos];
     return NULL;
 }

@@ -56,16 +56,18 @@ int main(void)
 {//déclaration des variables
 	int signal[MAX_ENTREES], 	 //les valeurs (0/1) pour les entrées du circuit
 		i,choix;
-
 	t_circuit* circuit;   //le circuit complet
-	circuit = t_circuit_init();   //Création du circuit
-	construire_circuit(circuit);
+	circuit = t_circuit_init();//Création du circuit
+
+
 	printf("Veuillez choisir un mode de creation de circuit:\n1 - creation manuelle\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
 	scanf("%d", &choix);
 
 	switch (choix)
 	{
 	case 1:
+  
+		construire_circuit(circuit);
 		//Vérification de la validité du circuit
 		if (t_circuit_est_valide(circuit)) {
 			printf("Circuit valide!\n");
