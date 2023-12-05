@@ -25,9 +25,6 @@ t_sortie *t_sortie_init(int id, char *nom)
     //Associer le NO (en assumant qu'il est unique)
     nouv_sortie->id = id;
 
-    //Associer la pin à INACTIF
-    t_sortie_get_pin(nouv_sortie)->valeur = INACTIF;
-
     //Créer la chaine dynamique pour le nom de sortie
     nouv_sortie->nom = (char*)calloc(NOM_ENTREE_TAILLE_MAX, sizeof(char));
 
@@ -36,6 +33,9 @@ t_sortie *t_sortie_init(int id, char *nom)
 
     //Creer une pin et la relier a l'entrée
     nouv_sortie->pin = t_pin_entree_init();
+
+    //Associer la pin à INACTIF
+    t_sortie_get_pin(nouv_sortie)->valeur = INACTIF;
 
     return nouv_sortie;
 }
@@ -69,7 +69,7 @@ int t_sortie_relier(t_sortie *dest, char* nom_composant, t_pin_sortie *source)
     t_pin_entree_relier(t_sortie_get_pin(dest), nom_composant, source);
 
     //verification si le pin d'entree est dans le tableau du pin de sortie
-    if (t_sortie_get_pin(dest) != source->liaisons[source->nb_liaisons])
+    if (t_sortie_get_pin(dest) != source->liaisons[source->nb_liaisons-1])
         return FAUX;
     return VRAI;
 }

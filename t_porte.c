@@ -62,7 +62,7 @@ void t_porte_destroy(t_porte *porte)
     for (i=0; i< porte->nb_entrees; i++)
         t_pin_entree_destroy(porte->entrees[i]);
 
-    //détruire la porte de sortie
+    //détruire la pin de sortie
     t_pin_sortie_destroy(porte->sortie);
 
     //Détruire l'allocation dynamique pour le nom
@@ -70,9 +70,6 @@ void t_porte_destroy(t_porte *porte)
 
     //Détruire l'allocation dynamique pour la porte
     free(porte);
-
-    //Détruire l'allocation dynamique pour la porte de sortie
-    t_pin_sortie_destroy(porte->sortie);
 }
 
 /*****************************************************************************/

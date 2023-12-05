@@ -28,7 +28,7 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
     fprintf(fichier, "%d %d %d\n", t_circuit_get_nb_entrees(circuit),
                                    t_circuit_get_nb_sorties(circuit), 
                                    t_circuit_get_nb_portes(circuit));
-    printf("%d, ")
+    //printf("%d, ")
 
     //Écriture des entrées
 

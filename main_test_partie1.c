@@ -121,9 +121,17 @@ int main(void)
 	printf("Sortie %d = %d\n", t_sortie_get_id(sortie1), t_sortie_get_valeur(sortie1));
 
 	//TEST 3: on test la porte et la sortie
-	printf(t_porte_relier(porte0, 0, "S2", sortie2));
-	printf(t_porte_relier(porte0, 1, "S2", sortie2));
-	printf(t_sortie_relier(porte0, "P0", sortie2));
+	printf("%d",t_porte_relier(porte0, 0, "S2", t_entree_get_pin(entree0)));
+	printf("%d",t_porte_relier(porte0, 1, "S2", t_entree_get_pin(entree1)));
+	printf("%d",t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
+	printf("Sortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
+	t_entree_propager_signal(entree0);
+	t_entree_propager_signal(entree1);
+
+	t_porte_propager_signal(porte0);
+	printf("%d\n", t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
+	printf("Sortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
+
 	
 	//lib�rer les 4 allocations
 	t_entree_destroy(entree0);
