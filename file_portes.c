@@ -5,7 +5,7 @@ d'une file de portes (t_file). Cette file est conçue  pour stocker
 des pointeurs vers des structures de type t_porte. Ces fonctions sont 
 déclarées dans le fichier d'en-tête correspondant file_portes.h. 
 
-Auteurs: Noah Tremblay :
+Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
 Dernière modification :
 */

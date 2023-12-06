@@ -4,7 +4,7 @@ Ce nouveau module a pour responsabilité de sauvegarder
 et de charger un circuit dans et depuis un fichier sur le
 disque. Le circuit est sauvegardé en mode texte.
 
-Auteurs: Noah Tremblay : 
+Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
 Derni�re modification  : 
 */

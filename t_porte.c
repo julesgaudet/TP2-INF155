@@ -8,7 +8,7 @@ une ou plusieurs entrées, ainsi qu'une sortie. Ces portes sont des éléments
 fondamentaux dans la modélisation des circuits logiques, et 
 leur état est déterminé par les valeurs de leurs entrées.
 
-Auteurs: Noah Tremblay :
+Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
 Derni�re modification  : 
 */

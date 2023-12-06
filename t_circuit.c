@@ -6,7 +6,7 @@ gérer les circuits. Un circuit est composé d'entrées, de sorties et de portes
 logiques. Les entrées et les sorties sont connectées aux portes, formant ainsi 
 une structure logique.
 
-Auteurs: Noah Tremblay :
+Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
 Derni�re modification  : 
 */

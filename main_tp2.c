@@ -1,6 +1,7 @@
 ﻿/*
-TESTER LES ENTREES ET LES SORTIES
-Auteur: Eric Th�, 13-11-2023
+MAIN FINAL
+Auteurs: Noah Tremblay : TREN85330401
+		 Jules Gaudet  : GAUJ71370101
 
 Main final du projet TP2_Circuits qui donne 3 options a l'utilisateur :
 -donner un signal a un circuit préétabli par l'enseignant

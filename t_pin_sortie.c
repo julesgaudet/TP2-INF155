@@ -1,5 +1,6 @@
 /*
-Auteur: Anis Boubaker, Jules Gaudet et Noah Tremblay 
+Auteurs: Noah Tremblay : TREN85330401
+         Jules Gaudet  : GAUJ71370101
 Date de modification: 25 novembre 2023 
 Module: T_PIN_SORTIE
 Description: D�finit le type t_pin_sortie. Un t_pin_sortie est un point de connexion appartenant

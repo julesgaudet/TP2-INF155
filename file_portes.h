@@ -4,7 +4,7 @@ Description: Ce fichier définit les fonctions associées à la manipulation
 d'une file de portes (t_file). Cette file est conçue  pour stocker 
 des pointeurs vers des structures de type t_porte. 
 
-Auteur: Noah Tremblay : 
+Auteur: Noah Tremblay : TREN85330401
 		Jules Gaudet  : GAUJ71370101
 		Eric Thé
 Derni�re modification: 

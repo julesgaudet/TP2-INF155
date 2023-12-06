@@ -6,7 +6,7 @@ Description: Le fichier définit le type t_sortie, qui représente une sortie
  pin d'entrée, permettant ainsi de recevoir des signaux d'autres composants. 
  Les sorties sont des éléments essentiels pour obtenir les résultats d'un circuit logique. 
 
-Auteurs: Noah Tremblay :
+Auteurs: Noah Tremblay: TREN85330401
          Jules Gaudet : GAUJ71370101
 Derni�re modification: 
 */
