@@ -15,7 +15,7 @@ Derni�re modification:
 //**************************************************************************************//
 
 //definitions pour la librairie de fonctions FILESLIB.CPP
-#define  MAXFILE  10
+#define  MAXFILE  100
 
 //changer cette declaration pour obtenir une file pour un autre type
 typedef struct t_porte t_porte;

@@ -201,7 +201,6 @@ int t_circuit_propager_signal(t_circuit *circuit)
 
     nb_iterations = 0;
 
-    //allocation de la mémoire pour la porte courante
     porte_courante = (t_porte*)malloc(sizeof(t_porte));
 
     file = (t_file*)malloc(sizeof(t_file));
@@ -238,8 +237,6 @@ int t_circuit_propager_signal(t_circuit *circuit)
         enleverdebut(file, porte_courante);
 
         //Demander à porte_courante de propager son signal
-        t_porte_propager_signal(porte_courante);
-
         if (!t_porte_propager_signal(porte_courante))
             ajouterfin(file, porte_courante);
 
@@ -248,9 +245,15 @@ int t_circuit_propager_signal(t_circuit *circuit)
 
     //si le circuit a une boucle FAUX sinon VRAI
     if (vide(file))
+    {
+        free(file);
         return VRAI;
+    }
     else
+    {
+        free(file);
         return FAUX;
+    }
 }
 
 /*****************************************************************************/
