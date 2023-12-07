@@ -84,7 +84,6 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     fclose(fichier);
 }
 
-
 /*****************************************************************************/
 
 int **t_circuit_tdv(const t_circuit *le_circuit)
@@ -282,7 +281,7 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
             if (nom_porte[0] == 'P') {
                 int num_porte_source = nom_porte[1] - '0';
                 t_porte *porte_source = t_circuit_get_porte(circuit, num_porte_source);
-                t_sortie_relier(sortie_destination, nom_porte, porte_source->sortie);
+                t_sortie_relier(sortie_destination, nom_porte, porte_source->sortie); //JPAS SUR ICI
             }
         }
     }
