@@ -6,7 +6,7 @@ disque. Le circuit est sauvegardé en mode texte.
 
 Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
-Derni�re modification  : 
+Dernière modification  : 
 */
 /*****************************************************************************/
 
@@ -14,83 +14,46 @@ Derni�re modification  :
 
 /*****************************************************************************/
 
+// Déclarations des sous-fonctions
+void ecrire_nb_entrees_sorties_portes(FILE *fichier, const t_circuit *circuit);
+void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat);
+void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat);
+void ecrire_portes(FILE *fichier, const t_circuit *circuit, char *resultat);
+void ecrire_liens(FILE *fichier, const t_circuit *circuit, char *resultat);
+void charger_entrees(FILE *fichier, t_circuit *circuit, int nb_entrees);
+void charger_sorties(FILE *fichier, t_circuit *circuit, int nb_sorties);
+void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes);
+
+/*****************************************************************************/
+
 void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
     FILE *fichier = fopen(nom_fichier, "w");
-    int i;
-    char resultat[1000];
 
     if (fichier == NULL) {
         printf("Erreur, le fichier est NULL\n");
         return;
     }
 
-    //Écriture du nombre d'entrées, de sorties et de portes
-    fprintf(fichier, "%d %d %d\n", t_circuit_get_nb_entrees(circuit)
-                                 , t_circuit_get_nb_sorties(circuit) 
-                                 , t_circuit_get_nb_portes(circuit));
+    // Déclaration de la variable resultat ici
+    char resultat[1000];
 
-    printf("%d %d %d\n", t_circuit_get_nb_entrees(circuit)
-                       , t_circuit_get_nb_sorties(circuit)
-                       , t_circuit_get_nb_portes(circuit));
+    // Écriture du nombre d'entrées, de sorties et de portes
+    ecrire_nb_entrees_sorties_portes(fichier, circuit);
 
-    //Écriture des entrées
-    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
-        t_entree_serialiser(circuit->entrees[i], resultat);
-        fprintf(fichier, "%d %s\n", i, resultat);
-        printf("%d %s\n", i, resultat);
-    }
+    // Écriture des entrées
+    ecrire_entrees(fichier, circuit, resultat);
 
-    //Écriture des sorties
-    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
-        t_sortie_serialiser(circuit->sorties[i], resultat);
-        fprintf(fichier, "%d %s\n", i, resultat);
-        printf("%d %s\n", i, resultat);
-    }
+    // Écriture des sorties
+    ecrire_sorties(fichier, circuit, resultat);
 
-    //Écriture des portes
-    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
-        t_porte_serialiser(circuit->portes[i], resultat);
-        fprintf(fichier, "%d %s\n", i, resultat);
-        printf("%d %s\n", i, resultat);
-    }
+    // Écriture des portes
+    ecrire_portes(fichier, circuit, resultat);
 
-    //Écriture des liens
-    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
-        fprintf(fichier, "%s", t_porte_get_nom(circuit->portes[i]));
-        printf("%s", t_porte_get_nom(circuit->portes[i]));
+    // Écriture des liens
+    ecrire_liens(fichier, circuit, resultat);
 
-        //Imprimer l'entrée de la porte
-        for (int j = 0; j < t_porte_get_nb_entrees(circuit->portes[i]); j++) {
-            
-            //S'il n'y a pas d'entrées, ajouter XX
-            if (t_porte_get_pin_entree(circuit->portes[i], j) == NULL) {
-                fprintf(fichier, " XX");
-                printf(" XX");
-            }
-
-            //S'il y a une entrée pour la porte
-            else {
-                fprintf(fichier, " %s", t_porte_get_pin_entree(circuit->portes[i], j));
-                printf(" %s", t_porte_get_pin_entree(circuit->portes[i], j));
-            }
-            //Ajouter un saut de ligne pour la prochaine porte
-            fprintf(fichier, "\n");
-            printf("\n");
-        }
-    }
-
-    //Ajouter les dernières pins de sorties avec les pins d'entrées
-    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
-        fprintf(fichier, "%s", t_sortie_get_nom(circuit->sorties[i]));
-        printf("%s", t_sortie_get_nom(circuit->sorties[i]));
-
-        //Ajouter la porte associée à la sortie
-        fprintf(fichier, " %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
-        printf(" %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
-    }
     fclose(fichier);
 }
-
 
 /*****************************************************************************/
 
@@ -101,28 +64,18 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
         return;
     }
 
-    int nb_entrees, nb_sorties, nb_portes, i, id, type;
-    char nom[100];
+    int nb_entrees, nb_sorties, nb_portes;
 
     fscanf(fichier, "%d %d %d\n", &nb_entrees, &nb_sorties, &nb_portes);
 
-    //Lecture et ajout des entrées
-    for (i = 0; i < nb_entrees; ++i) {
-        fscanf(fichier, "%d %s\n", &id, nom);
-        t_circuit_ajouter_entree(circuit, id, nom);
-    }
+    //Lecture des entrées
+    charger_entrees(fichier, circuit, nb_entrees);
 
-    //Lecture et ajout des sorties
-    for (i = 0; i < nb_sorties; ++i) {
-        fscanf(fichier, "%d %s\n", &id, nom);
-        t_circuit_ajouter_sortie(circuit, id, nom);
-    }
+    //Lecture des sorties
+    charger_sorties(fichier, circuit, nb_sorties);
 
-    //Lecture et ajout des portes
-    for (i = 0; i < nb_portes; ++i) {
-        fscanf(fichier, "%d %d %s\n", &type, &id, nom);
-        t_circuit_ajouter_porte(circuit, type, id, nom);
-    }
+    //Lecture du nombres de porte
+    charger_portes(fichier, circuit, nb_portes);
 
     //Vérifier que ce n'est pas la fin du fichier
     while(!feof(fichier)) {
@@ -150,7 +103,6 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     fclose(fichier);
 }
 
-
 /*****************************************************************************/
 
 int **t_circuit_tdv(const t_circuit *le_circuit)
@@ -158,3 +110,136 @@ int **t_circuit_tdv(const t_circuit *le_circuit)
 
     return 0;
 }
+
+/*****************************************************************************/
+
+void ecrire_nb_entrees_sorties_portes(FILE *fichier, const t_circuit *circuit) {
+    //Écriture du nombre d'entrées, de sorties et de portes
+    fprintf(fichier, "%d %d %d\n", t_circuit_get_nb_entrees(circuit)
+                                 , t_circuit_get_nb_sorties(circuit) 
+                                 , t_circuit_get_nb_portes(circuit));
+
+    printf("%d %d %d\n", t_circuit_get_nb_entrees(circuit)
+                       , t_circuit_get_nb_sorties(circuit)
+                       , t_circuit_get_nb_portes(circuit));
+}
+
+/*****************************************************************************/
+
+void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat) {
+    int i;
+
+    // Écriture des entrées
+    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
+        t_entree_serialiser(circuit->entrees[i], resultat);
+        fprintf(fichier, "%d %s\n", i, resultat);
+        printf("%d %s\n", i, resultat);
+    }
+}
+
+/*****************************************************************************/
+
+void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat) {
+    int i;
+
+    // Écriture des sorties
+    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
+        t_sortie_serialiser(circuit->sorties[i], resultat);
+        fprintf(fichier, "%d %s\n", i, resultat);
+        printf("%d %s\n", i, resultat);
+    }
+}
+
+/*****************************************************************************/
+
+void ecrire_portes(FILE *fichier, const t_circuit *circuit, char *resultat) {
+    int i;
+
+    // Écriture des portes
+    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
+        t_porte_serialiser(circuit->portes[i], resultat);
+        fprintf(fichier, "%d %s\n", i, resultat);
+        printf("%d %s\n", i, resultat);
+    }
+}
+
+/*****************************************************************************/
+
+void ecrire_liens(FILE *fichier, const t_circuit *circuit, char *resultat) {
+    int i;
+
+    // Écriture des liens
+    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
+        fprintf(fichier, "%s", t_porte_get_nom(circuit->portes[i]));
+        printf("%s", t_porte_get_nom(circuit->portes[i]));
+
+        // Imprimer l'entrée de la porte
+        for (int j = 0; j < t_porte_get_nb_entrees(circuit->portes[i]); j++) {
+            
+            // S'il n'y a pas d'entrées, ajouter XX
+            if (t_porte_get_pin_entree(circuit->portes[i], j) == NULL) {
+                fprintf(fichier, " XX");
+                printf(" XX");
+            }
+
+            // S'il y a une entrée pour la porte
+            else {
+                fprintf(fichier, " %s", t_porte_get_pin_entree(circuit->portes[i], j));
+                printf(" %s", t_porte_get_pin_entree(circuit->portes[i], j));
+            }
+        }
+
+        // Ajouter un saut de ligne pour la prochaine porte
+        fprintf(fichier, "\n");
+        printf("\n");
+    }
+
+    // Ajouter les dernières pins de sorties avec les pins d'entrées
+    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
+        fprintf(fichier, "%s", t_sortie_get_nom(circuit->sorties[i]));
+        printf("%s", t_sortie_get_nom(circuit->sorties[i]));
+
+        // Ajouter la porte associée à la sortie
+        fprintf(fichier, " %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
+        printf(" %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
+    }
+}
+
+/*****************************************************************************/
+
+void charger_entrees(FILE *fichier, t_circuit *circuit, int nb_entrees) {
+    int i, id;
+    char nom[100];
+
+    for (i = 0; i < nb_entrees; ++i) {
+        fscanf(fichier, "%d %s\n", &id, nom);
+        t_circuit_ajouter_entree(circuit, id, nom);
+    }
+}
+
+/*****************************************************************************/
+
+void charger_sorties(FILE *fichier, t_circuit *circuit, int nb_sorties) {
+    int i, id;
+    char nom[100];
+
+    for (i = 0; i < nb_sorties; ++i) {
+        fscanf(fichier, "%d %s\n", &id, nom);
+        t_circuit_ajouter_sortie(circuit, id, nom);
+    }
+}
+
+/*****************************************************************************/
+
+void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes) {
+    int i, id, type;
+    char nom[100];
+
+    for (i = 0; i < nb_portes; ++i) {
+        fscanf(fichier, "%d %d %s\n", &type, &id, nom);
+        t_circuit_ajouter_porte(circuit, type, id, nom);
+    }
+}
+
+/*****************************************************************************/
+/*****************************************************************************/

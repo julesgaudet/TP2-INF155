@@ -81,29 +81,31 @@ void t_porte_calculer_sorties(t_porte *porte)
     nouvelle_valeur = INACTIF;
 
     //Retourne si la porte n'existe pas
-    if(porte == NULL)
+    if(porte == NULL) {
+        printf("\nErreur dans t_porte_calculer_sorties; la porte n'existe pas\n");
         return;
+    }
     
     switch(t_porte_get_type(porte)) {
 
         //Porte ET
         case PORTE_ET : 
-            nouvelle_valeur = porte->entrees[0]->valeur & porte->entrees[0]->valeur;
+            nouvelle_valeur = (t_porte_get_pin_entree(porte, 0)->valeur) && (t_porte_get_pin_entree(porte, 1)->valeur);
             break;
 
         //Porte NOT
         case PORTE_NOT : 
-            nouvelle_valeur = !porte->entrees[0]->valeur;
+            nouvelle_valeur = !(t_porte_get_pin_entree(porte, 0)->valeur);
             break;
 
         //Porte OU
         case PORTE_OU : 
-            nouvelle_valeur = porte->entrees[0]->valeur | porte->entrees[0]->valeur;
+            nouvelle_valeur = (t_porte_get_pin_entree(porte, 0)->valeur) || (t_porte_get_pin_entree(porte, 1)->valeur);
             break;
 
         //Porte XOR
         case PORTE_XOR : 
-            nouvelle_valeur = porte->entrees[0]->valeur ^ porte->entrees[0]->valeur;
+            nouvelle_valeur = (t_porte_get_pin_entree(porte, 0)->valeur) ^ (t_porte_get_pin_entree(porte, 1)->valeur);
             break;
     }
 
@@ -216,11 +218,11 @@ e_types_portes t_porte_get_type(const t_porte* porte)
 
 t_pin_entree* t_porte_get_pin_entree(const t_porte* porte, int num)
 {
-    if (num == 0)
-        return porte->entrees[0];
-
+    if (num >= 0 && num < porte->nb_entrees)
+        return porte->entrees[num];
     else
-        return porte->entrees[1];
+        printf("\nErreur dans t_porte_get_pin_entree\n");
+        return NULL; 
 }
 /*****************************************************************************/
 

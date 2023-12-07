@@ -6,7 +6,7 @@ Programme qui teste l'utilisation des librairies de circuits logique "t_entree"
 (avec "t_pin_sortie") et "t_sortie".  Plusieurs tests unitaires sont faits avec "assert()"
 */
 
-/*
+
 #include <assert.h>
 #include "t_entree.h"
 #include "t_sortie.h"
@@ -29,7 +29,7 @@ int main(void)
 	t_porte* porte0;
 
 	//Cr�er tous les �l�ments dynamiques
-	entree0 = t_entree_init(0, "E0");
+	entree0 = t_entree_init(1, "E0");
 	entree1 = t_entree_init(1, "E1");
 	sortie0 = t_sortie_init(0, "S0");
 	sortie1 = t_sortie_init(1, "S1");
@@ -126,19 +126,25 @@ int main(void)
 	//TEST 3: on test la porte et la sortie
 	printf("%d",t_porte_relier(porte0, 0, "S2", t_entree_get_pin(entree0)));
 	printf("%d",t_porte_relier(porte0, 1, "S2", t_entree_get_pin(entree1)));
+	t_porte_calculer_sorties(porte0); //Rajouter ça 
+	("\nt_porte get pin entree : %d\n", t_porte_get_pin_entree(porte0, 1)->valeur); //Ceci print pas, erreur?
+	("\nt_porte get pin entree : %d\n", t_porte_get_pin_entree(porte0, 0)->valeur); //Ceci print pas, erreur?
 	printf("%d",t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
 	printf("Sortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
-	t_entree_propager_signal(entree0);
-	t_entree_propager_signal(entree1);
 
-	t_porte_propager_signal(porte0);
-	printf("%d\n", t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
-	printf("Sortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
+	printf("\nTEST propager signal entree 0 : %d\n", t_entree_propager_signal(entree0));
+	printf("\nTEST propager signal entree 1 : %d\n", t_entree_propager_signal(entree1));
 
-	
+	printf("\nTEST propager signal porte 0 : %d\n",t_porte_propager_signal(porte0));
+
+	printf("\nTEST t_sortie relié : %d\n", t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
+
+	printf("\nSortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
+
+
 	//lib�rer les 4 allocations
-	t_entree_destroy(entree0);
 	t_entree_destroy(entree1);
+	t_entree_destroy(entree0);
 	t_sortie_destroy(sortie0);
 	t_sortie_destroy(sortie1);
 	t_sortie_destroy(sortie2);
@@ -146,4 +152,3 @@ int main(void)
 
 	return 0;
 }
-*/
