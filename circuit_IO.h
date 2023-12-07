@@ -186,4 +186,18 @@ Retour: Aucun
 */
 void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes);
 
+/*
+Fonction: charger_liaisons
+
+Description: Charge les liaisons d'un circuit à partir d'un fichier texte.
+
+Paramètres:
+- fichier: Pointeur vers le fichier texte contenant les informations.
+- circuit: Pointeur vers la structure de circuit qui sera remplie avec les informations du fichier.
+
+Retour: Aucun
+*/
+void charger_liaisons(FILE *fichier, t_circuit *circuit);
+
 #endif
+
