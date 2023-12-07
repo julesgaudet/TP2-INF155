@@ -200,3 +200,4 @@ Retour: Aucun
 void charger_liaisons(FILE *fichier, t_circuit *circuit);
 
 #endif
+

@@ -196,12 +196,10 @@ void t_circuit_reset(t_circuit *circuit)
 int t_circuit_propager_signal(t_circuit *circuit)
 {
     t_file* file;
-    t_porte* porte_courante;
+    t_porte* porte_courante = NULL;
     int nb_iterations,i;
 
     nb_iterations = 0;
-
-    porte_courante = (t_porte*)malloc(sizeof(t_porte));
 
     file = (t_file*)malloc(sizeof(t_file));
 
@@ -226,7 +224,8 @@ int t_circuit_propager_signal(t_circuit *circuit)
     initfile(file);
     for (i = 0; i < circuit->nb_portes; i++)
     {
-        ajouterfin(file, circuit->portes[i]);
+        porte_courante = circuit->portes[i];
+        ajouterfin(file, porte_courante);
     }
 
     //while file n’est pas vide ET nb_iterations < nb_portes *(nb_portes + 1)/2 
@@ -234,7 +233,7 @@ int t_circuit_propager_signal(t_circuit *circuit)
         (nb_iterations < t_circuit_get_nb_portes(circuit) * (t_circuit_get_nb_portes(circuit) + 1) / 2))
     {
         //Défiler une porte de la file et la stocker dans porte_courante
-        enleverdebut(file, porte_courante);
+        enleverdebut(file, &porte_courante);
 
         //Demander à porte_courante de propager son signal
         if (!t_porte_propager_signal(porte_courante))
