@@ -87,23 +87,25 @@ void t_porte_calculer_sorties(t_porte *porte)
     switch(t_porte_get_type(porte)) {
 
         //Porte ET
+
+        t_porte_get_pin_entree(porte, 0);
         case PORTE_ET : 
-            nouvelle_valeur = porte->entrees[0]->valeur & porte->entrees[0]->valeur;
+            nouvelle_valeur = (t_porte_get_pin_entree(porte, 0)->valeur) && (t_porte_get_pin_entree(porte, 1)->valeur);
             break;
 
         //Porte NOT
         case PORTE_NOT : 
-            nouvelle_valeur = !porte->entrees[0]->valeur;
+            nouvelle_valeur = !(t_porte_get_pin_entree(porte, 0)->valeur);
             break;
 
         //Porte OU
         case PORTE_OU : 
-            nouvelle_valeur = porte->entrees[0]->valeur | porte->entrees[0]->valeur;
+            nouvelle_valeur = (t_porte_get_pin_entree(porte, 0)->valeur) || (t_porte_get_pin_entree(porte, 1)->valeur);
             break;
 
         //Porte XOR
         case PORTE_XOR : 
-            nouvelle_valeur = porte->entrees[0]->valeur ^ porte->entrees[0]->valeur;
+            nouvelle_valeur = (t_porte_get_pin_entree(porte, 0)->valeur) ^ (t_porte_get_pin_entree(porte, 1)->valeur);
             break;
     }
 
