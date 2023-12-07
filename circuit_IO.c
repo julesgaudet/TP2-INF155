@@ -248,21 +248,21 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
 
                 //Vérifier si le nom d'entrée n'est pas "XX" (connexion absente)
                 if (nom_entree[0] == 'X' && nom_entree[1] == 'X') {
-                    continue;  // Ignorer la connexion absente
+                    continue;  //Ignorer la connexion absente
                 }
 
                 //Si le nom d'entrée débute par 'E', connecter à une entrée
                 if (nom_entree[0] == 'E') {
                     int num_entree = nom_entree[1] - '0';
                     t_pin_entree *entree_source = t_circuit_get_entree(circuit, num_entree);
-                    t_porte_relier(entree_source, i, nom_entree, MANQUE ICI); //JSP quoi mettre MAIS il faut utiliser t_porte_relier
+                    t_porte_relier(entree_source, i, nom_entree, entree_source); //JPAS SUR ICI
                 }
 
                 //Si le nom d'entrée débute par 'P', connecter à une autre porte
                 else if (nom_entree[0] == 'P') {
                     int num_porte_source = nom_entree[1] - '0';
                     t_porte *porte_source = t_circuit_get_porte(circuit, num_porte_source);
-                    t_porte_relier(porte_destination, i, nom_entree, MANQUE ICI); //JSP quoi mettre MAIS il faut utiliser t_porte_relier
+                    t_porte_relier(porte_destination, i, nom_entree, porte_source); //JPAS SUR ICI 
                 }
             }
         }
