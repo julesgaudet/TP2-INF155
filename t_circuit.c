@@ -98,14 +98,14 @@ t_sortie* t_circuit_ajouter_sortie(t_circuit * circuit, int id, char *nom)
     t_sortie* nouv_sortie;
 
     //S'il ne reste pas de place pour ajouter une sortie
-    if (circuit->nb_sorties >= MAX_SORTIES)
+    if (t_circuit_get_nb_sorties(circuit) >= MAX_SORTIES)
         return NULL;
 
     //Créer une nouvelle entrée
     nouv_sortie = t_sortie_init(id, nom);
 
     //Ajouter l'entree au circuit
-    circuit->sorties[circuit->nb_sorties] = nouv_sortie;
+    circuit->sorties[t_circuit_get_nb_sorties(circuit)] = nouv_sortie;
 
     //Ajouter 1 au nb d'entres 
     circuit->nb_sorties += 1;
@@ -157,7 +157,7 @@ int t_circuit_appliquer_signal(t_circuit * circuit, int signal[], int nb_bits)
     int i;
 
     //verificaton qu'il y aye autant de signal que d'entrees
-    if (nb_bits != circuit->nb_entrees)
+    if (nb_bits != t_circuit_get_nb_entrees(circuit))
         return FAUX;
 
     //application des bits a leur entrées respectives
@@ -176,21 +176,21 @@ void t_circuit_reset(t_circuit *circuit)
     int i;
 
     //reset les SORTIES
-    for (i = 0; i < circuit->nb_sorties; i++) {
+    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
         t_sortie_reset(t_circuit_get_sortie(circuit, i));
     }
 
     //restet les ENTREES
-    for (i = 0; i < circuit->nb_entrees; i++) {
+    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
         t_entree_reset(t_circuit_get_entree(circuit, i));
     }
 
     //reset les PORTES
-    for (i = 0; i < circuit->nb_portes; i++) {
-        t_porte_reset(circuit->portes[i]);
+    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
+        t_porte_reset(t_circuit_get_porte(circuit, i));
     }
 }
-t
+
 
 /*****************************************************************************/
 
@@ -209,23 +209,23 @@ int t_circuit_propager_signal(t_circuit *circuit)
         return FAUX;
 
     //si le circuit n'as pas été alimenté
-    for (i = 0; i < circuit->nb_entrees; i++)
+    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++)
     {
-        if (t_entree_get_valeur(circuit->entrees[i]) == INACTIF)
+        if (t_entree_get_valeur(t_circuit_get_entree(circuit, i)) == INACTIF)
             return FAUX;
     }
 
     //demander a chaque entrée du circuit de propager le signal
-    for (i = 0; i < circuit->nb_entrees; i++)
+    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++)
     {
-        t_entree_propager_signal(circuit->entrees[i]);
+        t_entree_propager_signal(t_circuit_get_entree(circuit, i));
     }
 
     //remplir la file
     initfile(file);
-    for (i = 0; i < circuit->nb_portes; i++)
+    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++)
     {
-        porte_courante = circuit->portes[i];
+        porte_courante = t_circuit_get_porte(circuit, i);
         ajouterfin(file, porte_courante);
     }
 

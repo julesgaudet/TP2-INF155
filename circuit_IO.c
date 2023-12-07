@@ -217,7 +217,7 @@ void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes) {
     char nom[100];
 
     for (i = 0; i < nb_portes; ++i) {
-        fscanf(fichier, "%d %d %s\n", &type, &id, nom);
+        fscanf(fichier, "%d %d %s\n", &id, &type, nom);
         t_circuit_ajouter_porte(circuit, type, id, nom);
     }
 }
