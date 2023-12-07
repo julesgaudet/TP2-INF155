@@ -15,7 +15,7 @@ Main final du projet TP2_Circuits qui donne 3 options a l'utilisateur :
 
 /*****************************************************************************/
 //fonction void construire circuit qui construit un circuit avec 4 portes et 3 entrées
-
+/*
 static void construire_circuit(t_circuit* circuit)
 {  //variables locales pour les composantes du circuit
 	t_porte* porte_ou;	//les 4 portes
@@ -112,6 +112,6 @@ int main(void)
 		return EXIT_SUCCESS;
 	}
 }
-
+*/
 
 
