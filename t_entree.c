@@ -44,10 +44,10 @@ t_entree* t_entree_init(int id, char* nom)
 void t_entree_destroy(t_entree* entree)
 {
 	//Détruire la pin de sortie de l'entreée
-	t_pin_sortie_destroy((entree->pin));
+	t_pin_sortie_destroy((t_entree_get_pin(entree)));
 
 	//Détruire le tableau de caractere contenant le nom de l'entrée
-	free(entree->nom);
+	free(t_entree_get_nom(entree));
 
 	//Détruire la pin
 	free(entree);
@@ -64,7 +64,7 @@ t_pin_sortie* t_entree_get_pin(t_entree* entree)
 
 int t_entree_est_reliee(t_entree* entree)
 {
-	if (t_pin_sortie_est_reliee(entree->pin) == VRAI)
+	if (t_pin_sortie_est_reliee(t_entree_get_pin(entree)) == VRAI)
 		return VRAI;
 	return FAUX;
 }
@@ -74,16 +74,16 @@ int t_entree_est_reliee(t_entree* entree)
 void t_entree_reset(t_entree* entree)
 {
 	//Re-initialise la pin de sortie de l'entrée
-	t_pin_sortie_reset(entree->pin);
+	t_pin_sortie_reset(t_entree_get_pin(entree));
 }
 
 /*****************************************************************************/
 
 int t_entree_propager_signal(t_entree* entree)
 {
-	if (entree->pin != INACTIF)
+	if (t_entree_get_pin(entree) != INACTIF)
 	{
-		t_pin_sortie_propager_signal(entree->pin);
+		t_pin_sortie_propager_signal(t_entree_get_pin(entree));
 		return VRAI;
 	}
 	return FAUX;
@@ -94,8 +94,8 @@ int t_entree_propager_signal(t_entree* entree)
 int t_entree_get_valeur(const t_entree* entree)
 {
 	//Vérifier si l'entree est valide ou non
-	if (entree->pin != INACTIF)
-		return ((entree->pin)->valeur);
+	if (t_entree_get_pin(entree) != INACTIF)
+		return (t_entree_get_pin(entree)->valeur);
 	return INACTIF;
 }
 

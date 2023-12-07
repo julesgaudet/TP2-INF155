@@ -177,12 +177,12 @@ void t_circuit_reset(t_circuit *circuit)
 
     //reset les SORTIES
     for (i = 0; i < circuit->nb_sorties; i++) {
-        t_sortie_reset(circuit->sorties[i]);
+        t_sortie_reset(t_circuit_get_sortie(circuit, i));
     }
 
     //restet les ENTREES
     for (i = 0; i < circuit->nb_entrees; i++) {
-        t_entree_reset(circuit->entrees[i]);
+        t_entree_reset(t_circuit_get_entree(circuit, i));
     }
 
     //reset les PORTES
@@ -190,6 +190,7 @@ void t_circuit_reset(t_circuit *circuit)
         t_porte_reset(circuit->portes[i]);
     }
 }
+t
 
 /*****************************************************************************/
 

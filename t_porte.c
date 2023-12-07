@@ -60,10 +60,10 @@ void t_porte_destroy(t_porte *porte)
     int i;
     //Détruire l'allocation dynamique pour les porte d'entrée
     for (i=0; i< porte->nb_entrees; i++)
-        t_pin_entree_destroy(porte->entrees[i]);
+        t_pin_entree_destroy(t_porte_get_pin_entree(porte, i));
 
     //détruire la pin de sortie
-    t_pin_sortie_destroy(porte->sortie);
+    t_pin_sortie_destroy(t_porte_get_pin_sortie(porte));
 
     //Détruire l'allocation dynamique pour le nom
     free(porte->nom);
@@ -109,7 +109,7 @@ void t_porte_calculer_sorties(t_porte *porte)
     }
 
     //Renvoyer les modifications selon la condition de la porte
-    t_pin_sortie_set_valeur(porte->sortie, nouvelle_valeur);
+    t_pin_sortie_set_valeur(t_porte_get_pin_sortie(porte), nouvelle_valeur);
 }
 
 /*****************************************************************************/
@@ -134,14 +134,14 @@ int t_porte_est_reliee(t_porte *porte)
     //Vérifier que tout les pins d'entrées sont reliées
     for (i = 0; i < porte->nb_entrees; i++)
     {
-        if (t_pin_entree_est_reliee(porte->entrees[i]) == FAUX)
+        if (t_pin_entree_est_reliee(t_porte_get_pin_entree(porte, i)) == FAUX)
         {
             return FAUX;
         }
     }
 
     //Vérifier que le pin de sortie est reliée
-    if (t_pin_sortie_est_reliee(porte->sortie) == FAUX)
+    if (t_pin_sortie_est_reliee(t_porte_get_pin_sortie) == FAUX)
     {
         return FAUX;
     }
@@ -158,10 +158,10 @@ void t_porte_reset(t_porte *porte)
     //initialise la valeur des entrées
     for (i = 0; i < porte->nb_entrees; i++)
     {
-        t_pin_entree_reset(porte->entrees[i]);
+        t_pin_entree_reset(t_porte_get_pin_entree(porte, i));
     }
     //initialise la sortie
-    t_pin_sortie_reset(porte->sortie);
+    t_pin_sortie_reset(t_porte_get_pin_sortie(porte));
 }
 
 /*****************************************************************************/
@@ -172,7 +172,7 @@ int t_porte_propager_signal(t_porte *porte)
     //verif tout les pins entree sont actifs
     for (i = 0; i < porte->nb_entrees; i++)
     {
-        if (t_pin_entree_get_valeur(porte->entrees[i]) == INACTIF)
+        if (t_pin_entree_get_valeur(t_porte_get_pin_entree(porte, i)) == INACTIF)
             return FAUX;
     }
     
@@ -180,7 +180,7 @@ int t_porte_propager_signal(t_porte *porte)
     t_porte_calculer_sorties(porte);
 
     //propager le signal a partir de la pin de sortie
-    t_pin_sortie_propager_signal(porte->sortie);
+    t_pin_sortie_propager_signal(t_porte_get_pin_sortie(porte));
     
     return VRAI;
 }

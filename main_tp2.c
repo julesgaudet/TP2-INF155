@@ -14,8 +14,8 @@ Main final du projet TP2_Circuits qui donne 3 options a l'utilisateur :
 #include "circuit_IO.h"
 
 /*****************************************************************************/
+
 //fonction void construire circuit qui construit un circuit avec 4 portes et 3 entrées
-/*
 static void construire_circuit(t_circuit* circuit)
 {  //variables locales pour les composantes du circuit
 	t_porte* porte_ou;	//les 4 portes
@@ -61,13 +61,14 @@ int main(void)
 	circuit = t_circuit_init();//Création du circuit
 
 
-	printf("Veuillez choisir un mode de creation de circuit:\n1 - creation manuelle\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
+	printf("Veuillez choisir un mode de creation de circuit:");
+	printf("\n1 - creation manuelle\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
 	scanf("%d", &choix);
 
 	switch (choix)
 	{
 	case 1:
-  
+		{
 		construire_circuit(circuit);
 		//Vérification de la validité du circuit
 		if (t_circuit_est_valide(circuit)) {
@@ -96,22 +97,28 @@ int main(void)
 		t_circuit_destroy(circuit);
 		system("pause");
 		return EXIT_SUCCESS;
+		}
+
 
 	case 2:
-
-
+		{
 		t_circuit_destroy(circuit);
 		system("pause");
 		return EXIT_SUCCESS;
+		}
 
 	case 3:
+        {char chemin[1000]; 
 
+        printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
+        scanf("%s", chemin);
 
-		t_circuit_destroy(circuit);
-		system("pause");
-		return EXIT_SUCCESS;
+        circuit_IO_charger(chemin, circuit);
+
+        t_circuit_destroy(circuit);
+
+        system("pause");
+        return EXIT_SUCCESS;
+		}
 	}
 }
-*/
-
-
