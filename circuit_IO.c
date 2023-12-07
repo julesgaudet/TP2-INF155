@@ -257,14 +257,14 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
                 if (nom_entree[0] == 'E') {
                     int num_entree = nom_entree[1] - '0';
                     t_pin_entree *entree_source = t_circuit_get_entree(circuit, num_entree);
-                    t_porte_relier(entree_source, i, nom_entree, t_porte_get_pin_sortie(porte_destination)); //JPAS SUR ICI
+                    t_porte_relier(t_porte_get_pin_sortie(porte_destination), i, nom_entree, entree_source); 
                 }
 
                 //Si le nom d'entrée débute par 'P', connecter à une autre porte
                 else if (nom_entree[0] == 'P') {
                     int num_porte_source = nom_entree[1] - '0';
                     t_porte *porte_source = t_circuit_get_porte(circuit, num_porte_source);
-                    t_porte_relier(porte_source, i, nom_entree, t_porte_get_pin_sortie(porte_destination)); //JPAS SUR ICI 
+                    t_porte_relier(t_porte_get_pin_sortie(porte_destination), i, nom_entree, porte_source); 
                 }
             }
         }
