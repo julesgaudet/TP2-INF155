@@ -179,7 +179,7 @@ Description: Charge les portes d'un circuit à partir d'un fichier texte.
 
 Paramètres:
 - fichier: Pointeur vers le fichier texte contenant les informations.
-- circuit: Pointeur vers la structure de circuit qui sera remplie avec les informations du fichier.
+- circuit: Pointeur vers la strutcture de circuit qui sera remplie avec les informations du fichier.
 - nb_portes: Nombre de portes à charger.
 
 Retour: Aucun
