@@ -60,8 +60,11 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 
 void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     FILE *fichier = fopen(chemin_acces, "r");
-    if (fichier == NULL) {
-        printf("Erreur, le fichier est NULL\n");
+    
+    //Vérification que le fichier est valide 
+    const char *extension = strrchr(chemin_acces, '.');
+    if (extension == NULL || strcmp(extension, ".txt") != 0) {
+        printf("Erreur, le fichier n'est pas un fichier texte (.txt)\n");
         return;
     }
 
