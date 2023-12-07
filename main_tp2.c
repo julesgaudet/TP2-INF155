@@ -108,7 +108,8 @@ int main(void)
 		}
 
 	case 3:
-        {char chemin[1000]; 
+        {
+		char chemin[1000]; 
 
         printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
         scanf("%s", chemin);

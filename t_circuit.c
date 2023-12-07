@@ -190,7 +190,7 @@ void t_circuit_reset(t_circuit *circuit)
         t_porte_reset(circuit->portes[i]);
     }
 }
-t
+
 
 /*****************************************************************************/
 
