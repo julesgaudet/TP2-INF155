@@ -1,5 +1,5 @@
 /*
-Module: T_ENTREE
+Module: T_PORTE
 Description: Le fichier définit le type t_porte, qui représente 
 une porte logique dans un circuit. Ce module propose des fonctions
 pour créer, manipuler, et interagir avec des objets t_porte. Chaque 

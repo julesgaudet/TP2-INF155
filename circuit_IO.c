@@ -14,7 +14,7 @@ Dernière modification  :
 
 /*****************************************************************************/
 
-// Déclarations des sous-fonctions
+//Déclarations des sous-fonctions
 void ecrire_nb_entrees_sorties_portes(FILE *fichier, const t_circuit *circuit);
 void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat);
 void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat);
@@ -23,6 +23,7 @@ void ecrire_liens(FILE *fichier, const t_circuit *circuit, char *resultat);
 void charger_entrees(FILE *fichier, t_circuit *circuit, int nb_entrees);
 void charger_sorties(FILE *fichier, t_circuit *circuit, int nb_sorties);
 void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes);
+void charger_liaisons(FILE *fichier, t_circuit *circuit);
 
 /*****************************************************************************/
 
@@ -34,22 +35,22 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
         return;
     }
 
-    // Déclaration de la variable resultat ici
+    //Déclaration de la variable resultat ici
     char resultat[1000];
 
-    // Écriture du nombre d'entrées, de sorties et de portes
+    //Écriture du nombre d'entrées, de sorties et de portes
     ecrire_nb_entrees_sorties_portes(fichier, circuit);
 
-    // Écriture des entrées
+    //Écriture des entrées
     ecrire_entrees(fichier, circuit, resultat);
 
-    // Écriture des sorties
+    //Écriture des sorties
     ecrire_sorties(fichier, circuit, resultat);
 
-    // Écriture des portes
+    //Écriture des portes
     ecrire_portes(fichier, circuit, resultat);
 
-    // Écriture des liens
+    //Écriture des liens
     ecrire_liens(fichier, circuit, resultat);
 
     fclose(fichier);
@@ -74,34 +75,15 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     //Lecture des sorties
     charger_sorties(fichier, circuit, nb_sorties);
 
-    //Lecture du nombres de porte
+    //Lecture du nombre de portes
     charger_portes(fichier, circuit, nb_portes);
 
-    //Vérifier que ce n'est pas la fin du fichier
-    while(!feof(fichier)) {
-        char premierCharactere[3];
-        int deuxiemeCharactere;
+    //Lecture du nombre de liaisons
+    charger_liaisons(fichier, circuit);
 
-        //Lecture de la première lettre
-        fscanf(fichier, "%s ", premierCharactere);
-
-        //Si c'est une porte ('P')
-        if (premierCharactere[0] == 'P') {
-            deuxiemeCharactere = premierCharactere[1] - '0';
-            
-        }
-
-        //Si c'est une sortie ('S')
-        else if (premierCharactere[0] == 'S') {
-            deuxiemeCharactere = premierCharactere[1] - '0';
-        }
-
-
-        //utiliser t_pin_entree_get_lien pour les liaisons
-        
-    }
     fclose(fichier);
 }
+
 
 /*****************************************************************************/
 
@@ -155,7 +137,7 @@ void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat) {
 void ecrire_portes(FILE *fichier, const t_circuit *circuit, char *resultat) {
     int i;
 
-    // Écriture des portes
+    //Écriture des portes
     for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
         t_porte_serialiser(circuit->portes[i], resultat);
         fprintf(fichier, "%d %s\n", i, resultat);
@@ -168,38 +150,38 @@ void ecrire_portes(FILE *fichier, const t_circuit *circuit, char *resultat) {
 void ecrire_liens(FILE *fichier, const t_circuit *circuit, char *resultat) {
     int i;
 
-    // Écriture des liens
+    //Écriture des liens
     for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
         fprintf(fichier, "%s", t_porte_get_nom(circuit->portes[i]));
         printf("%s", t_porte_get_nom(circuit->portes[i]));
 
-        // Imprimer l'entrée de la porte
+        //Imprimer l'entrée de la porte
         for (int j = 0; j < t_porte_get_nb_entrees(circuit->portes[i]); j++) {
             
-            // S'il n'y a pas d'entrées, ajouter XX
+            //S'il n'y a pas d'entrées, ajouter XX
             if (t_porte_get_pin_entree(circuit->portes[i], j) == NULL) {
                 fprintf(fichier, " XX");
                 printf(" XX");
             }
 
-            // S'il y a une entrée pour la porte
+            //S'il y a une entrée pour la porte
             else {
                 fprintf(fichier, " %s", t_porte_get_pin_entree(circuit->portes[i], j));
                 printf(" %s", t_porte_get_pin_entree(circuit->portes[i], j));
             }
         }
 
-        // Ajouter un saut de ligne pour la prochaine porte
+        //Ajouter un saut de ligne pour la prochaine porte
         fprintf(fichier, "\n");
         printf("\n");
     }
 
-    // Ajouter les dernières pins de sorties avec les pins d'entrées
+    //Ajouter les dernières pins de sorties avec les pins d'entrées
     for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
         fprintf(fichier, "%s", t_sortie_get_nom(circuit->sorties[i]));
         printf("%s", t_sortie_get_nom(circuit->sorties[i]));
 
-        // Ajouter la porte associée à la sortie
+        //Ajouter la porte associée à la sortie
         fprintf(fichier, " %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
         printf(" %s\n", t_pin_entree_get_lien(t_sortie_get_pin(circuit->sorties)));
     }
@@ -242,4 +224,68 @@ void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes) {
 }
 
 /*****************************************************************************/
+
+void charger_liaisons(FILE *fichier, t_circuit *circuit) {
+
+    while (!feof(fichier)) {
+        char premierCharactere[3];
+        int deuxiemeCharactere;
+
+        //Lecture de la première lettre
+        fscanf(fichier, "%s ", premierCharactere);
+
+        //Si c'est une porte ('P')
+        if (premierCharactere[0] == 'P') {
+            deuxiemeCharactere = premierCharactere[1] - '0';
+
+            //Récupérer la porte correspondante dans le circuit
+            t_porte *porte_destination = t_circuit_get_porte(circuit, deuxiemeCharactere);
+
+            //Lire le nom des entrées de la porte et les connecter
+            for (int i = 0; i < t_porte_get_nb_entrees(porte_destination); ++i) {
+                char nom_entree[3];
+                fscanf(fichier, "%s ", nom_entree);
+
+                //Vérifier si le nom d'entrée n'est pas "XX" (connexion absente)
+                if (nom_entree[0] == 'X' && nom_entree[1] == 'X') {
+                    continue;  // Ignorer la connexion absente
+                }
+
+                //Si le nom d'entrée débute par 'E', connecter à une entrée
+                if (nom_entree[0] == 'E') {
+                    int num_entree = nom_entree[1] - '0';
+                    t_pin_entree *entree_source = t_circuit_get_entree(circuit, num_entree);
+                    t_porte_relier(entree_source, i, nom_entree, MANQUE ICI); //JSP quoi mettre MAIS il faut utiliser t_porte_relier
+                }
+
+                //Si le nom d'entrée débute par 'P', connecter à une autre porte
+                else if (nom_entree[0] == 'P') {
+                    int num_porte_source = nom_entree[1] - '0';
+                    t_porte *porte_source = t_circuit_get_porte(circuit, num_porte_source);
+                    t_porte_relier(porte_destination, i, nom_entree, MANQUE ICI); //JSP quoi mettre MAIS il faut utiliser t_porte_relier
+                }
+            }
+        }
+
+        //Si c'est une sortie ('S')
+        else if (premierCharactere[0] == 'S') {
+            deuxiemeCharactere = premierCharactere[1] - '0';
+
+            //Récupérer la sortie correspondante dans le circuit
+            t_sortie *sortie_destination = t_circuit_get_sortie(circuit, deuxiemeCharactere);
+
+            //Lire le nom de la porte et la connecter
+            char nom_porte[3];
+            fscanf(fichier, " %s", nom_porte);
+
+            //Si le nom de la porte débute par 'P', connecter à une porte
+            if (nom_porte[0] == 'P') {
+                int num_porte_source = nom_porte[1] - '0';
+                t_porte *porte_source = t_circuit_get_porte(circuit, num_porte_source);
+                t_sortie_relier(sortie_destination, nom_porte, porte_source->sortie);
+            }
+        }
+    }
+}
+
 /*****************************************************************************/
