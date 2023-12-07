@@ -36,7 +36,7 @@ int main(void)
 
 	//Création de les composantes pour la porte dynamique
 	sortie2 = t_sortie_init(2, "S2");
-	porte0 = t_porte_init(0,PORTE_ET, "P0");
+	porte0 = t_porte_init(0,PORTE_OU, "P0");
 
 	//on teste si les entr�es/sorties sont reli�es
 	if (t_entree_est_reliee(entree0) == 0)
@@ -126,18 +126,25 @@ int main(void)
 	//TEST 3: on test la porte et la sortie
 	printf("%d",t_porte_relier(porte0, 0, "S2", t_entree_get_pin(entree0)));
 	printf("%d",t_porte_relier(porte0, 1, "S2", t_entree_get_pin(entree1)));
-	t_porte_calculer_sorties(porte0); //Rajouter ça 
-	("\nt_porte get pin entree : %d\n", t_porte_get_pin_entree(porte0, 1)->valeur); //Ceci print pas, erreur?
-	("\nt_porte get pin entree : %d\n", t_porte_get_pin_entree(porte0, 0)->valeur); //Ceci print pas, erreur?
-	printf("%d",t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
-	printf("Sortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
+
 
 	printf("\nTEST propager signal entree 0 : %d\n", t_entree_propager_signal(entree0));
 	printf("\nTEST propager signal entree 1 : %d\n", t_entree_propager_signal(entree1));
 
+	
+	printf("\npin entree 1 de la porte (->entree 1): %d\n", (t_porte_get_pin_entree(porte0, 1))->valeur); 
+	printf("\npin entree 0 de la porte (->entree 0) : %d\n", (t_porte_get_pin_entree(porte0, 0))->valeur);
+
+	t_porte_calculer_sorties(porte0);
+
+	printf("\nla valeur du pin de sortie de la porte : %d", (t_porte_get_pin_sortie(porte0))->valeur);
+
+	printf("\n%d", t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
+	printf("Sortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
+
 	printf("\nTEST propager signal porte 0 : %d\n",t_porte_propager_signal(porte0));
 
-	printf("\nTEST t_sortie relié : %d\n", t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
+	printf("\nTEST t_sortie relie : %d\n", t_sortie_relier(sortie2, "P0", t_porte_get_pin_sortie(porte0)));
 
 	printf("\nSortie %d = %d\n", t_sortie_get_id(sortie2), t_sortie_get_valeur(sortie2));
 
