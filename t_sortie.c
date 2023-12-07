@@ -45,10 +45,10 @@ t_sortie *t_sortie_init(int id, char *nom)
 void t_sortie_destroy(t_sortie *sortie) 
 {
     //Détruire le pin d'entrée de la sortie
-    t_pin_entree_destroy((sortie->pin));
+    t_pin_entree_destroy((t_sortie_get_pin(sortie)));
 
     //Détruire le tableau de caractères contenant le nom de la sortie
-    free(sortie->nom);
+    free(t_sortie_get_nom(sortie));
 
     //Détruire la sortie
     free(sortie);
