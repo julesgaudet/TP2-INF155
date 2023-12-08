@@ -12,6 +12,7 @@ Main final du projet TP2_Circuits qui donne 3 options a l'utilisateur :
 /*****************************************************************************/
 
 #include "circuit_IO.h"
+#define CHARGER 3
 
 /*****************************************************************************/
 
@@ -107,7 +108,7 @@ int main(void)
 		return EXIT_SUCCESS;
 		}
 
-	case 3:
+	case CHARGER:
         {
 		char chemin[1000]; 
 
