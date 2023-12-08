@@ -7,7 +7,7 @@ des pointeurs vers des structures de type t_porte.
 Auteur: Noah Tremblay : TREN85330401
 		Jules Gaudet  : GAUJ71370101
 		Eric Thé
-Derni�re modification: 
+Derni�re modification : 09/12/2023
 */
 #ifndef FILE_PORTES_H_
 #define FILE_PORTES_H_

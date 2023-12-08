@@ -7,7 +7,7 @@ déclarées dans le fichier d'en-tête correspondant file_portes.h.
 
 Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
-Dernière modification :
+Dernière modification  : 09/12/2023
 */
 /*****************************************************************************/
 

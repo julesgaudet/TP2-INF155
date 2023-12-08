@@ -1,7 +1,7 @@
 /*
 Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
-Date de modification: 25 novembre 2023 
+Date de modification   : 09/12/2023
 Module: T_PIN_SORTIE
 Description: D�finit le type t_pin_sortie. Un t_pin_sortie est un point de connexion appartenant
 			 à un élément du circuit qui envoie un signal (mais n'en recoit pas).

@@ -10,7 +10,7 @@ logique, et leur état peut être propagé à travers le circuit.
 
 Auteur: Noah Tremblay : TREN85330401
 		Jules Gaudet  : GAUJ71370101
-Derni�re modification: 
+Derni�re modification : 09/12/2023
 */
 /*****************************************************************************/
 

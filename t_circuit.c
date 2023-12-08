@@ -8,7 +8,7 @@ une structure logique.
 
 Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
-Derni�re modification  : 
+Derni�re modification  : 09/12/2023
 */
 /*****************************************************************************/
 
@@ -35,14 +35,14 @@ void t_circuit_destroy(t_circuit *circuit)
 {
     int i;
 
-    for (i = 0; i < circuit->nb_sorties; i++) {
-        t_sortie_destroy(circuit->sorties[i]);
+    for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
+        t_sortie_destroy(t_circuit_get_sortie(circuit, i));
     }
-    for (i = 0; i < circuit->nb_entrees; i++) {
-        t_entree_destroy(circuit->entrees[i]);
+    for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
+        t_entree_destroy(t_circuit_get_sortie(circuit, i));
     }
-    for (i = 0; i < circuit->nb_portes; i++) {
-        t_porte_destroy(circuit->portes[i]);
+    for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
+        t_porte_destroy(t_circuit_get_porte(circuit, i));
     }
     free(circuit);
 }
@@ -54,14 +54,14 @@ t_porte* t_circuit_ajouter_porte(t_circuit *circuit, e_types_portes le_type, int
     t_porte* nouv_porte;
 
     //S'il ne reste pas de place pour les portes
-    if (circuit->nb_portes >= CIRCUIT_MAX_PORTES)
+    if (t_circuit_get_nb_portes(circuit) >= CIRCUIT_MAX_PORTES)
         return NULL;
 
     //Créer une porte 
     nouv_porte = t_porte_init(id, le_type, nom);
 
     //Ajouter la porte au circuit
-    circuit->portes[circuit->nb_portes] = nouv_porte;
+    circuit->portes[t_circuit_get_nb_portes(circuit)] = nouv_porte;
 
     //Ajouter 1 porte au circuit
     circuit->nb_portes += 1;
@@ -75,17 +75,17 @@ t_entree* t_circuit_ajouter_entree(t_circuit * circuit, int id, char *nom)
 {
     t_entree* nouv_entree;
 
-    //si il ne rete pas de place pour ajouter une entree
-    if (circuit->nb_entrees >= MAX_ENTREES)
+    //S'il ne reste pas de place pour ajouter une entrée
+    if (t_circuit_get_nb_entrees(circuit) >= MAX_ENTREES)
         return NULL;
 
-    //créer une nouvelle entrée
+    //Créer une nouvelle entrée
     nouv_entree = t_entree_init(id, nom);
 
-    //ajouter l'entree au circuit
-    circuit->entrees[circuit->nb_entrees] = nouv_entree;
+    //Ajouter l'entrée au circuit
+    circuit->entrees[t_circuit_get_nb_entrees(circuit)] = nouv_entree;
 
-    //ajouter 1 au nb d'entres 
+    //Ajouter 1 au nb d'entrées 
     circuit->nb_entrees += 1;
 
     return nouv_entree;
@@ -156,11 +156,11 @@ int t_circuit_appliquer_signal(t_circuit * circuit, int signal[], int nb_bits)
 {
     int i;
 
-    //verificaton qu'il y aye autant de signal que d'entrees
+    //Vérificaton qu'il y aye autant de signal que d'entrees
     if (nb_bits != t_circuit_get_nb_entrees(circuit))
         return FAUX;
 
-    //application des bits a leur entrées respectives
+    //Application des bits a leur entrées respectives
     for (i = 0; i < nb_bits; i++)
     {
         t_pin_sortie_set_valeur(t_entree_get_pin (t_circuit_get_entree(circuit, i)), signal[i]);
@@ -175,17 +175,17 @@ void t_circuit_reset(t_circuit *circuit)
 {
     int i;
 
-    //reset les SORTIES
+    //Reset les SORTIES
     for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
         t_sortie_reset(t_circuit_get_sortie(circuit, i));
     }
 
-    //restet les ENTREES
+    //Restet les ENTREES
     for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
         t_entree_reset(t_circuit_get_entree(circuit, i));
     }
 
-    //reset les PORTES
+    //Reset les PORTES
     for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
         t_porte_reset(t_circuit_get_porte(circuit, i));
     }
@@ -204,24 +204,24 @@ int t_circuit_propager_signal(t_circuit *circuit)
 
     file = (t_file*)malloc(sizeof(t_file));
 
-    //si le circuit est invalide
+    //Si le circuit est invalide
     if (t_circuit_est_valide(circuit) == FAUX)
         return FAUX;
 
-    //si le circuit n'as pas été alimenté
+    //Si le circuit n'as pas été alimenté
     for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++)
     {
         if (t_entree_get_valeur(t_circuit_get_entree(circuit, i)) == INACTIF)
             return FAUX;
     }
 
-    //demander a chaque entrée du circuit de propager le signal
+    //Demander a chaque entrée du circuit de propager le signal
     for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++)
     {
         t_entree_propager_signal(t_circuit_get_entree(circuit, i));
     }
 
-    //remplir la file
+    //Remplir la file
     initfile(file);
     for (i = 0; i < t_circuit_get_nb_portes(circuit); i++)
     {
@@ -229,7 +229,7 @@ int t_circuit_propager_signal(t_circuit *circuit)
         ajouterfin(file, porte_courante);
     }
 
-    //while file n’est pas vide ET nb_iterations < nb_portes *(nb_portes + 1)/2 
+    //While file n’est pas vide ET nb_iterations < nb_portes *(nb_portes + 1)/2 
     while ((!vide(file)) &&
         (nb_iterations < t_circuit_get_nb_portes(circuit) * (t_circuit_get_nb_portes(circuit) + 1) / 2))
     {
@@ -243,7 +243,7 @@ int t_circuit_propager_signal(t_circuit *circuit)
         nb_iterations++;
     }
 
-    //si le circuit a une boucle FAUX sinon VRAI
+    //Si le circuit a une boucle FAUX sinon VRAI
     if (vide(file))
     {
         free(file);

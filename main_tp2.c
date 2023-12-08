@@ -3,10 +3,12 @@ MAIN FINAL
 Auteurs: Noah Tremblay : TREN85330401
 		 Jules Gaudet  : GAUJ71370101
 
-Main final du projet TP2_Circuits qui donne 3 options a l'utilisateur :
--donner un signal a un circuit préétabli par l'enseignant
--donner un signal a un ciruit préétabli par les auteurs (nous)
--importer un circuit a partir d'un fichier .txt
+		 Date de modification : 09/12/2023
+
+Description : Main final du projet TP2_Circuits qui donne 3 options a l'utilisateur :
+	-Donner un signal a un circuit préétabli par l'enseignant
+	-Donner un signal a un ciruit préétabli par les auteurs (nous)
+	-Importer un circuit a partir d'un fichier .txt
 
 */
 /*****************************************************************************/

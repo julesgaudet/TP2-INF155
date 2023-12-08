@@ -6,7 +6,7 @@ disque. Le circuit est sauvegardé en mode texte.
 
 Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
-Dernière modification  : 
+Dernière modification  : 09/12/2023
 */
 /*****************************************************************************/
 
@@ -125,7 +125,6 @@ void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat) {
 void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat) {
     int i;
 
-    
     // Écriture des sorties
     for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
         t_sortie_serialiser(t_circuit_get_sortie(circuit, i), resultat);

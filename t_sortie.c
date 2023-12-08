@@ -8,7 +8,7 @@ Description: Le fichier définit le type t_sortie, qui représente une sortie
 
 Auteurs: Noah Tremblay: TREN85330401
          Jules Gaudet : GAUJ71370101
-Derni�re modification: 
+Derni�re modification : 09/12/2023
 */
 /*****************************************************************************/
 

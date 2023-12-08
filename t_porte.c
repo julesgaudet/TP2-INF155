@@ -10,7 +10,7 @@ leur état est déterminé par les valeurs de leurs entrées.
 
 Auteurs: Noah Tremblay : TREN85330401
          Jules Gaudet  : GAUJ71370101
-Derni�re modification  : 
+Derni�re modification  : 09/12/2023
 */
 /*****************************************************************************/
 
