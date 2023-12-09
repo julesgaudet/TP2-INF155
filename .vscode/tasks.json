@@ -1,29 +1,31 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: clang générer le fichier actif",
-            "command": "/usr/bin/clang",
+            "label": "C/C++: gcc build and debug active file",
+            "type": "shell",
+            "command": "/usr/bin/gcc",  // Chemin vers le compilateur gcc
             "args": [
-                "-fcolor-diagnostics",
-                "-fansi-escape-codes",
-                "-g",
-                "${file}",
+                "-g",                    // Ajoute les informations de débogage
+                "main_tp2.c",
+                "t_entree.c",
+                "t_sortie.c",
+                "t_pin_entree.c",
+                "t_pin_sortie.c",
+                "t_porte.c",
+                "t_circuit.c",
+                "circuit_IO.c",
+                "file_portes.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/main_tp2"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "Tâche générée par le débogueur."
+            }
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

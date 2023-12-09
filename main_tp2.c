@@ -72,6 +72,7 @@ int main(void)
 	{
 	case 1:
 		{
+			
 		construire_circuit(circuit);
 		//Vérification de la validité du circuit
 		if (t_circuit_est_valide(circuit)) {
@@ -100,8 +101,9 @@ int main(void)
 		t_circuit_destroy(circuit);
 		system("pause");
 		return EXIT_SUCCESS;
+		
 		}
-
+		
 
 	case 2:
 		{
@@ -116,7 +118,7 @@ int main(void)
 
         printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
         scanf("%s", chemin);
-
+		
         circuit_IO_charger(chemin, circuit);
 
         t_circuit_destroy(circuit);
