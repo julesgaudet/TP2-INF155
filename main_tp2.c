@@ -116,7 +116,7 @@ int main(void)
         {
 		char chemin[1000]; 
 
-        printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
+        printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
         scanf("%s", chemin);
 		
         circuit_IO_charger(chemin, circuit);
