@@ -203,7 +203,7 @@ int main(void)
                 printf("Erreur lors de la propagation du signal.\n");
             }
 
-            printf("\n");
+            printf("\nLe fichier a été sauvergarder avec succès!\n");
             circuit_IO_sauvegarder("test", circuit);
             t_circuit_tdv(circuit);
 
