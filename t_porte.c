@@ -61,14 +61,14 @@ void t_porte_destroy(t_porte *porte)
 {
     int i;
     //Détruire l'allocation dynamique pour les porte d'entrée
-    for (i=0; i< porte->nb_entrees; i++)
+    for (i=0; i< t_porte_get_nb_entrees(porte); i++)
         t_pin_entree_destroy(t_porte_get_pin_entree(porte, i));
 
     //détruire la pin de sortie
     t_pin_sortie_destroy(t_porte_get_pin_sortie(porte));
 
     //Détruire l'allocation dynamique pour le nom
-    free(porte->nom);
+    free(t_porte_get_nom(porte));
 
     //Détruire l'allocation dynamique pour la porte
     free(porte);
@@ -172,7 +172,7 @@ int t_porte_propager_signal(t_porte *porte)
 {
     int i;
     //verif tout les pins entree sont actifs
-    for (i = 0; i < porte->nb_entrees; i++)
+    for (i = 0; i < t_porte_get_nb_entrees(porte); i++)
     {
         if (t_pin_entree_get_valeur(t_porte_get_pin_entree(porte, i)) == INACTIF)
             return FAUX;

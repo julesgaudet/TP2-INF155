@@ -136,7 +136,6 @@ static void construire_circuit2(t_circuit* circuit)
 	porte_et8 = t_circuit_ajouter_porte(circuit, PORTE_ET, 8, "P8");
 	porte_et9 = t_circuit_ajouter_porte(circuit, PORTE_ET, 9, "P9");
 
-
 	//Ajout des liens
 	t_porte_relier(porte_not0, 0, t_entree_get_nom(entree0), t_entree_get_pin(entree0));
 
@@ -304,7 +303,6 @@ int main(void)
 			t_circuit_destroy(circuit);
 			system("pause");
 			return EXIT_SUCCESS;
-
 		}
 	}
 }

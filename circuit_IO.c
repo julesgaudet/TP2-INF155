@@ -32,7 +32,7 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit);
 int** allouer_table_verite(int nb_lignes, int nb_colonnes);
 void generer_table_verite(int **table_verite, int nb_lignes, int nb_entrees);
 void calculer_sorties_circuit(t_circuit* le_circuit, int** table_verite, int nb_lignes, int nb_entrees, int nb_sorties);
-void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes);
+void afficher_table_verite(table_verite, nb_lignes, nb_colonnes, le_circuit);
 
 /*****************************************************************************/
 
