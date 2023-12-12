@@ -92,7 +92,21 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 
 int **t_circuit_tdv(const t_circuit *le_circuit)
 {
-    return 0;
+    int nb_lignes;
+    int nb_entrees = t_circuit_get_nb_entrees(le_circuit);
+    int nb_sorties = t_circuit_get_nb_sorties(le_circuit);
+    int nb_portes = t_circuit_get_nb_portes(le_circuit);
+
+    int nb_colonnes = nb_entrees + nb_sorties;
+
+    for (int i = 0; i < nb_entrees; i++) {
+        nb_lignes *= 2;
+    }
+
+    int **table_verite = (int **)malloc(nb_lignes * sizeof(int *));
+    for (int i = 0; i < nb_lignes; ++i) {
+        table_verite[i] = (int *)malloc((nb_entrees + nb_sorties) * sizeof(int));
+    }
 }
 
 /*****************************************************************************/
