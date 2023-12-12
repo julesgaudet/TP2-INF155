@@ -49,19 +49,16 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit);
 /*
 Fonction: t_circuit_tdv
 
-Description: Calcule la table de vérité du circuit. La table de vérité 
-est un tableau à deux dimensions où les colonnes représentent les entrées 
-et les sorties, et les lignes représentent toutes les combinaisons de bits en entrée.
+Description: cette fonctions fait appel a d'autres fonctions pour generer, calculer, afficher et 
+liberer la table de véritée
 
 Paramètres:
 - le_circuit: Pointeur vers la structure de circuit.
 
 Retour: 
-- Tableau à deux dimensions représentant la table de vérité du circuit.
-  Nombre de colonnes = nombre d'entrées + nombre de sorties du circuit
-  Nombre de lignes = 2^nombre d'entrées
+
 */
-int **t_circuit_tdv(const t_circuit *le_circuit);
+void t_circuit_tdv(const t_circuit *le_circuit);
 
 /*
 Fonction: ecrire_nb_entrees_sorties_portes

@@ -80,7 +80,6 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     int nb_entrees, nb_sorties, nb_portes;
 
     fscanf(fichier, "%d %d %d\n", &nb_entrees, &nb_sorties, &nb_portes);
-    printf("%d %d %d\n", nb_entrees, nb_sorties, nb_portes);
 
     //Lecture des entrées
     charger_entrees(fichier, circuit, nb_entrees);
@@ -99,7 +98,7 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 
 /*****************************************************************************/
 
-int** t_circuit_tdv(const t_circuit *le_circuit) 
+void t_circuit_tdv(const t_circuit *le_circuit) 
 {
     int nb_lignes = 1;
     int nb_entrees = t_circuit_get_nb_entrees(le_circuit);
@@ -125,7 +124,6 @@ int** t_circuit_tdv(const t_circuit *le_circuit)
     //Libérer l'espace utilisé pour la table de vérité
     liberer_table_verite(table_verite, nb_lignes);
 
-    return table_verite;
 }
 
 /*****************************************************************************/
@@ -230,7 +228,6 @@ void charger_entrees(FILE *fichier, t_circuit *circuit, int nb_entrees) {
 
     for (i = 0; i < nb_entrees; ++i) {
         fscanf(fichier, "%d %s\n", &id, nom);
-        printf("%d %s\n", id, nom);
         t_circuit_ajouter_entree(circuit, id, nom);
     }
 }
@@ -243,7 +240,6 @@ void charger_sorties(FILE *fichier, t_circuit *circuit, int nb_sorties) {
 
     for (i = 0; i < nb_sorties; ++i) {
         fscanf(fichier, "%d %s\n", &id, nom);
-        printf("%d %s\n", id, nom);
         t_circuit_ajouter_sortie(circuit, id, nom);
     }
 }
@@ -256,7 +252,6 @@ void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes) {
 
     for (i = 0; i < nb_portes; ++i) {
         fscanf(fichier, "%d %d %s\n", &id, &type, nom);
-        printf("%d %d %s\n", id, type, nom);
         t_circuit_ajouter_porte(circuit, type, id, nom);
     }
 }
@@ -271,7 +266,6 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
 
         //Lecture de la première lettre
         fscanf(fichier, "%s ", premierCharactere);
-        printf("%s ",premierCharactere);
 
         //Si c'est une porte ('P')
         if (premierCharactere[0] == 'P') {
@@ -284,7 +278,6 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
             for (int i = 0; i < t_porte_get_nb_entrees(porte_destination); ++i) {
                 char nom_entree[3];
                 fscanf(fichier, "%s ", nom_entree);
-                printf("%s ", nom_entree);
 
                 //Vérifier si le nom d'entrée n'est pas "XX" (connexion absente)
                 if (nom_entree[0] == 'X' && nom_entree[1] == 'X') {
@@ -305,8 +298,6 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
                     t_porte_relier(porte_destination, i, nom_entree, t_porte_get_pin_sortie(porte_source));
                 }
             }
-            fprintf(fichier, "\n");
-            printf("\n"); //saut de ligne entre les portes/entrees
         }
         //Si c'est une sortie ('S')
         else if (premierCharactere[0] == 'S') {
@@ -318,7 +309,6 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
             //Lire le nom de la porte et la connecter
             char nom_porte[3];
             fscanf(fichier, " %s\n", nom_porte);
-            printf(" %s\n", nom_porte);
 
             //Si le nom de la porte débute par 'P', connecter à une porte
             if (nom_porte[0] == 'P') {
