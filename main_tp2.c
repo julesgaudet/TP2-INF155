@@ -155,7 +155,7 @@ int main(void)
 
             while (fopen(chemin, "r") == NULL)
             {
-                printf("Voulez-vous reessayer? (0 pour continuer || 1 pour quitter) ");
+                printf("\nERREUR, le fichier est invalide!\nVoulez-vous reessayer? (0 pour continuer || 1 pour quitter) ");
                 scanf("%d", &choix_utilisateur);
 
                 if (choix_utilisateur == 1) {
@@ -165,6 +165,8 @@ int main(void)
                 printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
                 scanf("%s", chemin);
             }
+
+            printf("\n")
 
 
             /*
