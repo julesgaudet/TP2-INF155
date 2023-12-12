@@ -150,17 +150,27 @@ int main(void)
             char chemin[1000];
             int choix_utilisateur=0;
 
-            do {
-                printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
+            printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
+            scanf("%s", chemin);
+
+            //Vérifier que c'est .txt
+            const char *extension = strrchr(chemin, '.');
+            while (extension == NULL || strcasecmp(extension, ".txt") != 0) {
+                printf("Erreur, le fichier n'est pas un fichier texte (.txt)\n");
+
+                printf("Voulez-vous réessayer? (0 pour continuer || 1 pour quitter) ");
+                scanf("%d", &choix_utilisateur);
+
+                if (choix_utilisateur == 1) {
+                    return EXIT_FAILURE;
+                }
+
+                //Saisir à nouveau le chemin si l'utilisateur ne quitte pas
+                printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
                 scanf("%s", chemin);
 
-                //Charger le circuit depuis un fichier
-                circuit_IO_charger(chemin, circuit);
-
-                //Boucle pour demander à l'utilisateur de réessayer ou de quitter
-                printf("Voulez-vous réessayer avec un autre chemin ? (0 pour réessayer, 1 pour quitter): ");
-                scanf("%d", &choix_utilisateur);
-            } while (choix_utilisateur != 1);
+                extension = strrchr(chemin, '.');
+            }
 
             //Charger le circuit depuis un fichier
             circuit_IO_charger(chemin, circuit);
