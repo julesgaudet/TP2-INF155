@@ -277,7 +277,7 @@ int main(void)
 
 		//Détermination du nombre de lignes pour la table de vérité
 		int nb_entrees = t_circuit_get_nb_entrees(circuit);
-		int nb_lignes;
+		int nb_lignes = 1;
 		for (int i = 0; i < nb_entrees; i++) {
         	nb_lignes *= 2;
     	}

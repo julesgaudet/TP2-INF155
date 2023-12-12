@@ -101,7 +101,7 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 
 int** t_circuit_tdv(const t_circuit *le_circuit) 
 {
-    int nb_lignes;
+    int nb_lignes = 1;
     int nb_entrees = t_circuit_get_nb_entrees(le_circuit);
     int nb_sorties = t_circuit_get_nb_sorties(le_circuit);
     
