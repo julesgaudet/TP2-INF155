@@ -327,7 +327,7 @@ int main(void)
                     //Vérification que l'entrée est correcte
                     if (result != 1 || (valeur != 0 && valeur != 1)) {
                         printf("Saisie invalide. Veuillez entrer 0 ou 1.\n");
-                        while (getchar() != '\n'); // Effacer le reste du buffer d'entrée
+                        while (getchar() != '\n');
                     } else {
                         break; 
                     }
