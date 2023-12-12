@@ -100,7 +100,6 @@ static void construire_circuit2(t_circuit* circuit)
 	t_sortie* sortie8;
 	t_sortie* sortie9;
 
-
 	//Ajout des entrées
 	entree0 = t_circuit_ajouter_entree(circuit, 0, "E0");
 	entree1 = t_circuit_ajouter_entree(circuit, 1, "E1");
@@ -112,7 +111,6 @@ static void construire_circuit2(t_circuit* circuit)
 	entree7 = t_circuit_ajouter_entree(circuit, 7, "E7");
 	entree8 = t_circuit_ajouter_entree(circuit, 8, "E8");
 	entree9 = t_circuit_ajouter_entree(circuit, 9, "E9");
-
 
 	//Ajout des sorties
 	sortie0 = t_circuit_ajouter_sortie(circuit, 0, "S0");
@@ -159,7 +157,7 @@ static void construire_circuit2(t_circuit* circuit)
 	t_porte_relier(porte_ou6, 0, t_porte_get_nom(porte_not5), t_porte_get_pin_sortie(porte_not5));
 	t_porte_relier(porte_ou6, 1, t_entree_get_nom(entree5), t_entree_get_pin(entree5));
 
-	t_porte_relier(porte_xor7, 0, t_porte_get_nom(porte_ou6), t_porte_get_pin_sortie(porte_ou6));
+	t_porte_relier(porte_xor7, 0, t_porte_get_nom(porte_not5), t_porte_get_pin_sortie(porte_not5));
 	t_porte_relier(porte_xor7, 1, t_entree_get_nom(entree6), t_entree_get_pin(entree6));
 
 	t_porte_relier(porte_et8, 0, t_entree_get_nom(entree7), t_entree_get_pin(entree7));
@@ -178,7 +176,6 @@ static void construire_circuit2(t_circuit* circuit)
 	t_sortie_relier(sortie7, t_porte_get_nom(porte_xor7), t_porte_get_pin_sortie(porte_xor7));
 	t_sortie_relier(sortie8, t_porte_get_nom(porte_et8), t_porte_get_pin_sortie(porte_et8));
 	t_sortie_relier(sortie9, t_porte_get_nom(porte_et9), t_porte_get_pin_sortie(porte_et9));
-
 }
 
 /*****************************************************************************/
@@ -190,7 +187,6 @@ int main(void)
 	t_circuit* circuit;   //le circuit complet
 	circuit = t_circuit_init();//Création du circuit
 
-
 	printf("Veuillez choisir un mode de creation de circuit:");
 	printf("\n1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
 	scanf("%d",&choix);
@@ -199,7 +195,6 @@ int main(void)
 	{
 	case MANUEL1:
 		{
-			
 			construire_circuit(circuit);
 			//Vérification de la validité du circuit
 			if (t_circuit_est_valide(circuit)) {
@@ -231,10 +226,8 @@ int main(void)
 			t_circuit_destroy(circuit);
 			system("pause");
 			return EXIT_SUCCESS;
-		
 		}
 		
-
 	case MANUEL2:
 		{
 			construire_circuit2(circuit);
@@ -268,10 +261,8 @@ int main(void)
 			t_circuit_destroy(circuit);
 			system("pause");
 			return EXIT_SUCCESS;
-
 		}
-
-		
+	
 	case CHARGER:
         {
 		char chemin[1000]; 
@@ -299,7 +290,5 @@ int main(void)
         system("pause");
         return EXIT_SUCCESS;
 		}
-		
 	}
-	
 }
