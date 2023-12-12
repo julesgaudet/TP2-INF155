@@ -225,6 +225,18 @@ int main(void)
 			}
 			else  printf("Erreur lors de la propagation du signal.\n");
 
+			int nb_entrees = t_circuit_get_nb_entrees(circuit);
+			int nb_lignes = 1;
+			for (int i = 0; i < nb_entrees; i++) {
+        		nb_lignes *= 2;
+    		}
+
+			//Construction de la table de vérité
+			int **table_verite = t_circuit_tdv(circuit);
+
+			//Libérer l'espace utilisé pour la table de vérité
+			liberer_table_verite(table_verite, nb_lignes);
+			
 			t_circuit_destroy(circuit);
 			system("pause");
 			return EXIT_SUCCESS;
