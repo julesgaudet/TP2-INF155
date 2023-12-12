@@ -99,30 +99,31 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 
 void t_circuit_tdv(const t_circuit *le_circuit) 
 {
-    int nb_lignes = 1;
-    int nb_entrees = t_circuit_get_nb_entrees(le_circuit);
-    int nb_sorties = t_circuit_get_nb_sorties(le_circuit);
+    if (t_circuit_propager_signal(le_circuit)) {
+        int nb_lignes = 1;
+        int nb_entrees = t_circuit_get_nb_entrees(le_circuit);
+        int nb_sorties = t_circuit_get_nb_sorties(le_circuit);
     
-    for (int i = 0; i < nb_entrees; i++) {
-        nb_lignes *= 2;
+        for (int i = 0; i < nb_entrees; i++) {
+            nb_lignes *= 2;
+        }
+
+        int nb_colonnes = nb_entrees + nb_sorties;
+
+        //Allocation de la mémoire 
+        int **table_verite = allouer_table_verite(nb_lignes, nb_colonnes);
+
+        //Générer la table avec chaque possibilité d'entrées 
+        generer_table_verite(table_verite, nb_lignes, nb_entrees);
+
+        //Calcul des sorties selon les entrées 
+        calculer_sorties_circuit(le_circuit, table_verite, nb_lignes, nb_entrees, nb_sorties);
+
+        afficher_table_verite(table_verite, nb_lignes, nb_colonnes, le_circuit);
+
+        //Libérer l'espace utilisé pour la table de vérité
+        liberer_table_verite(table_verite, nb_lignes);
     }
-
-    int nb_colonnes = nb_entrees + nb_sorties;
-
-    //Allocation de la mémoire 
-    int **table_verite = allouer_table_verite(nb_lignes, nb_colonnes);
-
-    //Générer la table avec chaque possibilité d'entrées 
-    generer_table_verite(table_verite, nb_lignes, nb_entrees);
-
-    //Calcul des sorties selon les entrées 
-    calculer_sorties_circuit(le_circuit, table_verite, nb_lignes, nb_entrees, nb_sorties);
-
-    afficher_table_verite(table_verite, nb_lignes, nb_colonnes, le_circuit);
-
-    //Libérer l'espace utilisé pour la table de vérité
-    liberer_table_verite(table_verite, nb_lignes);
-
 }
 
 /*****************************************************************************/
