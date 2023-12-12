@@ -220,6 +220,8 @@ int main(void)
 			}
 			else  printf("Erreur lors de la propagation du signal.\n");
 
+			circuit_IO_sauvegarder("test", circuit);
+
 			//Construction de la table de vérité
 			int **table_verite = t_circuit_tdv(circuit);
 		
@@ -254,6 +256,8 @@ int main(void)
 					printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
 			}
 			else  printf("Erreur lors de la propagation du signal.\n");
+
+			circuit_IO_sauvegarder("test", circuit);
 
 			//Construction de la table de vérité
 			int** table_verite = t_circuit_tdv(circuit);
