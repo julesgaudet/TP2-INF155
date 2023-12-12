@@ -14,6 +14,8 @@ Description : Main final du projet TP2_Circuits qui donne 3 options a l'utilisat
 /*****************************************************************************/
 
 #include "circuit_IO.h"
+#define MANUEL1 1
+#define MANUEL2 2
 #define CHARGER 3
 
 /*****************************************************************************/
@@ -190,12 +192,12 @@ int main(void)
 
 
 	printf("Veuillez choisir un mode de creation de circuit:");
-	printf("\n1 - creation manuelle\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
-	scanf("%d", &choix);
-
+	printf("\n1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
+	//scanf("%d", &choix);
+	choix = CHARGER;
 	switch (choix)
 	{
-	case 1:
+	case MANUEL1:
 		{
 			
 			construire_circuit(circuit);
@@ -230,7 +232,7 @@ int main(void)
 		}
 		
 
-	case 2:
+	case MANUEL2:
 		{
 
 			construire_circuit2(circuit);
@@ -269,9 +271,22 @@ int main(void)
 		char chemin[1000]; 
 
         printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
-        scanf("%s", chemin);
-		
+        //scanf("%s", chemin);
+		strcpy(chemin, "/Users/julesgaudet/Desktop/TP2/circuitA.txt");
         circuit_IO_charger(chemin, circuit);
+
+		//Détermination du nombre de lignes pour la table de vérité
+		int nb_entrees = t_circuit_get_nb_entrees(circuit);
+		int nb_lignes;
+		for (int i = 0; i < nb_entrees; i++) {
+        	nb_lignes *= 2;
+    	}
+
+		//Construction de la table de vérité
+		int **table_verite = t_circuit_tdv(circuit);
+
+		//Libérer l'espace utilisé pour la table de vérité
+		liberer_table_verite(table_verite, nb_lignes);
 
         t_circuit_destroy(circuit);
 

@@ -199,5 +199,75 @@ Retour: Aucun
 */
 void charger_liaisons(FILE *fichier, t_circuit *circuit);
 
-#endif
+/*
+Fonction: allouer_table_verite
 
+Description: Alloue la mémoire pour la table de vérité.
+
+Paramètres:
+  - nb_lignes: Nombre de lignes dans la table de vérité.
+  - nb_colonnes: Nombre de colonnes dans la table de vérité.
+
+Retour:
+  - Un pointeur vers la table de vérité allouée.
+*/
+int** allouer_table_verite(int nb_lignes, int nb_colonnes);
+
+/*
+Fonction: generer_table_verite
+
+Description: Génère la table de vérité en fonction du nombre d'entrées.
+
+Paramètres:
+  - table_verite: Tableau à deux dimensions pour stocker la table de vérité.
+  - nb_lignes: Nombre de lignes dans la table de vérité.
+  - nb_entrees: Nombre d'entrées dans le circuit.
+
+Retour: Aucun.
+*/
+void generer_table_verite(int **table_verite, int nb_lignes, int nb_entrees);
+
+/*
+Fonction: calculer_sorties_circuit
+
+Description: Calcule les sorties du circuit pour chaque combinaison de la table de vérité.
+
+Paramètres:
+  - le_circuit: Pointeur vers le circuit.
+  - table_verite: Tableau à deux dimensions contenant la table de vérité.
+  - nb_lignes: Nombre de lignes dans la table de vérité.
+  - nb_entrees: Nombre d'entrées dans le circuit.
+  - nb_sorties: Nombre de sorties dans le circuit.
+
+Retour: Aucun.
+*/
+void calculer_sorties_circuit(const t_circuit *le_circuit, int **table_verite, int nb_lignes, int nb_entrees, int nb_sorties);
+
+/*
+Fonction: afficher_table_verite
+
+Description: Affiche la table de vérité selon le nombre de colonnes et de lignes.
+
+Paramètres:
+  - table_verite: Tableau à deux dimensions contenant la table de vérité.
+  - nb_lignes: Nombre de lignes dans la table de vérité.
+  - nb_colonnes: Nombre de colonnes dans la table de vérité.
+
+Retour: Aucun.
+*/
+void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes);
+
+/*
+Fonction: liberer_table_verite
+
+Description: Libérer l'allocation de mémoire créé pour la table de vérité.
+
+Paramètres:
+  - table_verite: Tableau à deux dimensions contenant la table de vérité.
+  - nb_lignes: Nombre de lignes dans la table de vérité.
+
+Retour: Aucun.
+*/
+void liberer_table_verite(int **table_verite, int nb_lignes);
+
+#endif
