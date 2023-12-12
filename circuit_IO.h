@@ -257,5 +257,17 @@ Retour: Aucun.
 */
 void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes);
 
-#endif
+/*
+Fonction: liberer_table_verite
 
+Description: Libérer l'allocation de mémoire créé pour la table de vérité.
+
+Paramètres:
+  - table_verite: Tableau à deux dimensions contenant la table de vérité.
+  - nb_lignes: Nombre de lignes dans la table de vérité.
+
+Retour: Aucun.
+*/
+void liberer_table_verite(int **table_verite, int nb_lignes);
+
+#endif

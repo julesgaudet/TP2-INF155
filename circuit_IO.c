@@ -120,6 +120,8 @@ int** t_circuit_tdv(const t_circuit *le_circuit)
     //Calcul des sorties selon les entrées 
     calculer_sorties_circuit(le_circuit, table_verite, nb_lignes, nb_entrees, nb_sorties);
 
+    afficher_table_verite(table_verite, nb_lignes, nb_colonnes);
+
     return table_verite;
 }
 
@@ -367,6 +369,15 @@ void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes) {
         }
         printf("\n");
     }
+}
+
+/*****************************************************************************/
+
+void liberer_table_verite(int **table_verite, int nb_lignes) {
+    for (int i = 0; i < nb_lignes; ++i) {
+        free(table_verite[i]);
+    }
+    free(table_verite);
 }
 
 /*****************************************************************************/

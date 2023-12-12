@@ -67,7 +67,7 @@ int main(void)
 
 
 	printf("Veuillez choisir un mode de creation de circuit:");
-	printf("\n1 - creation manuelle\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
+	printf("\n1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
 	//scanf("%d", &choix);
 	choix = CHARGER;
 	switch (choix)
@@ -122,6 +122,19 @@ int main(void)
         //scanf("%s", chemin);
 		strcpy(chemin, "/Users/julesgaudet/Desktop/TP2/circuitA.txt");
         circuit_IO_charger(chemin, circuit);
+
+		//Détermination du nombre de lignes pour la table de vérité
+		int nb_entrees = t_circuit_get_nb_entrees(circuit);
+		int nb_lignes;
+		for (int i = 0; i < nb_entrees; i++) {
+        	nb_lignes *= 2;
+    	}
+
+		//Construction de la table de vérité
+		int **table_verite = t_circuit_tdv(circuit);
+
+		//Libérer l'espace utilisé pour la table de vérité
+		liberer_table_verite(table_verite, nb_lignes);
 
         t_circuit_destroy(circuit);
 
