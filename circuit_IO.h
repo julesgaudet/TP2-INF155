@@ -255,7 +255,7 @@ Paramètres:
 
 Retour: Aucun.
 */
-void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes);
+void afficher_table_verite(int** table_verite, int nb_lignes, int nb_colonnes, t_circuit* circuit);
 
 /*
 Fonction: liberer_table_verite

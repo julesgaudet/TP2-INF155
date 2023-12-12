@@ -120,7 +120,10 @@ int** t_circuit_tdv(const t_circuit *le_circuit)
     //Calcul des sorties selon les entrées 
     calculer_sorties_circuit(le_circuit, table_verite, nb_lignes, nb_entrees, nb_sorties);
 
-    afficher_table_verite(table_verite, nb_lignes, nb_colonnes);
+    afficher_table_verite(table_verite, nb_lignes, nb_colonnes, le_circuit);
+
+    //Libérer l'espace utilisé pour la table de vérité
+    liberer_table_verite(table_verite, nb_lignes);
 
     return table_verite;
 }
@@ -372,11 +375,30 @@ void calculer_sorties_circuit(t_circuit* le_circuit, int** table_verite, int nb_
 
 /*****************************************************************************/
 
-void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes) 
+void afficher_table_verite(int** table_verite, int nb_lignes, int nb_colonnes, t_circuit* circuit)
 {
+
+    //entete de la table de verite
+    printf("\n-TABLE DE VERITE-\n");
+
+    printf(" ");
+    for (int j = 0; j < t_circuit_get_nb_entrees(circuit); ++j)
+    {
+        printf("%s ", t_entree_get_nom(t_circuit_get_entree(circuit, j)));
+    }
+    printf("| ");
+    for (int j = 0; j < t_circuit_get_nb_sorties(circuit); ++j)
+    {
+        printf("%s ", t_sortie_get_nom(t_circuit_get_sortie(circuit, j)));
+    }
+    printf("\n");
+
+    //la table de véritée ligne par ligne
     for (int i = 0; i < nb_lignes; ++i) {
         for (int j = 0; j < nb_colonnes; ++j) {
-            printf("%d ", table_verite[i][j]);
+            if (j == (t_circuit_get_nb_entrees(circuit)))
+                printf(" |"); //pour faire une ligne entre les entrées et sorties
+            printf("%3d", table_verite[i][j]);
         }
         printf("\n");
     }

@@ -193,7 +193,7 @@ int main(void)
 
 	printf("Veuillez choisir un mode de creation de circuit:");
 	printf("\n1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
-	scanf("%d" &choix);
+	scanf("%d",&choix);
 
 	switch (choix)
 	{
@@ -225,18 +225,9 @@ int main(void)
 			}
 			else  printf("Erreur lors de la propagation du signal.\n");
 
-			int nb_entrees = t_circuit_get_nb_entrees(circuit);
-			int nb_lignes = 1;
-			for (int i = 0; i < nb_entrees; i++) {
-        		nb_lignes *= 2;
-    		}
-
 			//Construction de la table de vérité
 			int **table_verite = t_circuit_tdv(circuit);
-
-			//Libérer l'espace utilisé pour la table de vérité
-			liberer_table_verite(table_verite, nb_lignes);
-			
+		
 			t_circuit_destroy(circuit);
 			system("pause");
 			return EXIT_SUCCESS;
@@ -270,6 +261,9 @@ int main(void)
 					printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
 			}
 			else  printf("Erreur lors de la propagation du signal.\n");
+
+			//Construction de la table de vérité
+			int** table_verite = t_circuit_tdv(circuit);
 
 			t_circuit_destroy(circuit);
 			system("pause");
