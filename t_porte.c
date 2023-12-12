@@ -141,7 +141,7 @@ int t_porte_est_reliee(t_porte *porte)
     }
 
     //Vérifier que le pin de sortie est reliée
-    if (t_pin_sortie_est_reliee(t_porte_get_pin_sortie) == FAUX)
+    if (t_pin_sortie_est_reliee(t_porte_get_pin_sortie(porte)) == FAUX)
     {
         return FAUX;
     }

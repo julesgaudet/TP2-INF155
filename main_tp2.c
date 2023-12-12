@@ -193,8 +193,8 @@ int main(void)
 
 	printf("Veuillez choisir un mode de creation de circuit:");
 	printf("\n1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
-	//scanf("%d", &choix);
-	choix = CHARGER;
+	scanf("%d", &choix);
+
 	switch (choix)
 	{
 	case MANUEL1:
@@ -266,7 +266,10 @@ int main(void)
 
 		}
 
+		
 	case CHARGER:
+		return 0;
+		/*
         {
 		char chemin[1000]; 
 
@@ -293,5 +296,7 @@ int main(void)
         system("pause");
         return EXIT_SUCCESS;
 		}
+		*/
 	}
+	
 }
