@@ -165,37 +165,10 @@ int main(void)
                 printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
                 scanf("%s", chemin);
             }
-
-            printf("\n")
-
-
-            /*
-            //Vérifier que c'est .txt
-            const char *extension = strrchr(chemin, '.');
-            while (extension == NULL || strcasecmp(extension, ".txt") != 0) {
-                printf("Erreur, le fichier n'est pas un fichier texte (.txt)\n");
-
-                printf("Voulez-vous réessayer? (0 pour continuer || 1 pour quitter) ");
-                scanf("%d", &choix_utilisateur);
-
-                if (choix_utilisateur == 1) {
-                    return EXIT_FAILURE;
-                }
-
-                //Saisir à nouveau le chemin si l'utilisateur ne quitte pas
-                printf("\nVeuillez insérer le chemin d'accès du fichier que vous voulez tester\n");
-                scanf("%s", chemin);
-
-                extension = strrchr(chemin, '.');
-            }
-            */
+            printf("\n");
 
             //Charger le circuit depuis un fichier
             circuit_IO_charger(chemin, circuit);
-
-
-    
-
 
             //Assignation du signal d'entrée pour chaque entrée
             for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
