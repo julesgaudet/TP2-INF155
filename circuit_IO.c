@@ -15,15 +15,24 @@ Dernière modification  : 09/12/2023
 /*****************************************************************************/
 
 //Déclarations des sous-fonctions
+//Pour circuit_IO_sauvegarder 
 void ecrire_nb_entrees_sorties_portes(FILE *fichier, const t_circuit *circuit);
 void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat);
 void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat);
 void ecrire_portes(FILE *fichier, const t_circuit *circuit, char *resultat);
 void ecrire_liens(FILE *fichier, const t_circuit *circuit, char *resultat);
+
+//Pour circuit_IO_charger
 void charger_entrees(FILE *fichier, t_circuit *circuit, int nb_entrees);
 void charger_sorties(FILE *fichier, t_circuit *circuit, int nb_sorties);
 void charger_portes(FILE *fichier, t_circuit *circuit, int nb_portes);
 void charger_liaisons(FILE *fichier, t_circuit *circuit);
+
+//Pour la table de vérité 
+int** allouer_table_verite(int nb_lignes, int nb_colonnes);
+void generer_table_verite(int **table_verite, int nb_lignes, int nb_entrees);
+void calculer_sorties_circuit(const t_circuit *le_circuit, int **table_verite, int nb_lignes, int nb_entrees, int nb_sorties);
+void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes);
 
 /*****************************************************************************/
 
@@ -90,23 +99,28 @@ void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
 
 /*****************************************************************************/
 
-int **t_circuit_tdv(const t_circuit *le_circuit)
+int** t_circuit_tdv(const t_circuit *le_circuit) 
 {
     int nb_lignes;
     int nb_entrees = t_circuit_get_nb_entrees(le_circuit);
     int nb_sorties = t_circuit_get_nb_sorties(le_circuit);
-    int nb_portes = t_circuit_get_nb_portes(le_circuit);
-
-    int nb_colonnes = nb_entrees + nb_sorties;
-
+    
     for (int i = 0; i < nb_entrees; i++) {
         nb_lignes *= 2;
     }
 
-    int **table_verite = (int **)malloc(nb_lignes * sizeof(int *));
-    for (int i = 0; i < nb_lignes; ++i) {
-        table_verite[i] = (int *)malloc((nb_entrees + nb_sorties) * sizeof(int));
-    }
+    int nb_colonnes = nb_entrees + nb_sorties;
+
+    //Allocation de la mémoire 
+    int **table_verite = allouer_table_verite(nb_lignes, nb_colonnes);
+
+    //Générer la table avec chaque possibilité d'entrées 
+    generer_table_verite(table_verite, nb_lignes, nb_entrees);
+
+    //Calcul des sorties selon les entrées 
+    calculer_sorties_circuit(le_circuit, table_verite, nb_lignes, nb_entrees, nb_sorties);
+
+    return table_verite;
 }
 
 /*****************************************************************************/
@@ -127,7 +141,7 @@ void ecrire_nb_entrees_sorties_portes(FILE *fichier, const t_circuit *circuit) {
 void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat) {
     int i;
 
-    // Écriture des entrées
+    //Écriture des entrées
     for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
         t_entree_serialiser(t_circuit_get_entree(circuit, i), resultat);
         fprintf(fichier, "%d %s\n", i, resultat);
@@ -140,7 +154,7 @@ void ecrire_entrees(FILE *fichier, const t_circuit *circuit, char *resultat) {
 void ecrire_sorties(FILE *fichier, const t_circuit *circuit, char *resultat) {
     int i;
 
-    // Écriture des sorties
+    //Écriture des sorties
     for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++) {
         t_sortie_serialiser(t_circuit_get_sortie(circuit, i), resultat);
         fprintf(fichier, "%d %s\n", i, resultat);
@@ -306,6 +320,52 @@ void charger_liaisons(FILE *fichier, t_circuit *circuit) {
                 t_sortie_relier(sortie_destination, nom_porte, t_porte_get_pin_sortie(porte_source)); //JPAS SUR ICI
             }
         }
+    }
+}
+
+/*****************************************************************************/
+
+int** allouer_table_verite(int nb_lignes, int nb_colonnes) {
+    int **table_verite = (int **)malloc(nb_lignes * sizeof(int *));
+    for (int i = 0; i < nb_lignes; ++i) {
+        table_verite[i] = (int *)malloc(nb_colonnes * sizeof(int));
+    }
+    return table_verite;
+}
+
+/*****************************************************************************/
+
+void generer_table_verite(int **table_verite, int nb_lignes, int nb_entrees) {
+    for (int i = 0; i < nb_lignes; ++i) {
+        int temp_combination = i;
+        for (int j = nb_entrees - 1; j >= 0; --j) {
+            table_verite[i][j] = temp_combination % 2;
+            temp_combination /= 2;
+        }
+    }
+}
+
+/*****************************************************************************/
+
+void calculer_sorties_circuit(const t_circuit *le_circuit, int **table_verite, int nb_lignes, int nb_entrees, int nb_sorties) {
+    for (int i = 0; i < nb_lignes; ++i) {
+        int *valeur = table_verite[i];
+
+        //Lire les valeurs de sorties
+        for (int j = 0; j < nb_sorties; ++j) {
+            table_verite[i][nb_entrees + j] = t_sortie_get_valeur(t_circuit_get_sortie(le_circuit, j));
+        }
+    }
+}
+
+/*****************************************************************************/
+
+void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes) {
+    for (int i = 0; i < nb_lignes; ++i) {
+        for (int j = 0; j < nb_colonnes; ++j) {
+            printf("%d ", table_verite[i][j]);
+        }
+        printf("\n");
     }
 }
 
