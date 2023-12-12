@@ -234,7 +234,6 @@ int main(void)
 
 	case MANUEL2:
 		{
-
 			construire_circuit2(circuit);
 			//Vérification de la validité du circuit
 			if (t_circuit_est_valide(circuit)) {
