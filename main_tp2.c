@@ -159,7 +159,7 @@ static void construire_circuit2(t_circuit* circuit)
 	t_porte_relier(porte_ou6, 0, t_porte_get_nom(porte_not5), t_porte_get_pin_sortie(porte_not5));
 	t_porte_relier(porte_ou6, 1, t_entree_get_nom(entree5), t_entree_get_pin(entree5));
 
-	t_porte_relier(porte_xor7, 0, t_porte_get_nom(porte_not5), t_porte_get_pin_sortie(porte_not5));
+	t_porte_relier(porte_xor7, 0, t_porte_get_nom(porte_ou6), t_porte_get_pin_sortie(porte_ou6));
 	t_porte_relier(porte_xor7, 1, t_entree_get_nom(entree6), t_entree_get_pin(entree6));
 
 	t_porte_relier(porte_et8, 0, t_entree_get_nom(entree7), t_entree_get_pin(entree7));
