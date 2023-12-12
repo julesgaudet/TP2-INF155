@@ -250,11 +250,9 @@ static void construire_circuit(t_circuit* circuit)
 
 /* 
 Fonction void construire circuit qui construit un circuit avec 
-10 portes et 10 entrées. Veuillez vous fier au fichier photo_circuit 
-pour voir le resultat. 
+10 portes et 10 entrées. Veuillez vous fier au fichier photo_circuit. 
+(https://imgur.com/a/499ujoW) 
 */
-
-
 
 static void construire_circuit2(t_circuit* circuit)
 {  //variables locales pour les composantes du circuit
