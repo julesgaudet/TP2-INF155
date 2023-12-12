@@ -69,9 +69,14 @@ void circuit_IO_sauvegarder(const char *nom_fichier, const t_circuit *circuit) {
 
 void circuit_IO_charger(const char *chemin_acces, t_circuit *circuit) {
     
+    int nb_entrees, nb_sorties, nb_portes;
+    
     FILE *fichier = fopen(chemin_acces, "r");
 
-    int nb_entrees, nb_sorties, nb_portes;
+    if (fichier == NULL) {
+        printf("Erreur, le fichier est NULL\n");
+        return;
+    }
 
     fscanf(fichier, "%d %d %d\n", &nb_entrees, &nb_sorties, &nb_portes);
 
