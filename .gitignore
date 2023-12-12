@@ -1502,3 +1502,5 @@ dkms.conf
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+*.txt
+/Solution Noah 1 TP2/test
