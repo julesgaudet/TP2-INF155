@@ -14,6 +14,8 @@ Description : Main final du projet TP2_Circuits qui donne 3 options a l'utilisat
 /*****************************************************************************/
 
 #include "circuit_IO.h"
+#define MANUEL1 1
+#define MANUEL2 2
 #define CHARGER 3
 
 /*****************************************************************************/
@@ -66,11 +68,11 @@ int main(void)
 
 	printf("Veuillez choisir un mode de creation de circuit:");
 	printf("\n1 - creation manuelle\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
-	scanf("%d", &choix);
-
+	//scanf("%d", &choix);
+	choix = CHARGER;
 	switch (choix)
 	{
-	case 1:
+	case MANUEL1:
 		{
 			
 		construire_circuit(circuit);
@@ -105,7 +107,7 @@ int main(void)
 		}
 		
 
-	case 2:
+	case MANUEL2:
 		{
 		t_circuit_destroy(circuit);
 		system("pause");
@@ -117,8 +119,8 @@ int main(void)
 		char chemin[1000]; 
 
         printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
-        scanf("%s", chemin);
-		
+        //scanf("%s", chemin);
+		strcpy(chemin, "/Users/julesgaudet/Desktop/TP2/circuitA.txt");
         circuit_IO_charger(chemin, circuit);
 
         t_circuit_destroy(circuit);
