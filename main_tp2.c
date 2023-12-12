@@ -180,129 +180,175 @@ static void construire_circuit2(t_circuit* circuit)
 /*****************************************************************************/
 
 int main(void)
-{//déclaration des variables
-	int signal[MAX_ENTREES], 	 //les valeurs (0/1) pour les entrées du circuit
-		i,choix;
-	t_circuit* circuit;   //le circuit complet
-	circuit = t_circuit_init();//Création du circuit
+{
+    //Déclaration des variables
+    int signal[MAX_ENTREES];
+    int i, choix;
+    t_circuit* circuit;
+    circuit = t_circuit_init(); //Création du circuit
 
-	printf("Veuillez choisir un mode de creation de circuit:");
-	printf("\n1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
-	scanf("%d",&choix);
+    printf("Veuillez choisir un mode de creation de circuit:\n");
+    printf("1 - creation manuelle #1\n2 - creation manuelle #2\n3 - a partir d'un fichier\n");
+    scanf("%d", &choix);
 
-	switch (choix)
-	{
-	case MANUEL1:
-		{
-			construire_circuit(circuit);
-			//Vérification de la validité du circuit
-			if (t_circuit_est_valide(circuit)) {
-				printf("Circuit valide!\n");
-			}
-			else {
-				printf("Circuit invalide!\n");
-			}
-
-			//On définit un signal de 3 bits (eg. 111)
-			for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
-				printf("Quel est la valeur du signal de l'entree %d (0 ou 1) ? ", i);
-				scanf("%d", &signal[i]);		//assignation du signal d'entrée pour l'entrée #i
-			}
-			t_circuit_reset(circuit);
-			t_circuit_appliquer_signal(circuit, signal, t_circuit_get_nb_entrees(circuit));
-
-			if (t_circuit_propager_signal(circuit)) {
-				printf("Signal propage avec succes.\n");
-
-				for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++)
-					printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
-			}
-			else  printf("Erreur lors de la propagation du signal.\n");
-			printf("\n");
-
-			circuit_IO_sauvegarder("test", circuit);
-
-			//Construction de la table de vérité
-			t_circuit_tdv(circuit);
-		
-			t_circuit_destroy(circuit);
-			system("pause");
-			return EXIT_SUCCESS;
-		}
-		
-	case MANUEL2:
-		{
-			construire_circuit2(circuit);
-			//Vérification de la validité du circuit
-			if (t_circuit_est_valide(circuit)) {
-				printf("Circuit valide!\n");
-			}
-			else {
-				printf("Circuit invalide!\n");
-			}
-
-			//demande du signal de chaque entrées
-			for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
-				printf("Quel est la valeur du signal de l'entree %d (0 ou 1) ? ", i);
-				scanf("%d", &signal[i]);		//assignation du signal d'entrée pour l'entrée #i
-			}
-			t_circuit_reset(circuit);
-			t_circuit_appliquer_signal(circuit, signal, t_circuit_get_nb_entrees(circuit));
-
-			if (t_circuit_propager_signal(circuit)) {
-				printf("Signal propage avec succes.\n");
-
-				for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++)
-					printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
-			}
-			else  printf("Erreur lors de la propagation du signal.\n");
-			printf("\n");
-
-			circuit_IO_sauvegarder("test", circuit);
-
-			//Construction de la table de vérité
-			t_circuit_tdv(circuit);
-
-			t_circuit_destroy(circuit);
-			system("pause");
-			return EXIT_SUCCESS;
-		}
-	
-	case CHARGER:
+    switch (choix)
+    {
+    case MANUEL1:
         {
-			char chemin[1000]; 
+            construire_circuit(circuit);
 
-			printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
-			scanf("%s", chemin);
+            //Vérification de la validité du circuit
+            if (t_circuit_est_valide(circuit)) {
+                printf("Circuit valide!\n");
+            } else {
+                printf("Circuit invalide!\n");
+            }
 
-			//strcpy(chemin, "/Users/julesgaudet/Desktop/TP2/circuitA.txt");
-			circuit_IO_charger(chemin, circuit);
+            //Assignation du signal d'entrée pour chaque entrée
+            for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
+                int valeur;
 
-			//demande du signal de chaque entrées
-			for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
-				printf("Quel est la valeur du signal de l'entree %d (0 ou 1) ? ", i);
-				scanf("%d", &signal[i]);		//assignation du signal d'entrée pour l'entrée #i
-			}
-			t_circuit_reset(circuit);
-			t_circuit_appliquer_signal(circuit, signal, t_circuit_get_nb_entrees(circuit));
+                do {
+                    printf("Quelle est la valeur du signal de l'entree %d (0 ou 1) ? ", i);
+                    int result = scanf("%d", &valeur);
 
-			if (t_circuit_propager_signal(circuit)) {
-				printf("Signal propage avec succes.\n");
+                    //Vérification que l'entrée est correcte
+                    if (result != 1 || (valeur != 0 && valeur != 1)) {
+                        printf("Saisie invalide. Veuillez entrer 0 ou 1.\n");
+                        while (getchar() != '\n'); 
+                    } else {
+                        break; //Sortir de la boucle si la saisie est correcte
+                    }
+                } while (1);
 
-				for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++)
-					printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
-			}
-			else  printf("Erreur lors de la propagation du signal.\n");
-			printf("\n");
+                //Assignation du signal d'entrée pour l'entrée #i
+                signal[i] = valeur;
+            }
 
-			circuit_IO_sauvegarder("test", circuit);
+            t_circuit_reset(circuit);
+            t_circuit_appliquer_signal(circuit, signal, t_circuit_get_nb_entrees(circuit));
 
-			//Construction de la table de vérité
-			t_circuit_tdv(circuit);
+            if (t_circuit_propager_signal(circuit)) {
+                printf("Signal propage avec succes.\n");
 
-			t_circuit_destroy(circuit);
-			system("pause");
-			return EXIT_SUCCESS;
-		}
-	}
+                for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++)
+                    printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
+            } else {
+                printf("Erreur lors de la propagation du signal.\n");
+            }
+
+            printf("\n");
+            circuit_IO_sauvegarder("test", circuit);
+            t_circuit_tdv(circuit);
+
+            t_circuit_destroy(circuit);
+            system("pause");
+            return EXIT_SUCCESS;
+        }
+
+    case MANUEL2:
+        {
+            construire_circuit2(circuit);
+
+            //Vérification de la validité du circuit
+            if (t_circuit_est_valide(circuit)) {
+                printf("Circuit valide!\n");
+            } else {
+                printf("Circuit invalide!\n");
+            }
+
+            //Assignation du signal d'entrée pour chaque entrée
+            for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
+                int valeur;
+
+                do {
+                    printf("Quelle est la valeur du signal de l'entree %d (0 ou 1) ? ", i);
+                    int result = scanf("%d", &valeur);
+
+                    //Vérification que l'entrée est correcte
+                    if (result != 1 || (valeur != 0 && valeur != 1)) {
+                        printf("Saisie invalide. Veuillez entrer 0 ou 1.\n");
+                        while (getchar() != '\n'); 
+                    } else {
+                        break; //Sortir de la boucle si la saisie est correcte
+                    }
+                } while (1);
+
+                //Assignation du signal d'entrée pour l'entrée #i
+                signal[i] = valeur;
+            }
+
+            t_circuit_reset(circuit);
+            t_circuit_appliquer_signal(circuit, signal, t_circuit_get_nb_entrees(circuit));
+
+            if (t_circuit_propager_signal(circuit)) {
+                printf("Signal propage avec succes.\n");
+
+                for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++)
+                    printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
+            } else {
+                printf("Erreur lors de la propagation du signal.\n");
+            }
+
+            printf("\n");
+            circuit_IO_sauvegarder("test", circuit);
+            t_circuit_tdv(circuit);
+
+            t_circuit_destroy(circuit);
+            system("pause");
+            return EXIT_SUCCESS;
+        }
+
+    case CHARGER:
+        {
+            char chemin[1000];
+
+            printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
+            scanf("%s", chemin);
+
+            //Charger le circuit depuis un fichier
+            circuit_IO_charger(chemin, circuit);
+
+            //Assignation du signal d'entrée pour chaque entrée
+            for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
+                int valeur;
+
+                do {
+                    printf("Quelle est la valeur du signal de l'entree %d (0 ou 1) ? ", i);
+                    int result = scanf("%d", &valeur);
+
+                    //Vérification que l'entrée est correcte
+                    if (result != 1 || (valeur != 0 && valeur != 1)) {
+                        printf("Saisie invalide. Veuillez entrer 0 ou 1.\n");
+                        while (getchar() != '\n'); // Effacer le reste du buffer d'entrée
+                    } else {
+                        break; 
+                    }
+                } while (1);
+
+                //Assignation du signal d'entrée pour l'entrée #i
+                signal[i] = valeur;
+            }
+
+            t_circuit_reset(circuit);
+            t_circuit_appliquer_signal(circuit, signal, t_circuit_get_nb_entrees(circuit));
+
+            if (t_circuit_propager_signal(circuit)) {
+                printf("Signal propage avec succes.\n");
+
+                for (i = 0; i < t_circuit_get_nb_sorties(circuit); i++)
+                    printf("Sortie %d: %d\n", i, t_sortie_get_valeur(t_circuit_get_sortie(circuit, i)));
+            } else {
+                printf("Erreur lors de la propagation du signal.\n");
+            }
+
+            printf("\n");
+            circuit_IO_sauvegarder("test", circuit);
+            t_circuit_tdv(circuit);
+
+            t_circuit_destroy(circuit);
+            system("pause");
+            return EXIT_SUCCESS;
+        }
+    }
 }
