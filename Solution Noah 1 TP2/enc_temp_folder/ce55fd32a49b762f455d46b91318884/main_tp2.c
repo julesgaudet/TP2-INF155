@@ -186,13 +186,13 @@ int main(void)
 
                 extension = strrchr(chemin, '.');
             }
-            */
+            
 
             //Charger le circuit depuis un fichier
             circuit_IO_charger(chemin, circuit);
 
 
-    
+            */
 
 
             //Assignation du signal d'entrée pour chaque entrée
