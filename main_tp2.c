@@ -302,9 +302,16 @@ int main(void)
     case CHARGER:
         {
             char chemin[1000];
+            int choix_utilisateur;
 
-            printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
-            scanf("%s", chemin);
+            do {
+                printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
+                scanf("%s", chemin);
+
+                //Boucle pour demander à l'utilisateur de réessayer ou de quitter
+                printf("Voulez-vous réessayer avec un autre chemin ? (0 pour réessayer, 1 pour quitter): ");
+                scanf("%d", &choix_utilisateur);
+            } while (choix_utilisateur != 1);
 
             //Charger le circuit depuis un fichier
             circuit_IO_charger(chemin, circuit);
