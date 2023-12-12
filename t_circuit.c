@@ -39,7 +39,7 @@ void t_circuit_destroy(t_circuit *circuit)
         t_sortie_destroy(t_circuit_get_sortie(circuit, i));
     }
     for (i = 0; i < t_circuit_get_nb_entrees(circuit); i++) {
-        t_entree_destroy(t_circuit_get_sortie(circuit, i));
+        t_entree_destroy(t_circuit_get_entree(circuit, i));
     }
     for (i = 0; i < t_circuit_get_nb_portes(circuit); i++) {
         t_porte_destroy(t_circuit_get_porte(circuit, i));
