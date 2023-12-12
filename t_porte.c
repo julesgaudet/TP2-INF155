@@ -28,6 +28,8 @@ t_porte *t_porte_init(int id, e_types_portes type, char *nom)
 
     //Créer la chaine dynamique pour le nom de l'entrée
     nouv_porte->nom = (char*)calloc(NOM_ENTREE_TAILLE_MAX, sizeof(char));
+    //donner un nom
+    strcpy(nouv_porte->nom, nom);
 
     //donner son type
     nouv_porte->type = type;

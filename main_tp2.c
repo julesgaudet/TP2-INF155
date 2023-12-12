@@ -272,22 +272,12 @@ int main(void)
 		char chemin[1000]; 
 
         printf("\nVeuillez inserer le chemin d'acces du fichier que vous voulez tester\n");
-        //scanf("%s", chemin);
-		strcpy(chemin, "/Users/julesgaudet/Desktop/TP2/circuitA.txt");
+        scanf("%s", chemin);
+		//strcpy(chemin, "/Users/julesgaudet/Desktop/TP2/circuitA.txt");
         circuit_IO_charger(chemin, circuit);
 
-		//Détermination du nombre de lignes pour la table de vérité
-		int nb_entrees = t_circuit_get_nb_entrees(circuit);
-		int nb_lignes = 1;
-		for (int i = 0; i < nb_entrees; i++) {
-        	nb_lignes *= 2;
-    	}
-
 		//Construction de la table de vérité
-		int **table_verite = t_circuit_tdv(circuit);
-
-		//Libérer l'espace utilisé pour la table de vérité
-		liberer_table_verite(table_verite, nb_lignes);
+		int** table_verite = t_circuit_tdv(circuit);
 
         t_circuit_destroy(circuit);
 
