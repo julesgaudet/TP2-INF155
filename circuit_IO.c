@@ -349,12 +349,22 @@ void generer_table_verite(int **table_verite, int nb_lignes, int nb_entrees) {
 
 /*****************************************************************************/
 
-void calculer_sorties_circuit(const t_circuit *le_circuit, int **table_verite, int nb_lignes, int nb_entrees, int nb_sorties) {
-    for (int i = 0; i < nb_lignes; ++i) {
-        int *valeur = table_verite[i];
+void calculer_sorties_circuit(t_circuit* le_circuit, int** table_verite, int nb_lignes, int nb_entrees, int nb_sorties) 
+{
+    for (int i = 0; i < nb_lignes; ++i) 
+    {
+        t_circuit_reset(le_circuit);
+
+        int* valeur = table_verite[i];
+
+        t_circuit_appliquer_signal(le_circuit, valeur, t_circuit_get_nb_entrees(le_circuit));
+
+        if (!t_circuit_propager_signal(le_circuit))
+            printf("ERREUR dans la propagation du signal a la ligne: %d\n",i);
 
         //Lire les valeurs de sorties
-        for (int j = 0; j < nb_sorties; ++j) {
+        for (int j = 0; j < nb_sorties; ++j) 
+        {
             table_verite[i][nb_entrees + j] = t_sortie_get_valeur(t_circuit_get_sortie(le_circuit, j));
         }
     }
@@ -362,7 +372,8 @@ void calculer_sorties_circuit(const t_circuit *le_circuit, int **table_verite, i
 
 /*****************************************************************************/
 
-void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes) {
+void afficher_table_verite(int **table_verite, int nb_lignes, int nb_colonnes) 
+{
     for (int i = 0; i < nb_lignes; ++i) {
         for (int j = 0; j < nb_colonnes; ++j) {
             printf("%d ", table_verite[i][j]);

@@ -241,7 +241,7 @@ Paramètres:
 
 Retour: Aucun.
 */
-void calculer_sorties_circuit(const t_circuit *le_circuit, int **table_verite, int nb_lignes, int nb_entrees, int nb_sorties);
+void calculer_sorties_circuit(t_circuit *le_circuit, int **table_verite, int nb_lignes, int nb_entrees, int nb_sorties);
 
 /*
 Fonction: afficher_table_verite
