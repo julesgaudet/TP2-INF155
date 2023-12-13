@@ -23,27 +23,15 @@ Description : Main final du projet TP2_Circuits qui donne 3 options a l'utilisat
 /*****************************************************************************/
 
 /*
-Fonction: construire_circuit
+Fonction: construire circuit
 Description: construit un circuit valide manuellement avec 
-3 entrees, 2 sorties, 4 portes.
 
 Param�tres:
-- circuit: Pointeur vers le circuit construit
+- circuit: Pointeur vers le circuit � d�truire.
 Retour: Aucun.
 Param�tres modifi�: circuit
 */
 void construire_circuit(t_circuit* circuit);
-
-/*
-Fonction: construire_circuit2
-Description: construit un circuit valide manuellement avec
-10 entrees, 10 sorties, 10 portes.
-
-Param�tres:
-- circuit: Pointeur vers le circuit construit
-Retour: Aucun.
-Param�tres modifi�: circuit
-*/
 void construire_circuit2(t_circuit* circuit);
 
 /*****************************************************************************/
